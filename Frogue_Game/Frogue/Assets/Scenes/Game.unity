@@ -132,6 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 378079390}
   - component: {fileID: 378079391}
+  - component: {fileID: 378079392}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -170,6 +171,20 @@ MonoBehaviour:
   cellSize: 1.25
   beingSlotPrefab: {fileID: -5707492269710170126, guid: d3f0bc1740021064f92fe4fc755cfe86, type: 3}
   beingPrefab: {fileID: 6668906198095946654, guid: e6188c3c6d496a843a7667e9b7facdcc, type: 3}
+--- !u!114 &378079392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378079389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6aa5c63674cc724d98e4bc312dd46b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beingGrid: {fileID: 378079391}
+  selectedBeing: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

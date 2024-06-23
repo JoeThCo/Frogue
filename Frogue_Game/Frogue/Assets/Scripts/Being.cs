@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Being : MonoBehaviour
 {
-    public void BeingInit() 
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
+    public void BeingInit()
     {
-        
+        spriteRenderer.color = Random.ColorHSV();
     }
 }

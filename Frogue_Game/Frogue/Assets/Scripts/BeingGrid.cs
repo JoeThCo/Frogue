@@ -20,7 +20,7 @@ public class BeingGrid : MonoBehaviour
         allSlots = new BeingSlot[gridSize.x, gridSize.y];
 
         makeGrid();
-        addBeing();
+        addBeing(5);
     }
 
     void makeGrid()
@@ -35,20 +35,19 @@ public class BeingGrid : MonoBehaviour
         }
     }
 
-    void setBeingSlotPosition(BeingSlot beingSlot)
+    Vector2 getBeingSlotLocalPosition(BeingSlot beingSlot)
     {
-        Vector2 position = ((Vector2)beingSlot.coords * cellSize) - (Vector2.one * gridSize) + ((Vector2.up + Vector2.right) * gridSize * 0.5f);
-        beingSlot.transform.localPosition = position;
-
-        if (beingSlot.coords.y % 2 == 0)
-            beingSlot.transform.localPosition = (Vector2)beingSlot.transform.localPosition + (Vector2.left * cellSize * 0.5f);
+        Vector2 position = ((Vector2)beingSlot.Coords * cellSize) - (Vector2.one * gridSize) + ((Vector2.up + Vector2.right) * gridSize * 0.5f);
+        if (beingSlot.Coords.y % 2 == 0)
+            return position + (Vector2.left * cellSize * 0.5f);
+        return position;
     }
 
     void addBeingSlot(Vector2Int coords)
     {
         BeingSlot beingSlot = Instantiate(beingSlotPrefab, transform);
         beingSlot.BeingSlotInit(coords);
-        setBeingSlotPosition(beingSlot);
+        beingSlot.transform.localPosition = getBeingSlotLocalPosition(beingSlot);
 
         allSlots[coords.x, coords.y] = beingSlot;
     }
@@ -57,13 +56,47 @@ public class BeingGrid : MonoBehaviour
     {
         foreach (BeingSlot slot in allSlots)
         {
-            if (slot.Being == null)
+            if (!slot.Being)
             {
                 Being being = Instantiate(beingPrefab, slot.transform);
                 being.BeingInit();
                 slot.Being = being;
                 return;
             }
+        }
+    }
+
+    void addBeing(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            addBeing();
+        }
+    }
+
+    public void SwapBeings(BeingSlot selected, BeingSlot other)
+    {
+        if (other.Being == null)
+        {
+            selected.Being.transform.SetParent(other.transform);
+
+            other.Being = selected.Being;
+            selected.Being = null;
+
+            other.Being.transform.localPosition = Vector2.zero;
+        }
+        else
+        {
+            BeingSlot tempSlot = selected;
+            selected.Being.transform.SetParent(other.transform);
+            other.Being.transform.SetParent(tempSlot.transform);
+
+            Being temp = selected.Being;
+            selected.Being = other.Being;
+            other.Being = temp;
+
+            selected.Being.transform.localPosition = Vector2.zero;
+            other.Being.transform.localPosition = Vector2.zero;
         }
     }
 }
