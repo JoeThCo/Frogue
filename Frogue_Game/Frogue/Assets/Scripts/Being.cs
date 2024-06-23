@@ -10,4 +10,9 @@ public class Being : MonoBehaviour
     {
         spriteRenderer.color = Random.ColorHSV();
     }
+
+    public override string ToString()
+    {
+        return string.Empty;
+    }
 }

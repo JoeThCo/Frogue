@@ -29,7 +29,7 @@ public class BeingGrid : MonoBehaviour
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                Vector2Int coords = new Vector2Int(x, y);
+                Vector2Int coords = new Vector2Int(y, x);
                 addBeingSlot(coords);
             }
         }
@@ -49,7 +49,7 @@ public class BeingGrid : MonoBehaviour
         beingSlot.BeingSlotInit(coords);
         beingSlot.transform.localPosition = getBeingSlotLocalPosition(beingSlot);
 
-        allSlots[coords.x, coords.y] = beingSlot;
+        allSlots[coords.y, coords.x] = beingSlot;
     }
 
     void addBeing()
@@ -97,6 +97,26 @@ public class BeingGrid : MonoBehaviour
 
             selected.Being.transform.localPosition = Vector2.zero;
             other.Being.transform.localPosition = Vector2.zero;
+        }
+    }
+
+    void printGrid()
+    {
+        for (int y = 0; y < gridSize.y; y++)
+        {
+            for (int x = 0; x < gridSize.x; x++)
+            {
+                if (allSlots[x, y].Being)
+                    Debug.Log(allSlots[x, y].ToString());
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            printGrid();
         }
     }
 }
