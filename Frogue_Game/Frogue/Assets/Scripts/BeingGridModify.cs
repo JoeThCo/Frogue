@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class BeingGridModify : MonoBehaviour
 {
     [SerializeField] private BeingGrid beingGrid;
-    [SerializeField] private BeingSlot selectedBeing;
+    [SerializeField] private BeingSlot selectedSlot;
 
     private void Update()
     {
@@ -16,16 +17,19 @@ public class BeingGridModify : MonoBehaviour
 
             if (hit.collider != null && otherBeingSlot)
             {
-                if (!selectedBeing)
+                if (!selectedSlot)
                 {
+                    if (!otherBeingSlot.Being) return;
+                    selectedSlot = otherBeingSlot;
+                    selectedSlot.Being.OnSelect();
                     Debug.Log("Selected!");
-                    selectedBeing = otherBeingSlot;
                 }
                 else
                 {
                     Debug.Log("Swap!");
-                    beingGrid.SwapBeings(selectedBeing, otherBeingSlot);
-                    selectedBeing = null;
+                    beingGrid.SwapBeings(selectedSlot, otherBeingSlot);
+                    otherBeingSlot.Being.OnDeselect();
+                    selectedSlot = null;
                 }
             }
         }
