@@ -14,23 +14,21 @@ public class BeingGridModify : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
+            if (hit.collider == null || otherBeingSlot == null) return;
 
-            if (hit.collider != null && otherBeingSlot)
+            if (!selectedSlot)
             {
-                if (!selectedSlot)
-                {
-                    if (!otherBeingSlot.Being) return;
-                    selectedSlot = otherBeingSlot;
-                    selectedSlot.Being.OnSelect();
-                    Debug.Log("Selected!");
-                }
-                else
-                {
-                    Debug.Log("Swap!");
-                    beingGrid.SwapBeings(selectedSlot, otherBeingSlot);
-                    otherBeingSlot.Being.OnDeselect();
-                    selectedSlot = null;
-                }
+                if (!otherBeingSlot.Being) return;
+                selectedSlot = otherBeingSlot;
+                selectedSlot.Being.OnSelect();
+                Debug.Log("Selected!");
+            }
+            else
+            {
+                beingGrid.SwapBeings(selectedSlot, otherBeingSlot);
+                otherBeingSlot.Being.OnDeselect();
+                selectedSlot = null;
+                Debug.Log("Swap!");
             }
         }
     }

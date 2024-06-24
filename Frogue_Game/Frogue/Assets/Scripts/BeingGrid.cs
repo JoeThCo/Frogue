@@ -69,9 +69,7 @@ public class BeingGrid : MonoBehaviour
     void addBeing(int count)
     {
         for (int i = 0; i < count; i++)
-        {
             addBeing();
-        }
     }
 
     public void SwapBeings(BeingSlot selected, BeingSlot other)
@@ -103,20 +101,14 @@ public class BeingGrid : MonoBehaviour
     void printGrid()
     {
         for (int y = 0; y < gridSize.y; y++)
-        {
             for (int x = 0; x < gridSize.x; x++)
-            {
                 if (allSlots[x, y].Being)
                     Debug.Log(allSlots[x, y].ToString());
-            }
-        }
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
-        {
             printGrid();
-        }
     }
 }
