@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using UnityEngine;
 
 public class BeingGridModify : MonoBehaviour
@@ -13,8 +14,10 @@ public class BeingGridModify : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider == null) return;
+
             BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
-            if (hit.collider == null || otherBeingSlot == null) return;
+            if (otherBeingSlot == null) return;
 
             if (!selectedSlot)
             {
@@ -30,6 +33,13 @@ public class BeingGridModify : MonoBehaviour
                 selectedSlot = null;
                 Debug.Log("Swap!");
             }
+        }
+
+        if (Input.GetMouseButtonDown(1)) 
+        {
+            if (selectedSlot == null) return;
+            selectedSlot.Being.OnDeselect();
+            selectedSlot = null;
         }
     }
 }

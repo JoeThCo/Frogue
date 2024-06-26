@@ -19,23 +19,33 @@ public class BeingGrid : MonoBehaviour
     {
         allSlots = new BeingSlot[gridSize.x, gridSize.y];
 
-        makeGrid();
-        addBeing(5);
+        MakeGrid();
+        AddBeing(7);
     }
 
-    void makeGrid()
+    BeingSlot GetBeingSlot(int x, int y)
+    {
+        return allSlots[x, y];
+    }
+
+    BeingSlot GetBeingSlot(Vector2Int coords)
+    {
+        return allSlots[coords.x, coords.y];
+    }
+
+    void MakeGrid()
     {
         for (int y = 0; y < gridSize.y; y++)
         {
             for (int x = 0; x < gridSize.x; x++)
             {
                 Vector2Int coords = new Vector2Int(y, x);
-                addBeingSlot(coords);
+                AddBeingSlot(coords);
             }
         }
     }
 
-    Vector2 getBeingSlotLocalPosition(BeingSlot beingSlot)
+    Vector2 GetBeingSlotLocalPosition(BeingSlot beingSlot)
     {
         Vector2 position = ((Vector2)beingSlot.Coords * cellSize) - (Vector2.one * gridSize) + ((Vector2.up + Vector2.right) * gridSize * 0.5f);
         if (beingSlot.Coords.y % 2 == 0)
@@ -43,16 +53,16 @@ public class BeingGrid : MonoBehaviour
         return position;
     }
 
-    void addBeingSlot(Vector2Int coords)
+    void AddBeingSlot(Vector2Int coords)
     {
         BeingSlot beingSlot = Instantiate(beingSlotPrefab, transform);
         beingSlot.BeingSlotInit(coords);
-        beingSlot.transform.localPosition = getBeingSlotLocalPosition(beingSlot);
+        beingSlot.transform.localPosition = GetBeingSlotLocalPosition(beingSlot);
 
         allSlots[coords.y, coords.x] = beingSlot;
     }
 
-    void addBeing()
+    void AddBeing()
     {
         foreach (BeingSlot slot in allSlots)
         {
@@ -66,10 +76,10 @@ public class BeingGrid : MonoBehaviour
         }
     }
 
-    void addBeing(int count)
+    void AddBeing(int count)
     {
         for (int i = 0; i < count; i++)
-            addBeing();
+            AddBeing();
     }
 
     public void SwapBeings(BeingSlot selected, BeingSlot other)
@@ -98,17 +108,39 @@ public class BeingGrid : MonoBehaviour
         }
     }
 
-    void printGrid()
+    public BeingSlot[] GetNeighbors(BeingSlot slot)
+    {
+        List<BeingSlot> output = new List<BeingSlot>();
+        List<Vector2Int> neighbors = new List<Vector2Int> { Vector2Int.up, Vector2Int.one, Vector2Int.left, Vector2Int.right, Vector2Int.down, Vector2Int.left + Vector2Int.up };
+
+        foreach (Vector2Int neighborCoord in neighbors)
+        {
+            Vector2Int current = slot.Coords + neighborCoord;
+            BeingSlot currentSlot = GetBeingSlot(current);
+
+            if (IsValid(current) && !output.Contains(currentSlot))
+                output.Add(currentSlot);
+        }
+
+        return output.ToArray();
+    }
+
+    bool IsValid(Vector2Int coords)
+    {
+        return coords.x >= 0 && coords.x < gridSize.x && coords.y >= 0 && coords.y < gridSize.y;
+    }
+
+    void PrintGrid()
     {
         for (int y = 0; y < gridSize.y; y++)
             for (int x = 0; x < gridSize.x; x++)
-                if (allSlots[x, y].Being)
+                if (GetBeingSlot(x, y).Being)
                     Debug.Log(allSlots[x, y].ToString());
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-            printGrid();
+        if (Input.GetMouseButtonDown(2))
+            PrintGrid();
     }
 }
