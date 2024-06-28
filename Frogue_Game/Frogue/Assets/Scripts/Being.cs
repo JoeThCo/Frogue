@@ -10,7 +10,14 @@ public class Being : MonoBehaviour
 
     public void BeingInit()
     {
+        BeingBattleBus.BattleStart += BeingBattleBus_BattleStart;
+
         spriteRenderer.color = Random.ColorHSV();
+        OnDeselect();
+    }
+
+    private void BeingBattleBus_BattleStart()
+    {
         OnDeselect();
     }
 

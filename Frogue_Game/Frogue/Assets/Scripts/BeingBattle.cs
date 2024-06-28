@@ -14,6 +14,8 @@ public class BeingBattle : MonoBehaviour
 
     public IEnumerator FightI()
     {
+        BeingBattleBus.EmitBattleStart();
+
         foreach (Being being in playerGrid.GetAliveBeings())
         {
             yield return being.TweenToBeing(baddieGrid.GetFirstBeing());
@@ -25,5 +27,7 @@ public class BeingBattle : MonoBehaviour
         {
             yield return being.TweenToBeing(playerGrid.GetFirstBeing());
         }
+
+        BeingBattleBus.EmitBattleEnd();
     }
 }

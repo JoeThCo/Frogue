@@ -17,25 +17,32 @@ public class BeingGrid : MonoBehaviour
     [SerializeField] private Being beingPrefab;
 
     private BeingSlot[,] allSlots;
+    public Being[] AliveBeings { get; private set; }
 
     private void Start()
     {
+        BeingBattleBus.BattleStart += BeingBattleBus_BattleStart;
         allSlots = new BeingSlot[gridSize.x, gridSize.y];
 
         MakeGrid();
         AddBeing(7);
     }
 
+    private void BeingBattleBus_BattleStart()
+    {
+        AliveBeings = GetAliveBeings();
+    }
+
     public Being GetFirstBeing()
     {
         if (isBeingsLeft())
-            return GetAliveBeings()[0];
+            return AliveBeings[0];
         return null;
     }
 
     bool isBeingsLeft()
     {
-        return GetAliveBeings().Length > 0;
+        return AliveBeings.Length > 0;
     }
 
     public Being[] GetAliveBeings()

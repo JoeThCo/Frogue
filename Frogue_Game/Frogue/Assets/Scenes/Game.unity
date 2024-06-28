@@ -380,6 +380,7 @@ GameObject:
   - component: {fileID: 475478581}
   - component: {fileID: 475478580}
   - component: {fileID: 475478579}
+  - component: {fileID: 475478583}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -463,13 +464,26 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 182063668}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1885120755}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &475478583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475478578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1468bbdc3e6134149bedc12cae3f6da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fight: {fileID: 182063669}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,7 +807,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 475478582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1885120756
@@ -818,5 +833,4 @@ SceneRoots:
   - {fileID: 378079390}
   - {fileID: 442032907}
   - {fileID: 1885120755}
-  - {fileID: 475478582}
   - {fileID: 1051463431}
