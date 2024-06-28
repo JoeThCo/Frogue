@@ -18,6 +18,7 @@ public class BeingGridModify : MonoBehaviour
 
             BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
             if (otherBeingSlot == null) return;
+            if (!otherBeingSlot.isPlayerInteractable) return;
 
             if (!selectedSlot)
             {
@@ -35,7 +36,7 @@ public class BeingGridModify : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(1)) 
+        if (Input.GetMouseButtonDown(1))
         {
             if (selectedSlot == null) return;
             selectedSlot.Being.OnDeselect();
