@@ -26,6 +26,18 @@ public class BeingGrid : MonoBehaviour
         AddBeing(7);
     }
 
+    public Being GetFirstBeing()
+    {
+        if (isBeingsLeft())
+            return GetAliveBeings()[0];
+        return null;
+    }
+
+    bool isBeingsLeft()
+    {
+        return GetAliveBeings().Length > 0;
+    }
+
     public Being[] GetAliveBeings()
     {
         List<Being> output = new List<Being>();
@@ -145,9 +157,9 @@ public class BeingGrid : MonoBehaviour
 
     void PrintGrid()
     {
-        foreach (BeingSlot slot in allSlots) 
+        foreach (BeingSlot slot in allSlots)
         {
-            if (slot.Being) 
+            if (slot.Being)
             {
                 Debug.Log(slot.Being.ToString());
             }

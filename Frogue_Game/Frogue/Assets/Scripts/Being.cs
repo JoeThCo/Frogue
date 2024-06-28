@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Being : MonoBehaviour
 {
@@ -26,5 +27,27 @@ public class Being : MonoBehaviour
     public void OnDeselect()
     {
         outlineRenderer.enabled = false;
+    }
+
+    public IEnumerator TweenToBeing(Being otherBeing, float totalTime = 1)
+    {
+        spriteRenderer.sortingOrder++;
+        outlineRenderer.sortingOrder++;
+
+        OnSelect();
+
+        Vector3 startPos = gameObject.transform.position;
+        float halfTime = totalTime * 0.5f;
+
+        gameObject.transform.DOMove(otherBeing.transform.position, halfTime);
+        yield return new WaitForSeconds(halfTime);
+
+        gameObject.transform.DOMove(startPos, halfTime);
+        yield return new WaitForSeconds(halfTime);
+
+        OnDeselect();
+
+        spriteRenderer.sortingOrder--;
+        outlineRenderer.sortingOrder--;
     }
 }

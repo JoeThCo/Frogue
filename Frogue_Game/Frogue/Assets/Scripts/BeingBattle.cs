@@ -7,10 +7,23 @@ public class BeingBattle : MonoBehaviour
     [SerializeField] BeingGrid playerGrid;
     [SerializeField] BeingGrid baddieGrid;
 
-
     public void Fight()
     {
-        Debug.Log(playerGrid.GetAliveBeings().Length);
-        Debug.Log(baddieGrid.GetAliveBeings().Length);
+        StartCoroutine(FightI());
+    }
+
+    public IEnumerator FightI()
+    {
+        foreach (Being being in playerGrid.GetAliveBeings())
+        {
+            yield return being.TweenToBeing(baddieGrid.GetFirstBeing());
+        }
+
+        yield return new WaitForSeconds(1);
+
+        foreach (Being being in baddieGrid.GetAliveBeings())
+        {
+            yield return being.TweenToBeing(playerGrid.GetFirstBeing());
+        }
     }
 }
