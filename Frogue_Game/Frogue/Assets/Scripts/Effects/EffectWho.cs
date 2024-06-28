@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectWho : MonoBehaviour
+public class EffectWho
 {
-    // Start is called before the first frame update
-    void Start()
+    public Vector2[] GetEffected()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        return new Vector2[] { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
     }
 }

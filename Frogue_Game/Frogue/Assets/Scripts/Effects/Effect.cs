@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Effect : MonoBehaviour
+[System.Serializable]
+public class Effect
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private ParticleSystem vfx;
 
-    // Update is called once per frame
-    void Update()
+    public virtual void ApplyEffect()
     {
-        
+
     }
 }

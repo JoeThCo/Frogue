@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trigger : MonoBehaviour
+[System.Serializable]
+public class Trigger
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private ParticleSystem vfx;
 
-    // Update is called once per frame
-    void Update()
+    public virtual bool isTriggering()
     {
-        
+        return false;
     }
 }
