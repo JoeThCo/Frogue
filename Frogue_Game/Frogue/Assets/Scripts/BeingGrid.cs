@@ -26,9 +26,19 @@ public class BeingGrid : MonoBehaviour
         AddBeing(7);
     }
 
-    BeingSlot GetBeingSlot(int x, int y)
+    public Being[] GetAliveBeings()
     {
-        return allSlots[x, y];
+        List<Being> output = new List<Being>();
+
+        foreach (BeingSlot slot in allSlots)
+        {
+            if (slot.Being)
+            {
+                output.Add(slot.Being);
+            }
+        }
+
+        return output.ToArray();
     }
 
     BeingSlot GetBeingSlot(Vector2Int coords)
@@ -135,10 +145,13 @@ public class BeingGrid : MonoBehaviour
 
     void PrintGrid()
     {
-        for (int y = 0; y < gridSize.y; y++)
-            for (int x = 0; x < gridSize.x; x++)
-                if (GetBeingSlot(x, y).Being)
-                    Debug.Log(allSlots[x, y].ToString());
+        foreach (BeingSlot slot in allSlots) 
+        {
+            if (slot.Being) 
+            {
+                Debug.Log(slot.Being.ToString());
+            }
+        }
     }
 
     private void Update()
