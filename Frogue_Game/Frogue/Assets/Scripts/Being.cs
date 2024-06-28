@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class Being : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private SpriteRenderer outlineRenderer;
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private SpriteRenderer outline;
+
+    private Vector3 defaultScale = Vector3.zero;
 
     public void BeingInit()
     {
         BeingBattleBus.BattleStart += BeingBattleBus_BattleStart;
 
-        spriteRenderer.color = Random.ColorHSV();
+        this.sprite.color = Random.ColorHSV();
+        this.defaultScale = outline.transform.localScale;
+
         OnDeselect();
     }
 
@@ -28,18 +33,20 @@ public class Being : MonoBehaviour
 
     public void OnSelect()
     {
-        outlineRenderer.enabled = true;
+        outline.color = Color.white;
+        outline.transform.localScale = defaultScale * 1.25f;
     }
 
     public void OnDeselect()
     {
-        outlineRenderer.enabled = false;
+        outline.color = Color.black;
+        outline.transform.localScale = defaultScale;
     }
 
-    public IEnumerator TweenToBeing(Being otherBeing, float totalTime = 1)
+    public IEnumerator TweenToBeing(Being otherBeing, float totalTime = .75f)
     {
-        spriteRenderer.sortingOrder++;
-        outlineRenderer.sortingOrder++;
+        sprite.sortingOrder++;
+        outline.sortingOrder++;
 
         OnSelect();
 
@@ -54,7 +61,7 @@ public class Being : MonoBehaviour
 
         OnDeselect();
 
-        spriteRenderer.sortingOrder--;
-        outlineRenderer.sortingOrder--;
+        sprite.sortingOrder--;
+        outline.sortingOrder--;
     }
 }

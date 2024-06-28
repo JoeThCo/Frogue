@@ -9,8 +9,28 @@ public class BeingGridModify : MonoBehaviour
     [SerializeField] private BeingGrid beingGrid;
     [SerializeField] private BeingSlot selectedSlot;
 
+    bool canInteract = true;
+
+    private void Start()
+    {
+        BeingBattleBus.BattleStart += BeingBattleBus_BattleStart;
+        BeingBattleBus.BattleEnd += BeingBattleBus_BattleEnd;
+    }
+
+    private void BeingBattleBus_BattleStart()
+    {
+        canInteract = false;
+    }
+
+    private void BeingBattleBus_BattleEnd()
+    {
+        canInteract = true;
+    }
+
     private void Update()
     {
+        if (!canInteract) return;
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
