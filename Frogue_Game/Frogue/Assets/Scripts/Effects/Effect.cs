@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Effect
+[CreateAssetMenu(fileName = "Effect", menuName = "ScriptableObjects/Effect")]
+public class Effect : ScriptableObject
 {
     [SerializeField] private ParticleSystem vfx;
 

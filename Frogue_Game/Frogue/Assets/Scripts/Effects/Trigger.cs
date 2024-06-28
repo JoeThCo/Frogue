@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Trigger
+[CreateAssetMenu(fileName = "Trigger", menuName = "ScriptableObjects/Trigger")]
+public class Trigger : ScriptableObject
 {
     [SerializeField] private ParticleSystem vfx;
 

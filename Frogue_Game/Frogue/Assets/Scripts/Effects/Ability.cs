@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class Ability
+[CreateAssetMenu(fileName = "Ability", menuName = "ScriptableObjects/Ability")]
+public class Ability : ScriptableObject
 {
     [SerializeField] private Trigger trigger;
     [SerializeField] private Effect effect;

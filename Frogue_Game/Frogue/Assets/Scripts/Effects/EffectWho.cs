@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectWho
+[CreateAssetMenu(fileName = "EffectWho", menuName = "ScriptableObjects/EffectWho")]
+public class EffectWho : ScriptableObject
 {
     public Vector2[] GetEffected()
     {
