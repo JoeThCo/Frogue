@@ -7,7 +7,7 @@ public class Ability
 {
     [SerializeField] private Trigger trigger;
     [SerializeField] private Effect effect;
-    [SerializeField] private EffectWho effectWho;
+    [SerializeField] private Who who;
 
     public Ability() 
     {
