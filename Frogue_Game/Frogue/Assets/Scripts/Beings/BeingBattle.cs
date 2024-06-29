@@ -16,18 +16,26 @@ public class BeingBattle : MonoBehaviour
     {
         BeingBattleBus.EmitBattleStart();
 
-        foreach (Being being in playerGrid.GetAliveBeings())
-        {
-            yield return being.TweenToBeing(baddieGrid.GetFirstBeing());
-        }
+        yield return GridFight(playerGrid, baddieGrid);
 
+        BeingBattleBus.EmitBattleHalf();
         yield return new WaitForSeconds(1);
 
-        foreach (Being being in baddieGrid.GetAliveBeings())
-        {
-            yield return being.TweenToBeing(playerGrid.GetFirstBeing());
-        }
+        yield return GridFight(baddieGrid, playerGrid);
 
         BeingBattleBus.EmitBattleEnd();
+    }
+
+    IEnumerator GridFight(BeingGrid offense, BeingGrid defense)
+    {
+        foreach (Being being in offense.GetAliveBeings())
+        {
+            foreach (Ability ability in being.Abilities)
+            {
+                yield return ability.TryApplyEffect();
+            }
+
+            yield return being.TweenToBeing(defense.GetFirstBeing());
+        }
     }
 }

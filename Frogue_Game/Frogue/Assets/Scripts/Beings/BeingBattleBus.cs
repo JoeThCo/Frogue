@@ -7,6 +7,7 @@ public static class BeingBattleBus
     public delegate void BattleEvent();
 
     public static event BattleEvent BattleStart;
+    public static event BattleEvent BattleHalf;
     public static event BattleEvent BattleEnd;
 
     public static void EmitBattleStart()
@@ -17,5 +18,10 @@ public static class BeingBattleBus
     public static void EmitBattleEnd()
     {
         BattleEnd?.Invoke();
+    }
+
+    public static void EmitBattleHalf() 
+    {
+        BattleHalf?.Invoke();
     }
 }

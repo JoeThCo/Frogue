@@ -6,6 +6,12 @@ using UnityEngine;
 public class Trigger : ScriptableObject
 {
     [SerializeField] private ParticleSystem vfx;
+    public Who Who { get; private set; }
+
+    public virtual void TriggerInit() 
+    {
+        Who = ResourceManager.GetWho();
+    }
 
     public virtual bool isTriggering()
     {

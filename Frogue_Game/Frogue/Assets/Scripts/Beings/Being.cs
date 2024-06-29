@@ -11,7 +11,7 @@ public class Being : MonoBehaviour
 
     private Vector3 defaultScale = Vector3.zero;
 
-    List<Ability> Abilities = new List<Ability>();
+    public List<Ability> Abilities { get; private set; } = new List<Ability>();
 
     public void BeingInit()
     {

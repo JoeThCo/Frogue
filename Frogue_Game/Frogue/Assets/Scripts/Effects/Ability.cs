@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 
-//[CreateAssetMenu(fileName = "Ability", menuName = "ScriptableObjects/Ability")]
 public class Ability
 {
-    [SerializeField] private Trigger trigger;
-    [SerializeField] private Effect effect;
-    [SerializeField] private Who who;
+    public Trigger Trigger { get; private set; }
+    public Effect Effect { get; private set; }
 
     public Ability()
     {
-        trigger = ResourceManager.GetTrigger();
-        effect = ResourceManager.GetEffect();
-        who = ResourceManager.GetWho();
+        Trigger = ResourceManager.GetTrigger();
+        Trigger.TriggerInit();
 
-        Debug.LogFormat("{0} {1} {2}", trigger.ToString(), effect.ToString(), who.ToString());
+        Effect = ResourceManager.GetEffect();
+        Effect.EffectInit();
+
+        //Debug.LogFormat("{0} {1}", Trigger.ToString(), Effect.ToString());
+    }
+
+    public IEnumerator TryApplyEffect()
+    {
+        if (Trigger.isTriggering())
+        {
+            yield return Effect.ApplyEffect();
+        }
     }
 }
