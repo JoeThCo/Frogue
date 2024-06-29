@@ -11,9 +11,12 @@ public class Being : MonoBehaviour
 
     private Vector3 defaultScale = Vector3.zero;
 
+    List<Ability> Abilities = new List<Ability>();
+
     public void BeingInit()
     {
         BeingBattleBus.BattleStart += BeingBattleBus_BattleStart;
+        Abilities.Add(new Ability());
 
         this.sprite.color = Random.ColorHSV();
         this.defaultScale = outline.transform.localScale;

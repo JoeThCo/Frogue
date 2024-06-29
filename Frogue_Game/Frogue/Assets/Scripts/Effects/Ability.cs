@@ -9,8 +9,12 @@ public class Ability
     [SerializeField] private Effect effect;
     [SerializeField] private Who who;
 
-    public Ability() 
+    public Ability()
     {
-        
+        trigger = ResourceManager.GetTrigger();
+        effect = ResourceManager.GetEffect();
+        who = ResourceManager.GetWho();
+
+        Debug.LogFormat("{0} {1} {2}", trigger.ToString(), effect.ToString(), who.ToString());
     }
 }
