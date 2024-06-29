@@ -15,7 +15,11 @@ public class Effect : ScriptableObject
 
     public virtual IEnumerator ApplyEffect()
     {
-        yield return vfx.totalTime;
+        if(vfx != null)
+        {
+            vfx.Play();
+            yield return vfx.totalTime;
+        }
     }
 
     public override string ToString()

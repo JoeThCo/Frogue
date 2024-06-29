@@ -23,6 +23,7 @@ public class Ability
     {
         if (Trigger.isTriggering())
         {
+            yield return Trigger.OnTriggered();
             yield return Effect.ApplyEffect();
         }
     }
