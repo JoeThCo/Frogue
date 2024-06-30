@@ -67,4 +67,16 @@ public class Being : MonoBehaviour
         sprite.sortingOrder--;
         outline.sortingOrder--;
     }
+
+    public override bool Equals(object other)
+    {
+        if (other == null) return false;
+        Being compare = other as Being;
+        return compare.Abilities.Equals(Abilities);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

@@ -37,4 +37,19 @@ public class BeingSlot : MonoBehaviour
         outline.color = Color.black;
         outline.transform.localScale = defaultScale;
     }
+
+    public override bool Equals(object other)
+    {
+        if (other == null) return false;
+        BeingSlot compare = other as BeingSlot;
+
+        return compare.Coords == Coords &&
+            compare.isPlayerInteractable == isPlayerInteractable &&
+            compare.Being == Being;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

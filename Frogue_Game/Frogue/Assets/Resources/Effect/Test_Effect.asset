@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f78ede3d4a537741b58c7d8225351b0, type: 3}
   m_Name: Test_Effect
   m_EditorClassIdentifier: 
-  vfx: {fileID: 0}
+  vfx: {fileID: 8295121116893626942, guid: 07d2c431a2f12ea4b8c3b179b264f5fa, type: 3}

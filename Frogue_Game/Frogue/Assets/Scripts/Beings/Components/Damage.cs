@@ -13,9 +13,9 @@ public class Damage : Effect
         DamageAmount = Random.Range(0, 6);
     }
 
-    public override IEnumerator ApplyEffect()
+    public override IEnumerator ApplyEffect(BattleState battleState)
     {
-        base.ApplyEffect();
+        base.ApplyEffect(battleState);
         yield return null;
     }
 }

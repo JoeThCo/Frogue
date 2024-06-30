@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dca3ba1dfcf7f9d478c3f8c0b34a7a01, type: 3}
   m_Name: Test_Trigger
   m_EditorClassIdentifier: 
-  vfx: {fileID: 0}
+  vfx: {fileID: 8295121116893626942, guid: 750c7daee8de4b346a9a21dbef79decb, type: 3}

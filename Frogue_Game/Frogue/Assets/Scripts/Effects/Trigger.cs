@@ -13,17 +13,16 @@ public class Trigger : ScriptableObject
         Who = ResourceManager.GetWho();
     }
 
-    public virtual bool isTriggering()
+    public virtual bool isTriggering(BattleState battleState)
     {
-        return false;
+        return true;
     }
 
-    public virtual IEnumerator OnTriggered()
+    public virtual IEnumerator OnTriggered(BattleState battleState)
     {
         if (vfx != null)
         {
-            vfx.Play();
-            yield return vfx.totalTime;
+            yield return battleState.OffenseBeingGrid.ApplyVFX(battleState.AttackingBeing, Who, vfx);
         }
     }
 

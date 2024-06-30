@@ -28,14 +28,15 @@ public class BeingBattle : MonoBehaviour
 
     IEnumerator GridFight(BeingGrid offense, BeingGrid defense)
     {
-        foreach (Being being in offense.GetAliveBeings())
+        foreach (Being current in offense.GetAliveBeings())
         {
-            foreach (Ability ability in being.Abilities)
+            foreach (Ability ability in current.Abilities)
             {
-                yield return ability.TryApplyEffect();
+                BattleState battleState = new BattleState(current, defense.GetFirstBeing(), offense, defense);
+                yield return ability.TryApplyEffect(battleState);
             }
 
-            yield return being.TweenToBeing(defense.GetFirstBeing());
+            yield return current.TweenToBeing(defense.GetFirstBeing());
         }
     }
 }

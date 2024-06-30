@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BeingGrid : MonoBehaviour
@@ -140,23 +141,6 @@ public class BeingGrid : MonoBehaviour
         }
     }
 
-    public BeingSlot[] GetNeighbors(BeingSlot slot)
-    {
-        List<BeingSlot> output = new List<BeingSlot>();
-        List<Vector2Int> neighbors = new List<Vector2Int> { Vector2Int.up, Vector2Int.one, Vector2Int.left, Vector2Int.right, Vector2Int.down, Vector2Int.left + Vector2Int.up };
-
-        foreach (Vector2Int neighborCoord in neighbors)
-        {
-            Vector2Int current = slot.Coords + neighborCoord;
-            BeingSlot currentSlot = GetBeingSlot(current);
-
-            if (IsValid(current) && !output.Contains(currentSlot))
-                output.Add(currentSlot);
-        }
-
-        return output.ToArray();
-    }
-
     bool IsValid(Vector2Int coords)
     {
         return coords.x >= 0 && coords.x < gridSize.x && coords.y >= 0 && coords.y < gridSize.y;
@@ -171,6 +155,66 @@ public class BeingGrid : MonoBehaviour
                 Debug.Log(slot.Being.ToString());
             }
         }
+    }
+
+    BeingSlot BeingToBeingSlot(Being being)
+    {
+        foreach (BeingSlot slot in allSlots)
+        {
+            if (slot.Being && slot.Being.Equals(being))
+            {
+                return slot;
+            }
+        }
+
+        return null;
+    }
+
+    List<BeingSlot> GetWhoBeingSlots(Being being, Who who)
+    {
+        List<BeingSlot> output = new List<BeingSlot>();
+
+        Debug.Log("Who Coords " + who.GetWho().Length);
+        foreach (Vector2Int coord in who.GetWho())
+        {
+            Debug.Log(coord);
+        }
+
+        foreach (Vector2Int coord in who.GetWho())
+        {
+            BeingSlot slot = BeingToBeingSlot(being);
+            if (slot == null) continue;
+
+            Vector2Int current = slot.Coords + coord;
+            if (!IsValid(current)) continue;
+
+            BeingSlot currentSlot = GetBeingSlot(current);
+            if (!currentSlot.Being) continue;
+
+            output.Add(currentSlot);
+        }
+
+        return output;
+    }
+
+    public IEnumerator ApplyVFX(Being being, Who who, ParticleSystem vfx)
+    {
+        List<BeingSlot> whoBeingSlots = GetWhoBeingSlots(being, who);
+
+        Debug.Log("Coords " + whoBeingSlots.Count);
+        foreach (BeingSlot slot in whoBeingSlots)
+        {
+            Debug.Log(slot.Coords);
+        }
+
+        if (whoBeingSlots.Count <= 0) yield break;
+        foreach (BeingSlot slot in whoBeingSlots)
+        {
+            ParticleSystem temp = Instantiate(vfx, slot.transform);
+            temp.Play();
+        }
+
+        yield return new WaitForSeconds(vfx.main.duration);
     }
 
     private void Update()

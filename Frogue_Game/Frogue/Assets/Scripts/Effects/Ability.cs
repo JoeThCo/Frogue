@@ -19,12 +19,12 @@ public class Ability
         //Debug.LogFormat("{0} {1}", Trigger.ToString(), Effect.ToString());
     }
 
-    public IEnumerator TryApplyEffect()
+    public IEnumerator TryApplyEffect(BattleState battleState)
     {
-        if (Trigger.isTriggering())
+        if (Trigger.isTriggering(battleState))
         {
-            yield return Trigger.OnTriggered();
-            yield return Effect.ApplyEffect();
+            yield return Trigger.OnTriggered(battleState);
+            yield return Effect.ApplyEffect(battleState);
         }
     }
 }

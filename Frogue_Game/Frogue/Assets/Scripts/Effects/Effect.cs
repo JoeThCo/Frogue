@@ -13,12 +13,11 @@ public class Effect : ScriptableObject
         Who = ResourceManager.GetWho();
     }
 
-    public virtual IEnumerator ApplyEffect()
+    public virtual IEnumerator ApplyEffect(BattleState battleState)
     {
-        if(vfx != null)
+        if (vfx != null)
         {
-            vfx.Play();
-            yield return vfx.totalTime;
+            yield return battleState.OffenseBeingGrid.ApplyVFX(battleState.AttackingBeing, Who, vfx);
         }
     }
 

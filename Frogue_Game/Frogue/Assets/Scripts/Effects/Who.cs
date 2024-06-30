@@ -5,15 +5,32 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Who", menuName = "ScriptableObjects/Who")]
 public class Who : ScriptableObject
 {
-    public WhoEntry[] whoEntries = new WhoEntry[]
+    [SerializeField]
+    private WhoEntry[] whoEntries = new WhoEntry[]
     {
-        new WhoEntry { Coord = Vector2Int.up, isIncluded = true },
-        new WhoEntry { Coord = Vector2Int.one, isIncluded = true },
-        new WhoEntry { Coord = Vector2Int.left, isIncluded = true },
-        new WhoEntry { Coord = Vector2Int.right, isIncluded = true },
-        new WhoEntry { Coord = Vector2Int.down, isIncluded = true },
-        new WhoEntry { Coord = Vector2Int.left + Vector2Int.up, isIncluded = true }
+        new WhoEntry { Coord = Vector2Int.up, IsIncluded = true },
+        new WhoEntry { Coord = Vector2Int.one, IsIncluded = true },
+        new WhoEntry { Coord = Vector2Int.left, IsIncluded = true },
+        new WhoEntry { Coord = Vector2Int.zero, IsIncluded = true },
+        new WhoEntry { Coord = Vector2Int.right, IsIncluded = true },
+        new WhoEntry { Coord = Vector2Int.down, IsIncluded = true },
+        new WhoEntry { Coord = Vector2Int.left + Vector2Int.up, IsIncluded = true }
     };
+
+    public Vector2Int[] GetWho()
+    {
+        List<Vector2Int> output = new List<Vector2Int>();
+
+        foreach (WhoEntry entry in whoEntries)
+        {
+            if (entry.IsIncluded)
+            {
+                output.Add(entry.Coord);
+            }
+        }
+
+        return output.ToArray();
+    }
 
     public override string ToString()
     {
@@ -24,6 +41,6 @@ public class Who : ScriptableObject
     public struct WhoEntry
     {
         public Vector2Int Coord;
-        public bool isIncluded;
+        public bool IsIncluded;
     }
 }
