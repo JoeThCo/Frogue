@@ -2,20 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damage : Effect
+public class Damage : MonoBehaviour
 {
     public int DamageAmount { get; private set; }
 
-    public override void EffectInit()
+    public void DamageInit()
     {
-        base.EffectInit();
-
-        DamageAmount = Random.Range(0, 6);
-    }
-
-    public override IEnumerator ApplyEffect(BattleState battleState)
-    {
-        base.ApplyEffect(battleState);
-        yield return null;
+        DamageAmount = Random.Range(2, 7);
     }
 }

@@ -6,22 +6,37 @@ public static class BeingBattleBus
 {
     public delegate void BattleEvent();
 
-    public static event BattleEvent BattleStart;
-    public static event BattleEvent BattleHalf;
-    public static event BattleEvent BattleEnd;
+    public static event BattleEvent FightStart;
+    public static event BattleEvent FightHalf;
+    public static event BattleEvent FightEnd;
 
-    public static void EmitBattleStart()
+    public static event BattleEvent BattleOver;
+
+    public static event BattleEvent GridRefresh;
+
+
+    public static void EmitFightStart()
     {
-        BattleStart?.Invoke();
+        FightStart?.Invoke();
     }
 
-    public static void EmitBattleEnd()
+    public static void EmitFightEnd()
     {
-        BattleEnd?.Invoke();
+        FightEnd?.Invoke();
     }
 
-    public static void EmitBattleHalf() 
+    public static void EmitFightHalf()
     {
-        BattleHalf?.Invoke();
+        FightHalf?.Invoke();
+    }
+
+    public static void EmitBattleOver()
+    {
+        BattleOver?.Invoke();
+    }
+
+    public static void EmitGridRefresh()
+    {
+        GridRefresh?.Invoke();
     }
 }

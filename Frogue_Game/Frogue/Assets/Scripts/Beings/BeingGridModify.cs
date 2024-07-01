@@ -13,8 +13,8 @@ public class BeingGridModify : MonoBehaviour
 
     private void Start()
     {
-        BeingBattleBus.BattleStart += BeingBattleBus_BattleStart;
-        BeingBattleBus.BattleEnd += BeingBattleBus_BattleEnd;
+        BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
+        BeingBattleBus.FightEnd += BeingBattleBus_BattleEnd;
     }
 
     private void BeingBattleBus_BattleStart()

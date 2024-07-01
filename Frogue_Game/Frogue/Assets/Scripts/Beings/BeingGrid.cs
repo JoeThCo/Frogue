@@ -22,28 +22,52 @@ public class BeingGrid : MonoBehaviour
 
     private void Start()
     {
-        BeingBattleBus.BattleStart += BeingBattleBus_BattleStart;
+        BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
+        BeingBattleBus.GridRefresh += BeingBattleBus_GridRefresh;
         allSlots = new BeingSlot[gridSize.x, gridSize.y];
 
         MakeGrid();
         AddBeing(7);
     }
 
+    private void BeingBattleBus_GridRefresh()
+    {
+        UpdateGrid();
+    }
+
     private void BeingBattleBus_BattleStart()
     {
+        UpdateGrid();
+    }
+
+    private void UpdateGrid()
+    {
+        UpdateBeings();
         AliveBeings = GetAliveBeings();
     }
 
     public Being GetFirstBeing()
     {
-        if (isBeingsLeft())
+        if (!HasAliveBeings())
             return AliveBeings[0];
         return null;
     }
 
-    bool isBeingsLeft()
+    public bool HasAliveBeings()
     {
-        return AliveBeings.Length > 0;
+        return AliveBeings.Length <= 0;
+    }
+
+    void UpdateBeings()
+    {
+        foreach (BeingSlot slot in allSlots)
+        {
+            if (!slot.Being) continue;
+            if (!slot.Being.Health.isDead()) continue;
+
+            Destroy(slot.Being.gameObject);
+            slot.Being = null;
+        }
     }
 
     public Being[] GetAliveBeings()
@@ -59,11 +83,6 @@ public class BeingGrid : MonoBehaviour
         }
 
         return output.ToArray();
-    }
-
-    BeingSlot GetBeingSlot(Vector2Int coords)
-    {
-        return allSlots[coords.x, coords.y];
     }
 
     void MakeGrid()
@@ -141,11 +160,6 @@ public class BeingGrid : MonoBehaviour
         }
     }
 
-    bool IsValid(Vector2Int coords)
-    {
-        return coords.x >= 0 && coords.x < gridSize.x && coords.y >= 0 && coords.y < gridSize.y;
-    }
-
     void PrintGrid()
     {
         foreach (BeingSlot slot in allSlots)
@@ -155,66 +169,6 @@ public class BeingGrid : MonoBehaviour
                 Debug.Log(slot.Being.ToString());
             }
         }
-    }
-
-    BeingSlot BeingToBeingSlot(Being being)
-    {
-        foreach (BeingSlot slot in allSlots)
-        {
-            if (slot.Being && slot.Being.Equals(being))
-            {
-                return slot;
-            }
-        }
-
-        return null;
-    }
-
-    List<BeingSlot> GetWhoBeingSlots(Being being, Who who)
-    {
-        List<BeingSlot> output = new List<BeingSlot>();
-
-        Debug.Log("Who Coords " + who.GetWho().Length);
-        foreach (Vector2Int coord in who.GetWho())
-        {
-            Debug.Log(coord);
-        }
-
-        foreach (Vector2Int coord in who.GetWho())
-        {
-            BeingSlot slot = BeingToBeingSlot(being);
-            if (slot == null) continue;
-
-            Vector2Int current = slot.Coords + coord;
-            if (!IsValid(current)) continue;
-
-            BeingSlot currentSlot = GetBeingSlot(current);
-            if (!currentSlot.Being) continue;
-
-            output.Add(currentSlot);
-        }
-
-        return output;
-    }
-
-    public IEnumerator ApplyVFX(Being being, Who who, ParticleSystem vfx)
-    {
-        List<BeingSlot> whoBeingSlots = GetWhoBeingSlots(being, who);
-
-        Debug.Log("Coords " + whoBeingSlots.Count);
-        foreach (BeingSlot slot in whoBeingSlots)
-        {
-            Debug.Log(slot.Coords);
-        }
-
-        if (whoBeingSlots.Count <= 0) yield break;
-        foreach (BeingSlot slot in whoBeingSlots)
-        {
-            ParticleSystem temp = Instantiate(vfx, slot.transform);
-            temp.Play();
-        }
-
-        yield return new WaitForSeconds(vfx.main.duration);
     }
 
     private void Update()

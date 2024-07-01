@@ -6,17 +6,23 @@ using UnityEngine.UI;
 
 public class Being : MonoBehaviour
 {
+    public Damage Damage { get; private set; }
+    public Health Health { get; private set; }
+
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private SpriteRenderer outline;
 
     private Vector3 defaultScale = Vector3.zero;
 
-    public List<Ability> Abilities { get; private set; } = new List<Ability>();
-
     public void BeingInit()
     {
-        BeingBattleBus.BattleStart += BeingBattleBus_BattleStart;
-        Abilities.Add(new Ability());
+        Damage = GetComponentInChildren<Damage>();
+        Damage.DamageInit();
+
+        Health = GetComponentInChildren<Health>();
+        Health.HealthInit(this);
+
+        BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
 
         this.sprite.color = Random.ColorHSV();
         this.defaultScale = outline.transform.localScale;
@@ -24,14 +30,14 @@ public class Being : MonoBehaviour
         OnDeselect();
     }
 
+    public void OnDestroy()
+    {
+        BeingBattleBus.FightStart -= BeingBattleBus_BattleStart;
+    }
+
     private void BeingBattleBus_BattleStart()
     {
         OnDeselect();
-    }
-
-    public override string ToString()
-    {
-        return string.Empty;
     }
 
     public void OnSelect()
@@ -46,7 +52,12 @@ public class Being : MonoBehaviour
         outline.transform.localScale = defaultScale;
     }
 
-    public IEnumerator TweenToBeing(Being otherBeing, float totalTime = .75f)
+    public void OnDeath() 
+    {
+        Destroy(gameObject);
+    }
+
+    public IEnumerator DamageTween(Being otherBeing, float totalTime = .75f)
     {
         sprite.sortingOrder++;
         outline.sortingOrder++;
@@ -59,6 +70,8 @@ public class Being : MonoBehaviour
         gameObject.transform.DOMove(otherBeing.transform.position, halfTime);
         yield return new WaitForSeconds(halfTime);
 
+        otherBeing.Health.TakeDamage(Damage);
+
         gameObject.transform.DOMove(startPos, halfTime);
         yield return new WaitForSeconds(halfTime);
 
@@ -66,13 +79,6 @@ public class Being : MonoBehaviour
 
         sprite.sortingOrder--;
         outline.sortingOrder--;
-    }
-
-    public override bool Equals(object other)
-    {
-        if (other == null) return false;
-        Being compare = other as Being;
-        return compare.Abilities.Equals(Abilities);
     }
 
     public override int GetHashCode()
