@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dca3ba1dfcf7f9d478c3f8c0b34a7a01, type: 3}
-  m_Name: Test_Trigger
+  m_Script: {fileID: 11500000, guid: 8f18d5de79e58264fb4bfd816182a2d6, type: 3}
+  m_Name: Damage Up
   m_EditorClassIdentifier: 
-  vfx: {fileID: 8295121116893626942, guid: 750c7daee8de4b346a9a21dbef79decb, type: 3}
+  ChangeAmount: 1

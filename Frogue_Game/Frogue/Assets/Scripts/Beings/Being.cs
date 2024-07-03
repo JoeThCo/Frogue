@@ -9,6 +9,8 @@ public class Being : MonoBehaviour
     public Damage Damage { get; private set; }
     public Health Health { get; private set; }
 
+    public Effects Effects { get; private set; }
+
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private SpriteRenderer outline;
 
@@ -16,11 +18,14 @@ public class Being : MonoBehaviour
 
     public void BeingInit()
     {
+        Effects = GetComponentInChildren<Effects>();
+        Effects.EffectInit();
+
         Damage = GetComponentInChildren<Damage>();
-        Damage.DamageInit();
+        Damage.DamageInit(Effects);
 
         Health = GetComponentInChildren<Health>();
-        Health.HealthInit(this);
+        Health.HealthInit(Effects);
 
         BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
 
@@ -52,7 +57,7 @@ public class Being : MonoBehaviour
         outline.transform.localScale = defaultScale;
     }
 
-    public void OnDeath() 
+    public void OnDeath()
     {
         Destroy(gameObject);
     }

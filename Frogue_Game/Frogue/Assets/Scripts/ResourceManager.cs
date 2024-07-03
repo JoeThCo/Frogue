@@ -5,13 +5,22 @@ using UnityEngine;
 
 public static class ResourceManager
 {
+    private static Effect[] allEffects;
+
     public static bool isLoaded { get; private set; } = false;
 
     public static void LoadResources()
     {
         if (isLoaded) return;
 
+        allEffects = Resources.LoadAll<Effect>("Effect");
+
         isLoaded = true;
+    }
+
+    public static Effect GetEffect()
+    {
+        return GetRandom<Effect>(allEffects);
     }
 
 
@@ -29,6 +38,7 @@ public static class ResourceManager
 
     private static T GetRandom<T>(T[] scriptableObjects) where T : ScriptableObject
     {
-        return scriptableObjects[UnityEngine.Random.Range(0, scriptableObjects.Length)];
+        System.Random random = new System.Random();
+        return scriptableObjects[random.Next(0, scriptableObjects.Length)];
     }
 }

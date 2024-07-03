@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    private Being being;
+    private Effects effects;
 
     public int HPLeft { get; private set; }
     public int MaxHP { get; private set; }
 
-    public void HealthInit(Being being)
+    public void HealthInit(Effects effects)
     {
-        this.being = being;
+        this.effects = effects;
         HPLeft = Random.Range(5, 11);
         MaxHP = HPLeft;
     }
 
     public void TakeDamage(Damage damage)
     {
-        HPLeft -= damage.DamageAmount;
+        HPLeft -= damage.GetDamage();
         Debug.LogFormat("-{0} | {1} / {2}", damage.DamageAmount, HPLeft, MaxHP);
 
         if (HPLeft <= 0)
