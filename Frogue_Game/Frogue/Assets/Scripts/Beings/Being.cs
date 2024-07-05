@@ -79,6 +79,7 @@ public class Being : MonoBehaviour
         yield return new WaitForSeconds(halfTime);
 
         otherBeing.Health.TakeDamage(Damage);
+        SpawnDamageTextPopUp(otherBeing, Damage);
 
         gameObject.transform.DOMove(startPos, halfTime);
         yield return new WaitForSeconds(halfTime);
@@ -92,5 +93,11 @@ public class Being : MonoBehaviour
     public override int GetHashCode()
     {
         return base.GetHashCode();
+    }
+
+    private void SpawnDamageTextPopUp(Being otherBeing, Damage damage, float destroyTime = .35f)
+    {
+        DamageTextPopup damageTextPopup = Instantiate(ResourceManager.GetUI("DamageTextPopUp").GetComponent<DamageTextPopup>(), otherBeing.transform.position, Quaternion.identity);
+        damageTextPopup.DamageTextPopUpInit(damage);
     }
 }

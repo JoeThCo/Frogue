@@ -781,7 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de1780d281409594ea2871a7071c16fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseSeed: 0
+  UseSeed: 1
   UserSeed: 0
 --- !u!1001 &231564909502945782
 PrefabInstance:

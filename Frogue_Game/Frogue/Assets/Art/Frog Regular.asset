@@ -32,12 +32,12 @@ Texture2D:
   m_TextureDimension: 2
   m_TextureSettings:
     serializedVersion: 2
-    m_FilterMode: 1
+    m_FilterMode: 0
     m_Aniso: 1
     m_MipBias: 0
-    m_WrapU: 0
-    m_WrapV: 0
-    m_WrapW: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
   m_LightmapFormat: 0
   m_ColorSpace: 0
   m_PlatformBlob: 
@@ -58,11 +58,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: FrogotypeRegular-d2KZ SDF
+  m_Name: Frog Regular
   m_EditorClassIdentifier: 
-  hashCode: -768613142
+  hashCode: -443467066
   material: {fileID: 345728221193392425}
-  materialHashCode: -977472246
+  materialHashCode: 164087078
   m_Version: 1.1.0
   m_SourceFontFileGUID: 4ff386d1eb7aa1041aaaaa1c42f68fed
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 4ff386d1eb7aa1041aaaaa1c42f68fed, type: 3}

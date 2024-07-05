@@ -6,6 +6,7 @@ using UnityEngine;
 public static class ResourceManager
 {
     private static Effect[] allEffects;
+    private static GameObject[] allUI;
 
     public static bool isLoaded { get; private set; } = false;
 
@@ -14,6 +15,7 @@ public static class ResourceManager
         if (isLoaded) return;
 
         allEffects = Resources.LoadAll<Effect>("Effect");
+        allUI = Resources.LoadAll<GameObject>("UI");
 
         isLoaded = true;
     }
@@ -23,10 +25,14 @@ public static class ResourceManager
         return GetRandom<Effect>(allEffects);
     }
 
-
-    private static T FindByName<T>(T[] scriptableObjects, string name) where T : ScriptableObject
+    public static GameObject GetUI(string name)
     {
-        foreach (T obj in scriptableObjects)
+        return FindByName<GameObject>(allUI, name);
+    }
+
+    private static T FindByName<T>(T[] gameObjects, string name) where T : UnityEngine.Object
+    {
+        foreach (T obj in gameObjects)
         {
             if (obj.name == name)
             {
@@ -36,8 +42,8 @@ public static class ResourceManager
         return null;
     }
 
-    private static T GetRandom<T>(T[] scriptableObjects) where T : ScriptableObject
+    private static T GetRandom<T>(T[] gameObjects) where T : UnityEngine.Object
     {
-        return scriptableObjects[GameManager.Random.Next(0, scriptableObjects.Length)];
+        return gameObjects[GameManager.Random.Next(0, gameObjects.Length)];
     }
 }

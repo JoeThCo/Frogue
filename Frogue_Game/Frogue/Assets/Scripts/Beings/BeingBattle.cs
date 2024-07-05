@@ -28,9 +28,10 @@ public class BeingBattle : MonoBehaviour
     {
         BeingBattleBus.EmitFightStart();
 
-        BeingGrid faster = null;
-        BeingGrid slower = null;
+        BeingGrid faster;
+        BeingGrid slower;
 
+        Debug.LogFormat("Player: {0} vs Baddie: {1}", playerGrid.GridSpeed, baddieGrid.GridSpeed);
         if (playerGrid.GridSpeed >= baddieGrid.GridSpeed)
         {
             faster = playerGrid;
@@ -42,13 +43,20 @@ public class BeingBattle : MonoBehaviour
             slower = playerGrid;
         }
 
-
         yield return GridFight(faster, slower);
+        if (!isBattling)
+        {
+            yield break;
+        }
 
         BeingBattleBus.EmitFightHalf();
         yield return new WaitForSeconds(1);
 
         yield return GridFight(slower, faster);
+        if (!isBattling)
+        {
+            yield break;
+        }
 
         BeingBattleBus.EmitFightEnd();
     }

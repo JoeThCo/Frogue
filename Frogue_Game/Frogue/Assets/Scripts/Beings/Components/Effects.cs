@@ -34,8 +34,6 @@ public class Effects : MonoBehaviour
                 output += effect.GetChange();
             }
         }
-
-        Debug.Log("From " + input + " -> " + output);
         return output;
     }
 }
