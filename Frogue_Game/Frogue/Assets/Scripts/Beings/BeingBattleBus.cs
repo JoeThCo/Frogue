@@ -12,9 +12,6 @@ public static class BeingBattleBus
 
     public static event BattleEvent BattleOver;
 
-    public static event BattleEvent GridRefresh;
-
-
     public static void EmitFightStart()
     {
         FightStart?.Invoke();
@@ -33,10 +30,5 @@ public static class BeingBattleBus
     public static void EmitBattleOver()
     {
         BattleOver?.Invoke();
-    }
-
-    public static void EmitGridRefresh()
-    {
-        GridRefresh?.Invoke();
     }
 }

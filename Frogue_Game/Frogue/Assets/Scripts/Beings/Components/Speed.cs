@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Speed : MonoBehaviour
+public class Speed : MonoBehaviour, IFinalValue
 {
-    public int SpeedAmount { get; private set; }
+    private int SpeedAmount;
 
     private Effects effects;
 
@@ -13,7 +13,7 @@ public class Speed : MonoBehaviour
         this.effects = effects;
     }
 
-    public int GetSpeed()
+    public int GetFinalValue()
     {
         return effects.GetFinalValue(SpeedAmount, typeof(SpeedChange));
     }

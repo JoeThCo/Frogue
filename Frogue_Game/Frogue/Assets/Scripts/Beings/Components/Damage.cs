@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damage : MonoBehaviour
+public class Damage : MonoBehaviour, IFinalValue
 {
-    public int DamageAmount { get; private set; }
+    private int DamageAmount;
 
     private Effects effects;
 
@@ -14,7 +14,7 @@ public class Damage : MonoBehaviour
         DamageAmount = Random.Range(2, 7);
     }
 
-    public int GetDamage()
+    public int GetFinalValue()
     {
         return effects.GetFinalValue(DamageAmount, typeof(DamageChange));
     }

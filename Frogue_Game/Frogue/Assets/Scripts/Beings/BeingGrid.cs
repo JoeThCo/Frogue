@@ -17,45 +17,49 @@ public class BeingGrid : MonoBehaviour
     [SerializeField] private BeingSlot beingSlotPrefab;
     [SerializeField] private Being beingPrefab;
 
+    public int GridSpeed
+    {
+        get
+        {
+            int outputSpeed = 0;
+            foreach (Being being in AliveBeings)
+            {
+                outputSpeed += being.Speed.GetFinalValue();
+            }
+            return outputSpeed;
+        }
+    }
+    public bool HasAliveBeings
+    {
+        get
+        {
+            return AliveBeings.Length <= 0;
+        }
+    }
+    public Being[] AliveBeings
+    {
+        get
+        {
+            UpdateBeings();
+            return GetAliveBeings();
+        }
+    }
+
     private BeingSlot[,] allSlots;
-    public Being[] AliveBeings { get; private set; }
 
     private void Start()
     {
-        BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
-        BeingBattleBus.GridRefresh += BeingBattleBus_GridRefresh;
         allSlots = new BeingSlot[gridSize.x, gridSize.y];
 
         MakeGrid();
         AddBeing(7);
     }
 
-    private void BeingBattleBus_GridRefresh()
-    {
-        UpdateGrid();
-    }
-
-    private void BeingBattleBus_BattleStart()
-    {
-        UpdateGrid();
-    }
-
-    private void UpdateGrid()
-    {
-        UpdateBeings();
-        AliveBeings = GetAliveBeings();
-    }
-
     public Being GetFirstBeing()
     {
-        if (!HasAliveBeings())
+        if (!HasAliveBeings)
             return AliveBeings[0];
         return null;
-    }
-
-    public bool HasAliveBeings()
-    {
-        return AliveBeings.Length <= 0;
     }
 
     void UpdateBeings()
@@ -70,7 +74,7 @@ public class BeingGrid : MonoBehaviour
         }
     }
 
-    public Being[] GetAliveBeings()
+    private Being[] GetAliveBeings()
     {
         List<Being> output = new List<Being>();
 

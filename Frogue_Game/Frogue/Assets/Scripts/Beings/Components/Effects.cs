@@ -12,6 +12,17 @@ public class Effects : MonoBehaviour
         AllEffects.Add(ResourceManager.GetEffect());
     }
 
+    public void AddEffect(Effect effect)
+    {
+        AllEffects.Add(effect);
+    }
+
+    public void RemoveEffect(Effect effect)
+    {
+        if (AllEffects.Contains(effect))
+            AllEffects.Remove(effect);
+    }
+
     public int GetFinalValue(int input, Type type)
     {
         int output = input;

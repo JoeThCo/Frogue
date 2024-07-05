@@ -8,7 +8,7 @@ public class Being : MonoBehaviour
 {
     public Damage Damage { get; private set; }
     public Health Health { get; private set; }
-
+    public Speed Speed { get; private set; }
     public Effects Effects { get; private set; }
 
     [SerializeField] private SpriteRenderer sprite;
@@ -25,7 +25,10 @@ public class Being : MonoBehaviour
         Damage.DamageInit(Effects);
 
         Health = GetComponentInChildren<Health>();
-        Health.HealthInit(Effects);
+        Health.HealthInit();
+
+        Speed = GetComponentInChildren<Speed>();
+        Speed.SpeedInit(Effects);
 
         BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
 

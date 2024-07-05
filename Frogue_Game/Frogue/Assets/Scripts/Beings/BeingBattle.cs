@@ -28,19 +28,34 @@ public class BeingBattle : MonoBehaviour
     {
         BeingBattleBus.EmitFightStart();
 
-        yield return GridFight(playerGrid, baddieGrid);
+        BeingGrid faster = null;
+        BeingGrid slower = null;
+
+        if (playerGrid.GridSpeed >= baddieGrid.GridSpeed)
+        {
+            faster = playerGrid;
+            slower = baddieGrid;
+        }
+        else
+        {
+            faster = baddieGrid;
+            slower = playerGrid;
+        }
+
+
+        yield return GridFight(faster, slower);
 
         BeingBattleBus.EmitFightHalf();
         yield return new WaitForSeconds(1);
 
-        yield return GridFight(baddieGrid, playerGrid);
+        yield return GridFight(slower, faster);
 
         BeingBattleBus.EmitFightEnd();
     }
 
     IEnumerator GridFight(BeingGrid offense, BeingGrid defense)
     {
-        foreach (Being current in offense.GetAliveBeings())
+        foreach (Being current in offense.AliveBeings)
         {
             BattleState battleState = new BattleState(current, defense.GetFirstBeing(), offense, defense);
             yield return current.DamageTween(defense.GetFirstBeing());
@@ -55,7 +70,7 @@ public class BeingBattle : MonoBehaviour
 
     public void CheckBattleOver()
     {
-        if (playerGrid.HasAliveBeings() || baddieGrid.HasAliveBeings())
+        if (playerGrid.HasAliveBeings || baddieGrid.HasAliveBeings)
         {
             Debug.Log("Winner!");
             BeingBattleBus.EmitBattleOver();

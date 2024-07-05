@@ -4,22 +4,19 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    private Effects effects;
-
     public int HPLeft { get; private set; }
     public int MaxHP { get; private set; }
 
-    public void HealthInit(Effects effects)
+    public void HealthInit()
     {
-        this.effects = effects;
         HPLeft = Random.Range(5, 11);
         MaxHP = HPLeft;
     }
 
     public void TakeDamage(Damage damage)
     {
-        HPLeft -= damage.GetDamage();
-        Debug.LogFormat("-{0} | {1} / {2}", damage.DamageAmount, HPLeft, MaxHP);
+        HPLeft -= damage.GetFinalValue();
+        Debug.LogFormat("-{0} | {1} / {2}", damage.GetFinalValue(), HPLeft, MaxHP);
 
         if (HPLeft <= 0)
         {
@@ -32,6 +29,5 @@ public class Health : MonoBehaviour
     void OnDeath()
     {
         Debug.Log("Dead!");
-        BeingBattleBus.EmitGridRefresh();
     }
 }
