@@ -38,7 +38,6 @@ public static class ResourceManager
 
     private static T GetRandom<T>(T[] scriptableObjects) where T : ScriptableObject
     {
-        System.Random random = new System.Random();
-        return scriptableObjects[random.Next(0, scriptableObjects.Length)];
+        return scriptableObjects[GameManager.Random.Next(0, scriptableObjects.Length)];
     }
 }

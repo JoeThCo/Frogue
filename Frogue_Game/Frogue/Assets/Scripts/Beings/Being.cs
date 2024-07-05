@@ -32,7 +32,7 @@ public class Being : MonoBehaviour
 
         BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
 
-        this.sprite.color = Random.ColorHSV();
+        this.sprite.color = Helper.RandomColor();
         this.defaultScale = outline.transform.localScale;
 
         OnDeselect();
