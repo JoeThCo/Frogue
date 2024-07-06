@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Speed : MonoBehaviour, IFinalValue
+public class Speed : IFinalValue
 {
     private int SpeedAmount;
 
     private Effects effects;
 
-    public void SpeedInit(Effects effects)
+    public Speed(Effects effects) 
     {
         this.effects = effects;
+
     }
 
     public int GetFinalValue()

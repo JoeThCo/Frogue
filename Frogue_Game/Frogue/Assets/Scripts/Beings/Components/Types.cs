@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Types : MonoBehaviour
+public class Types
 {
     public List<BeingType> BeingTypes { get; private set; } = new List<BeingType>();
     public bool IsBeingTypes

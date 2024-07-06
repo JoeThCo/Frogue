@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health
 {
     public int HPLeft { get; private set; }
     public int MaxHP { get; private set; }
 
-    public void HealthInit()
+
+    public Health() 
     {
         HPLeft = Random.Range(5, 11);
         MaxHP = HPLeft;

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Effects : MonoBehaviour
+public class Effects
 {
     public List<Effect> AllEffects { get; private set; } = new List<Effect>();
 

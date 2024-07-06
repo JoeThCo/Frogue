@@ -19,20 +19,13 @@ public class Being : MonoBehaviour
 
     public void BeingInit()
     {
-        Effects = GetComponentInChildren<Effects>();
-        Effects.EffectInit();
+        Effects = new Effects();
 
-        Types = GetComponentInChildren<Types>();
-        Types.TypesInit();
+        Types = new Types();
+        Health = new Health();
 
-        Damage = GetComponentInChildren<Damage>();
-        Damage.DamageInit(Effects);
-
-        Health = GetComponentInChildren<Health>();
-        Health.HealthInit();
-
-        Speed = GetComponentInChildren<Speed>();
-        Speed.SpeedInit(Effects);
+        Damage = new Damage(Effects);
+        Speed = new Speed(Effects);
 
         BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
 
