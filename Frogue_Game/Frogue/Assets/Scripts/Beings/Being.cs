@@ -10,6 +10,7 @@ public class Being : MonoBehaviour
     public Health Health { get; private set; }
     public Speed Speed { get; private set; }
     public Effects Effects { get; private set; }
+    public Types Types { get; private set; }
 
     [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private SpriteRenderer outline;
@@ -20,6 +21,9 @@ public class Being : MonoBehaviour
     {
         Effects = GetComponentInChildren<Effects>();
         Effects.EffectInit();
+
+        Types = GetComponentInChildren<Types>();
+        Types.TypesInit();
 
         Damage = GetComponentInChildren<Damage>();
         Damage.DamageInit(Effects);
@@ -32,7 +36,7 @@ public class Being : MonoBehaviour
 
         BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
 
-        this.sprite.color = Helper.RandomColor();
+        this.sprite.color = Types.GetMainColor();
         this.defaultScale = outline.transform.localScale;
 
         OnDeselect();

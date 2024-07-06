@@ -6,6 +6,8 @@ using UnityEngine;
 public static class ResourceManager
 {
     private static Effect[] allEffects;
+    private static BeingType[] allBeingTypes;
+
     private static GameObject[] allUI;
 
     public static bool isLoaded { get; private set; } = false;
@@ -16,8 +18,16 @@ public static class ResourceManager
 
         allEffects = Resources.LoadAll<Effect>("Effect");
         allUI = Resources.LoadAll<GameObject>("UI");
+        allBeingTypes = Resources.LoadAll<BeingType>("Types");
 
         isLoaded = true;
+    }
+
+    public static BeingType GetBeingType()
+    {
+        BeingType random = GetRandom<BeingType>(allBeingTypes);
+        random.TypeInit();
+        return random;
     }
 
     public static Effect GetEffect()
