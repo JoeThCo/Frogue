@@ -13,7 +13,7 @@ public class Types
         }
     }
 
-    public void TypesInit()
+    public Types() 
     {
         AddRandomType();
     }
