@@ -140,20 +140,29 @@ public class BeingGrid : MonoBehaviour
             AddBeing();
     }
 
-    void PrintGrid()
+    public void SwapBeingControllers(BeingSlot selected, BeingSlot other)
     {
-        foreach (BeingSlot slot in allSlots)
+        if (other.BeingController == null)
         {
-            if (slot.BeingController)
-            {
-                Debug.Log(slot.BeingController.ToString());
-            }
-        }
-    }
+            selected.BeingController.transform.SetParent(other.transform);
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(2))
-            PrintGrid();
+            other.BeingController = selected.BeingController;
+            selected.BeingController = null;
+
+            other.BeingController.transform.localPosition = Vector2.zero;
+        }
+        else
+        {
+            BeingSlot tempSlot = selected;
+            selected.BeingController.transform.SetParent(other.transform);
+            other.BeingController.transform.SetParent(tempSlot.transform);
+
+            BeingController tempController = selected.BeingController;
+            selected.BeingController = other.BeingController;
+            other.BeingController = tempController;
+
+            selected.BeingController.transform.localPosition = Vector3.zero;
+            other.BeingController.transform.localPosition = Vector3.zero;
+        }
     }
 }

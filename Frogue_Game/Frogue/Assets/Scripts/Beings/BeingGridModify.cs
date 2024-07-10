@@ -48,6 +48,7 @@ public class BeingGridModify : MonoBehaviour
             }
             else
             {
+                beingGrid.SwapBeingControllers(selectedSlot, otherBeingSlot);
                 selectedSlot = null;
                 Debug.Log("Swap!");
             }
