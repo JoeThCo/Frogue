@@ -5,9 +5,9 @@ using UnityEngine;
 
 public static class ResourceManager
 {
-    private static Effect[] allEffects;
-    private static BeingType[] allBeingTypes;
+    private static Being[] allBeings;
 
+    private static Effect[] allEffects;
     private static GameObject[] allUI;
 
     public static bool isLoaded { get; private set; } = false;
@@ -18,15 +18,15 @@ public static class ResourceManager
 
         allEffects = Resources.LoadAll<Effect>("Effect");
         allUI = Resources.LoadAll<GameObject>("UI");
-        allBeingTypes = Resources.LoadAll<BeingType>("Types");
+        allBeings = Resources.LoadAll<Being>("Being");
 
         isLoaded = true;
     }
 
-    public static BeingType GetBeingType()
+    public static Being GetBeing()
     {
-        BeingType random = GetRandom<BeingType>(allBeingTypes);
-        random.TypeInit();
+        Being random = GetRandom<Being>(allBeings);
+        random.BeingInit();
         return random;
     }
 
@@ -49,7 +49,7 @@ public static class ResourceManager
                 return obj;
             }
         }
-        return null;
+        throw new System.Exception($"No Object with name of {name}");
     }
 
     private static T GetRandom<T>(T[] gameObjects) where T : UnityEngine.Object

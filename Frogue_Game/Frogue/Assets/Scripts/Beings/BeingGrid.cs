@@ -14,8 +14,8 @@ public class BeingGrid : MonoBehaviour
     [SerializeField] private bool isPlayerInteractable = false;
 
     [Header("Prefabs")]
-    [SerializeField] private BeingSlot beingSlotPrefab;
-    [SerializeField] private Being beingPrefab;
+    private BeingSlot beingSlotPrefab;
+    private BeingController beingControllerPrefab;
 
     public int GridSpeed
     {
@@ -51,6 +51,9 @@ public class BeingGrid : MonoBehaviour
     {
         allSlots = new BeingSlot[gridSize.x, gridSize.y];
 
+        beingSlotPrefab = ResourceManager.GetUI("BeingSlot").GetComponent<BeingSlot>();
+        beingControllerPrefab = ResourceManager.GetUI("BeingController").GetComponent<BeingController>();
+
         MakeGrid();
         AddBeing(7);
     }
@@ -66,11 +69,10 @@ public class BeingGrid : MonoBehaviour
     {
         foreach (BeingSlot slot in allSlots)
         {
-            if (!slot.Being) continue;
-            if (!slot.Being.Health.isDead()) continue;
+            if (!slot.BeingController) continue;
+            if (!slot.BeingController.Being.Health.isDead()) continue;
 
-            Destroy(slot.Being.gameObject);
-            slot.Being = null;
+            slot.BeingController = null;
         }
     }
 
@@ -80,9 +82,9 @@ public class BeingGrid : MonoBehaviour
 
         foreach (BeingSlot slot in allSlots)
         {
-            if (slot.Being)
+            if (slot.BeingController)
             {
-                output.Add(slot.Being);
+                output.Add(slot.BeingController.Being);
             }
         }
 
@@ -122,11 +124,11 @@ public class BeingGrid : MonoBehaviour
     {
         foreach (BeingSlot slot in allSlots)
         {
-            if (!slot.Being)
+            if (!slot.BeingController)
             {
-                Being being = Instantiate(beingPrefab, slot.transform);
-                being.BeingInit();
-                slot.Being = being;
+                BeingController beingController = Instantiate(beingControllerPrefab, slot.transform);
+                beingController.BeingControllerInit(ResourceManager.GetBeing());
+                slot.BeingController = beingController;
                 return;
             }
         }
@@ -138,39 +140,13 @@ public class BeingGrid : MonoBehaviour
             AddBeing();
     }
 
-    public void SwapBeings(BeingSlot selected, BeingSlot other)
-    {
-        if (other.Being == null)
-        {
-            selected.Being.transform.SetParent(other.transform);
-
-            other.Being = selected.Being;
-            selected.Being = null;
-
-            other.Being.transform.localPosition = Vector2.zero;
-        }
-        else
-        {
-            BeingSlot tempSlot = selected;
-            selected.Being.transform.SetParent(other.transform);
-            other.Being.transform.SetParent(tempSlot.transform);
-
-            Being temp = selected.Being;
-            selected.Being = other.Being;
-            other.Being = temp;
-
-            selected.Being.transform.localPosition = Vector2.zero;
-            other.Being.transform.localPosition = Vector2.zero;
-        }
-    }
-
     void PrintGrid()
     {
         foreach (BeingSlot slot in allSlots)
         {
-            if (slot.Being)
+            if (slot.BeingController)
             {
-                Debug.Log(slot.Being.ToString());
+                Debug.Log(slot.BeingController.ToString());
             }
         }
     }

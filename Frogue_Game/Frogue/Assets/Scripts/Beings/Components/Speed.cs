@@ -8,10 +8,10 @@ public class Speed : IFinalValue
 
     private Effects effects;
 
-    public Speed(Effects effects) 
+    public Speed(Effects effects, int startSpeed)
     {
         this.effects = effects;
-
+        this.SpeedAmount = startSpeed;
     }
 
     public int GetFinalValue()

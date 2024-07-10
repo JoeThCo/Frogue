@@ -7,9 +7,9 @@ public class Effects
 {
     public List<Effect> AllEffects { get; private set; } = new List<Effect>();
 
-    public void EffectInit()
+    public Effects(Effect[] effects) 
     {
-        AllEffects.Add(ResourceManager.GetEffect());
+        AllEffects.AddRange(effects);
     }
 
     public void AddEffect(Effect effect)

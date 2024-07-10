@@ -42,15 +42,12 @@ public class BeingGridModify : MonoBehaviour
 
             if (!selectedSlot)
             {
-                if (!otherBeingSlot.Being) return;
+                if (!otherBeingSlot.BeingController) return;
                 selectedSlot = otherBeingSlot;
-                selectedSlot.Being.OnSelect();
                 Debug.Log("Selected!");
             }
             else
             {
-                beingGrid.SwapBeings(selectedSlot, otherBeingSlot);
-                otherBeingSlot.Being.OnDeselect();
                 selectedSlot = null;
                 Debug.Log("Swap!");
             }
@@ -59,7 +56,6 @@ public class BeingGridModify : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             if (selectedSlot == null) return;
-            selectedSlot.Being.OnDeselect();
             selectedSlot = null;
         }
     }

@@ -8,9 +8,9 @@ public class Health
     public int MaxHP { get; private set; }
 
 
-    public Health() 
+    public Health(int startHealth)
     {
-        HPLeft = Random.Range(5, 11);
+        HPLeft = startHealth;
         MaxHP = HPLeft;
     }
 

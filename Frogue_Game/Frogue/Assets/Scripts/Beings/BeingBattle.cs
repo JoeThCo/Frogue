@@ -66,7 +66,6 @@ public class BeingBattle : MonoBehaviour
         foreach (Being current in offense.AliveBeings)
         {
             BattleState battleState = new BattleState(current, defense.GetFirstBeing(), offense, defense);
-            yield return current.DamageTween(defense.GetFirstBeing());
 
             CheckBattleOver();
             if (!isBattling)

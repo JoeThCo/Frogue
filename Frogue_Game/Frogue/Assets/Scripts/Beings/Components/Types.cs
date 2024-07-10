@@ -13,19 +13,9 @@ public class Types
         }
     }
 
-    public Types() 
+    public Types(BeingType[] types)
     {
-        AddRandomType();
-    }
-
-    void AddRandomType()
-    {
-        BeingType randomBeingType = ResourceManager.GetBeingType();
-
-        if (!BeingTypes.Contains(randomBeingType))
-        {
-            BeingTypes.Add(randomBeingType);
-        }
+        BeingTypes.AddRange(types);
     }
 
     public Color GetMainColor()

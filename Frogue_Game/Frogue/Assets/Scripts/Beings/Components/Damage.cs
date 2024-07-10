@@ -8,10 +8,10 @@ public class Damage : IFinalValue
 
     private Effects effects;
 
-    public Damage(Effects effects) 
+    public Damage(Effects effects, int startDamage) 
     {
         this.effects = effects;
-        DamageAmount = Random.Range(2, 7);
+        DamageAmount = startDamage;
     }
 
     public int GetFinalValue()
