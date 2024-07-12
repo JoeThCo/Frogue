@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 public class Launcher : MonoBehaviourPunCallbacks
 {
+    [SerializeField] TextMeshProUGUI connectingText;
     [SerializeField] private byte maxPlayersPerRoom = 2;
+
+    bool isConnecting;
 
     private void Awake()
     {
@@ -18,21 +22,28 @@ public class Launcher : MonoBehaviourPunCallbacks
         Connect();
     }
 
-    public void Connect()
+    private void Connect()
     {
-        if (PhotonNetwork.IsConnected)
+        if (!PhotonNetwork.IsConnected)
         {
-            PhotonNetwork.JoinRandomRoom();
-        }
-        else
-        {
-            PhotonNetwork.ConnectUsingSettings();
+            isConnecting = PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.GameVersion = "1";
+        }
+    }
+
+    public void Join()
+    {
+        if (isConnecting)
+        {
+            connectingText.gameObject.SetActive(true);
+            PhotonNetwork.JoinRandomRoom();
+            isConnecting = false;
         }
     }
 
     public override void OnConnectedToMaster()
     {
+
         Debug.Log("PUN Basics Launcher: OnConnectedToMaster() called!");
     }
 
@@ -50,5 +61,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log("PUN Basics Launcher: OnJoinedRoom() called!");
+        PhotonNetwork.LoadLevel(1);
     }
 }
