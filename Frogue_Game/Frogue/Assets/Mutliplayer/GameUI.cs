@@ -9,8 +9,6 @@ public class GameUI : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI playerOne;
     [SerializeField] private TextMeshProUGUI playerTwo;
 
-    internal static string localPlayerName;
-
     public static GameUI Instance;
 
     private void Start()
@@ -27,6 +25,17 @@ public class GameUI : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         base.OnStartLocalPlayer();
-        Debug.Log(localPlayerName);
+    }
+
+    public void SetText(string playerName)
+    {
+        if (playerOne.text.Equals("???"))
+        {
+            playerOne.SetText(playerName);
+        }
+        else if (playerTwo.text.Equals("???"))
+        {
+            playerTwo.SetText(playerName);
+        }
     }
 }

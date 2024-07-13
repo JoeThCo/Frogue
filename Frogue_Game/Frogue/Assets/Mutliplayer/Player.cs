@@ -2,20 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using TMPro;
 
 public class Player : NetworkBehaviour
 {
-    [SyncVar]
+    [SerializeField] TextMeshProUGUI playerText;
+
+    [SyncVar(hook = nameof(OnNameChanged))]
     public string playerName;
 
-    public override void OnStartServer()
+    void OnNameChanged(string _old, string _new)
     {
-        playerName = (string)connectionToClient.authenticationData;
+        playerText.SetText(_new);
     }
 
     public override void OnStartLocalPlayer()
     {
-        GameUI.localPlayerName = playerName;
-        Debug.Log(playerName);
+        string newName = "Player" + UnityEngine.Random.Range(0, 1000);
+        CmdSetUpPlayer(newName);
+    }
+
+    [Command]
+    public void CmdSetUpPlayer(string name)
+    {
+        playerName = name;
     }
 }

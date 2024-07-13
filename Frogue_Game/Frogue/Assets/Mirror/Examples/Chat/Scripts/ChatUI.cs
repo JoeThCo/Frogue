@@ -13,7 +13,6 @@ namespace Mirror.Examples.Chat
         [SerializeField] InputField chatMessage;
         [SerializeField] Button sendButton;
 
-        // This is only set on client to the name of the local player
         internal static string localPlayerName;
 
         // Server-only cross-reference of connections to player names
