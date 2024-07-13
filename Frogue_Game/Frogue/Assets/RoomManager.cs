@@ -11,7 +11,10 @@ public class RoomManager : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        PhotonNetwork.Instantiate(this.playerPrefab.name, Vector3.zero, Quaternion.identity, 0);
+        if (PlayerManager.localPlayerInstance == null)
+        {
+            PhotonNetwork.Instantiate(this.playerPrefab.name, Vector3.zero, Quaternion.identity, 0);
+        }
     }
 
     public override void OnLeftRoom()
@@ -48,7 +51,7 @@ public class RoomManager : MonoBehaviourPunCallbacks
             return;
         }
 
-        Debug.Log($" Loading level {PhotonNetwork.CurrentRoom.PlayerCount}!");
-        PhotonNetwork.LoadLevel("Room for " + PhotonNetwork.CurrentRoom.PlayerCount);
+        Debug.Log($" Loading game!");
+        PhotonNetwork.LoadLevel(1);
     }
 }

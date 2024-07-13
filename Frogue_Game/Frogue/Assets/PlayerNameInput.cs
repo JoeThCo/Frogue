@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerNameInput : MonoBehaviour
 {
     const string playerNamePrefKey = "PlayerName";
-    [SerializeField] private InputField playerNameInputField;
+    [SerializeField] private TMP_InputField playerNameInputField;
 
     private void Start()
     {

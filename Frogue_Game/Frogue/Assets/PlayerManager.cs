@@ -3,16 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     public static GameObject localPlayerInstance;
-    [SerializeField] private PhotonView photonView;
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            //stream.SendNext(IsFiring);
+        }
+        else
+        {
+            //this.IsFiring = (bool)stream.ReceiveNext();
+        }
+    }
 
     private void Awake()
     {
         if (photonView.IsMine)
         {
-            PlayerManager.localPlayerInstance = this.gameObject;
+            localPlayerInstance = this.gameObject;
         }
 
         DontDestroyOnLoad(this.gameObject);
