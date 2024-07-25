@@ -16,11 +16,6 @@ public class Types
     public Types(BeingType[] types)
     {
         BeingTypes.AddRange(types);
-
-        foreach (BeingType type in BeingTypes)
-        {
-            type.TypeInit();
-        }
     }
 
     public Color GetMainColor()
