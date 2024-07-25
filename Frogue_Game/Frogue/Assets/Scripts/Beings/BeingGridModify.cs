@@ -44,11 +44,13 @@ public class BeingGridModify : MonoBehaviour
             {
                 if (!otherBeingSlot.BeingController) return;
                 selectedSlot = otherBeingSlot;
+                selectedSlot.OnSelect();
                 Debug.Log("Selected!");
             }
             else
             {
                 beingGrid.SwapBeingControllers(selectedSlot, otherBeingSlot);
+                selectedSlot.OnDeselect();
                 selectedSlot = null;
                 Debug.Log("Swap!");
             }
@@ -57,6 +59,7 @@ public class BeingGridModify : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             if (selectedSlot == null) return;
+            selectedSlot.OnDeselect();
             selectedSlot = null;
         }
     }
