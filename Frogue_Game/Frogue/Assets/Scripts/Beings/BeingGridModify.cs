@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BeingGridModify : MonoBehaviour
 {
-    [SerializeField] private BeingGrid beingGrid;
+    [SerializeField] private PlayerGrid beingGrid;
     [SerializeField] private BeingSlot selectedSlot;
 
     bool canInteract = true;
@@ -38,7 +38,6 @@ public class BeingGridModify : MonoBehaviour
 
             BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
             if (otherBeingSlot == null) return;
-            if (!otherBeingSlot.isPlayerInteractable) return;
 
             if (!selectedSlot)
             {

@@ -309,10 +309,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: {x: 5, y: 5}
+  BeingsToSpawn: 15
   cellSize: 1.25
-  isPlayerInteractable: 1
-  beingSlotPrefab: {fileID: -5707492269710170126, guid: d3f0bc1740021064f92fe4fc755cfe86, type: 3}
-  beingPrefab: {fileID: 6668906198095946654, guid: e6188c3c6d496a843a7667e9b7facdcc, type: 3}
 --- !u!114 &378079392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,31 +334,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 442032907}
-  - component: {fileID: 442032906}
+  - component: {fileID: 442032908}
   m_Layer: 0
-  m_Name: BaddieGrid
+  m_Name: BaddieParty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &442032906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442032904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d72b1573e513754c9defca00c581689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridSize: {x: 5, y: 5}
-  cellSize: 1.25
-  isPlayerInteractable: 0
-  beingSlotPrefab: {fileID: -5707492269710170126, guid: d3f0bc1740021064f92fe4fc755cfe86, type: 3}
-  beingPrefab: {fileID: 6668906198095946654, guid: e6188c3c6d496a843a7667e9b7facdcc, type: 3}
 --- !u!4 &442032907
 Transform:
   m_ObjectHideFlags: 0
@@ -370,12 +351,26 @@ Transform:
   m_GameObject: {fileID: 442032904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &442032908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442032904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f64788d58a1e34f9b1e86dee62a7ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridSize: {x: 1, y: 5}
+  BeingsToSpawn: 5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,7 +781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerGrid: {fileID: 378079391}
-  baddieGrid: {fileID: 442032906}
+  baddieParty: {fileID: 442032908}
 --- !u!1001 &231564909502945782
 PrefabInstance:
   m_ObjectHideFlags: 0

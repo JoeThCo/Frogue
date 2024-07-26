@@ -25,6 +25,6 @@ public class Types
             return BeingTypes[0].Color;
         }
 
-        return Color.black;
+        return Color.white;
     }
 }

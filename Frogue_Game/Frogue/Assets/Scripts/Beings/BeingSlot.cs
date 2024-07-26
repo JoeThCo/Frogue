@@ -8,14 +8,11 @@ public class BeingSlot : MonoBehaviour
     [SerializeField] private SpriteRenderer outline;
     public BeingController BeingController { get; set; }
     public Vector2Int Coords { get; private set; }
-    public bool isPlayerInteractable { get; private set; } = false;
-
     private Vector3 defaultScale = Vector3.zero;
 
-    public void BeingSlotInit(Vector2Int coords, bool isPlayerInteractable)
+    public void BeingSlotInit(Vector2Int coords)
     {
         this.Coords = coords;
-        this.isPlayerInteractable = isPlayerInteractable;
         this.defaultScale = outline.transform.localScale;
 
         OnDeselect();
@@ -43,9 +40,7 @@ public class BeingSlot : MonoBehaviour
         if (other == null) return false;
         BeingSlot compare = other as BeingSlot;
 
-        return compare.Coords == Coords &&
-            compare.isPlayerInteractable == isPlayerInteractable &&
-            compare.BeingController == BeingController;
+        return compare.Coords == Coords && compare.BeingController == BeingController;
     }
 
     public override int GetHashCode()

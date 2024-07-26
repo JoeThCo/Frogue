@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BeingBattle : MonoBehaviour
 {
-    [SerializeField] BeingGrid playerGrid;
-    [SerializeField] BeingGrid baddieGrid;
+    [SerializeField] BeingHolder playerGrid;
+    [SerializeField] BeingHolder baddieParty;
 
     public static bool isBattling = true;
 
@@ -28,22 +28,7 @@ public class BeingBattle : MonoBehaviour
     {
         BeingBattleBus.EmitFightStart();
 
-        BeingGrid faster;
-        BeingGrid slower;
-
-        Debug.LogFormat("Player: {0} vs Baddie: {1}", playerGrid.GridSpeed, baddieGrid.GridSpeed);
-        if (playerGrid.GridSpeed >= baddieGrid.GridSpeed)
-        {
-            faster = playerGrid;
-            slower = baddieGrid;
-        }
-        else
-        {
-            faster = baddieGrid;
-            slower = playerGrid;
-        }
-
-        yield return GridFight(faster, slower);
+        //yield return GridFight(faster, slower);
         if (!isBattling)
         {
             yield break;
@@ -52,7 +37,7 @@ public class BeingBattle : MonoBehaviour
         BeingBattleBus.EmitFightHalf();
         yield return new WaitForSeconds(1);
 
-        yield return GridFight(slower, faster);
+        //yield return GridFight(slower, faster);
         if (!isBattling)
         {
             yield break;
@@ -61,23 +46,9 @@ public class BeingBattle : MonoBehaviour
         BeingBattleBus.EmitFightEnd();
     }
 
-    IEnumerator GridFight(BeingGrid offense, BeingGrid defense)
-    {
-        foreach (Being current in offense.AliveBeings)
-        {
-            BattleState battleState = new BattleState(current, defense.GetFirstBeing(), offense, defense);
-
-            CheckBattleOver();
-            if (!isBattling)
-            {
-                yield break;
-            }
-        }
-    }
-
     public void CheckBattleOver()
     {
-        if (playerGrid.HasAliveBeings || baddieGrid.HasAliveBeings)
+        if (playerGrid.HasAliveBeings || baddieParty.HasAliveBeings)
         {
             Debug.Log("Winner!");
             BeingBattleBus.EmitBattleOver();
