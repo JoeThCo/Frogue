@@ -7,7 +7,7 @@ public class BeingHolder : MonoBehaviour
     [SerializeField] protected Vector2Int gridSize = Vector2Int.one * 5;
     [SerializeField] private int BeingsToSpawn = 5;
 
-    public Being[] AliveBeings
+    public BeingSlot[] AliveBeings
     {
         get
         {
@@ -27,9 +27,9 @@ public class BeingHolder : MonoBehaviour
         get
         {
             int outputSpeed = 0;
-            foreach (Being being in AliveBeings)
+            foreach (BeingSlot beingSlot in AliveBeings)
             {
-                outputSpeed += being.Speed.GetFinalValue();
+                outputSpeed += beingSlot.BeingController.Being.Speed.GetFinalValue();
             }
             return outputSpeed;
         }
@@ -88,15 +88,15 @@ public class BeingHolder : MonoBehaviour
         }
     }
 
-    private Being[] GetAliveBeings()
+    private BeingSlot[] GetAliveBeings()
     {
-        List<Being> output = new List<Being>();
+        List<BeingSlot> output = new List<BeingSlot>();
 
         foreach (BeingSlot slot in allSlots)
         {
             if (slot.BeingController)
             {
-                output.Add(slot.BeingController.Being);
+                output.Add(slot);
             }
         }
 
