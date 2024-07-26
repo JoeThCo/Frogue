@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2538910552e8fd648bf5132e0adf2e80, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  _color: {r: 0.072668225, g: 0.50877774, b: 0.6698113, a: 1}
+  _color: {r: 0.20803669, g: 0.6417036, b: 0.8018868, a: 1}

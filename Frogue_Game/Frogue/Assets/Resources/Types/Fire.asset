@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2538910552e8fd648bf5132e0adf2e80, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
-  _color: {r: 0.9245283, g: 0.40573975, b: 0.15263437, a: 1}
+  _color: {r: 0.8773585, g: 0.42752424, b: 0.21106264, a: 1}
