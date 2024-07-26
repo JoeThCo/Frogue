@@ -10,7 +10,6 @@ public class BeingController : MonoBehaviour
     public void BeingControllerInit(Being being)
     {
         Being = being;
-        Debug.Log(Being.name);
-        spriteRenderer.color = Being.Types.GetMainColor();
+        spriteRenderer.color = being.Types.GetMainColor();
     }
 }

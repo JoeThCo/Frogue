@@ -103,7 +103,7 @@ public class BeingHolder : MonoBehaviour
         return output.ToArray();
     }
 
-    private void AddBeing()
+    private bool AddBeing()
     {
         foreach (BeingSlot slot in allSlots)
         {
@@ -112,9 +112,10 @@ public class BeingHolder : MonoBehaviour
                 BeingController beingController = Instantiate(beingControllerPrefab, slot.transform);
                 beingController.BeingControllerInit(ResourceManager.GetBeing());
                 slot.BeingController = beingController;
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     protected void AddBeing(int count)
