@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 1145191890628529519}
   - component: {fileID: 3641412279674363289}
   m_Layer: 0
-  m_Name: BeingController
+  m_Name: Being
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -18,27 +18,27 @@ public class PlayerGrid : BeingHolder
 
     public void SwapBeingControllers(BeingSlot selected, BeingSlot other)
     {
-        if (other.BeingController == null)
+        if (other.Being == null)
         {
-            selected.BeingController.transform.SetParent(other.transform);
+            selected.Being.transform.SetParent(other.transform);
 
-            other.BeingController = selected.BeingController;
-            selected.BeingController = null;
+            other.Being = selected.Being;
+            selected.Being = null;
 
-            other.BeingController.transform.localPosition = Vector2.zero;
+            other.Being.transform.localPosition = Vector2.zero;
         }
         else
         {
             BeingSlot tempSlot = selected;
-            selected.BeingController.transform.SetParent(other.transform);
-            other.BeingController.transform.SetParent(tempSlot.transform);
+            selected.Being.transform.SetParent(other.transform);
+            other.Being.transform.SetParent(tempSlot.transform);
 
-            BeingController tempController = selected.BeingController;
-            selected.BeingController = other.BeingController;
-            other.BeingController = tempController;
+            Being tempController = selected.Being;
+            selected.Being = other.Being;
+            other.Being = tempController;
 
-            selected.BeingController.transform.localPosition = Vector3.zero;
-            other.BeingController.transform.localPosition = Vector3.zero;
+            selected.Being.transform.localPosition = Vector3.zero;
+            other.Being.transform.localPosition = Vector3.zero;
         }
     }
 }

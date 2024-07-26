@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class ResourceManager
 {
-    private static Being[] allBeings;
+    private static BeingSO[] allBeings;
 
     private static Effect[] allEffects;
     private static GameObject[] allUI;
@@ -18,16 +18,14 @@ public static class ResourceManager
 
         allEffects = Resources.LoadAll<Effect>("Effect");
         allUI = Resources.LoadAll<GameObject>("UI");
-        allBeings = Resources.LoadAll<Being>("Being");
+        allBeings = Resources.LoadAll<BeingSO>("Being");
 
         isLoaded = true;
     }
 
-    public static Being GetBeing()
+    public static BeingSO GetBeing()
     {
-        Being random = GetRandom<Being>(allBeings);
-        random.BeingInit();
-        return random;
+        return GetRandom<BeingSO>(allBeings);
     }
 
     public static Effect GetEffect()

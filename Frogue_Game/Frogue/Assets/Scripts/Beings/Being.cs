@@ -1,37 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
-using DG.Tweening;
-using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "New Being", menuName = "ScriptableObject/Being")]
-public class Being : ScriptableObject
+public class Being : MonoBehaviour
 {
-    [SerializeField][Range(1, 10)] private int startDamage;
-    [SerializeField][Range(1, 10)] private int startHealth;
-    [SerializeField][Range(1, 10)] private int startSpeed;
-    [SerializeField] private Effect[] startEffects;
-    [SerializeField] private BeingType[] startTypes;
-
+    [SerializeField] private SpriteRenderer spriteRenderer;
     public Damage Damage { get; private set; }
     public Health Health { get; private set; }
     public Speed Speed { get; private set; }
     public Effects Effects { get; private set; }
     public Types Types { get; private set; }
 
-    public void BeingInit()
+    public void BeingInit(BeingSO beingSO)
     {
-        Effects = new Effects(startEffects);
+        Effects = new Effects(beingSO.startEffects);
 
-        Types = new Types(startTypes);
-        Health = new Health(startHealth);
+        Types = new Types(beingSO.startTypes);
+        Health = new Health(beingSO.startHealth);
 
-        Damage = new Damage(Effects, startDamage);
-        Speed = new Speed(Effects, startSpeed);
-    }
+        Damage = new Damage(Effects, beingSO.startDamage);
+        Speed = new Speed(Effects, beingSO.startSpeed);
 
-    public override int GetHashCode()
-    {
-        return base.GetHashCode();
+        spriteRenderer.color = Types.GetMainColor();
     }
 }

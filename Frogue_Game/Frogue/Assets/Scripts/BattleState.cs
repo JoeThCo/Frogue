@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class BattleState
 {
-    public Being AttackingBeing { get; private set; }
-    public Being DefendingBeing { get; private set; }
+    public BeingSO AttackingBeing { get; private set; }
+    public BeingSO DefendingBeing { get; private set; }
 
     public PlayerGrid OffenseBeingGrid { get; private set; }
     public PlayerGrid DefenseBeingGrid { get; private set; }
 
-    public BattleState(Being AttackingBeing, Being DefendingBeing, PlayerGrid OffenseBeingGrid, PlayerGrid DefenseBeingGrid)
+    public BattleState(BeingSO AttackingBeing, BeingSO DefendingBeing, PlayerGrid OffenseBeingGrid, PlayerGrid DefenseBeingGrid)
     {
         this.AttackingBeing = AttackingBeing;
         this.DefendingBeing = DefendingBeing;

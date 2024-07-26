@@ -41,7 +41,7 @@ public class BeingGridModify : MonoBehaviour
 
             if (!selectedSlot)
             {
-                if (!otherBeingSlot.BeingController) return;
+                if (!otherBeingSlot.Being) return;
                 selectedSlot = otherBeingSlot;
                 selectedSlot.OnSelect();
                 Debug.Log("Selected!");

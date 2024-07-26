@@ -6,7 +6,7 @@ using UnityEngine;
 public class BeingSlot : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer outline;
-    public BeingController BeingController { get; set; }
+    public Being Being { get; set; }
     public Vector2Int Coords { get; private set; }
     private Vector3 defaultScale = Vector3.zero;
 
@@ -20,7 +20,7 @@ public class BeingSlot : MonoBehaviour
 
     public override string ToString()
     {
-        return BeingController.ToString() + " " + Coords.ToString();
+        return Being.ToString() + " " + Coords.ToString();
     }
 
     public void OnSelect()
@@ -40,7 +40,7 @@ public class BeingSlot : MonoBehaviour
         if (other == null) return false;
         BeingSlot compare = other as BeingSlot;
 
-        return compare.Coords == Coords && compare.BeingController == BeingController;
+        return compare.Coords == Coords && compare.Being == Being;
     }
 
     public override int GetHashCode()

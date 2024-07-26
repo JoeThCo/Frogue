@@ -29,7 +29,7 @@ public class BeingHolder : MonoBehaviour
             int outputSpeed = 0;
             foreach (BeingSlot beingSlot in AliveBeings)
             {
-                outputSpeed += beingSlot.BeingController.Being.Speed.GetFinalValue();
+                outputSpeed += beingSlot.Being.Speed.GetFinalValue();
             }
             return outputSpeed;
         }
@@ -38,14 +38,14 @@ public class BeingHolder : MonoBehaviour
     private BeingSlot[,] allSlots;
 
     private BeingSlot beingSlotPrefab;
-    private BeingController beingControllerPrefab;
+    private Being beingControllerPrefab;
 
     public virtual void Start()
     {
         allSlots = new BeingSlot[gridSize.x, gridSize.y];
 
         beingSlotPrefab = ResourceManager.GetUI("BeingSlot").GetComponent<BeingSlot>();
-        beingControllerPrefab = ResourceManager.GetUI("BeingController").GetComponent<BeingController>();
+        beingControllerPrefab = ResourceManager.GetUI("Being").GetComponent<Being>();
 
         MakeGrid();
         AddBeing(BeingsToSpawn);
@@ -81,10 +81,10 @@ public class BeingHolder : MonoBehaviour
     {
         foreach (BeingSlot slot in allSlots)
         {
-            if (!slot.BeingController) continue;
-            if (!slot.BeingController.Being.Health.isDead()) continue;
+            if (!slot.Being) continue;
+            if (!slot.Being.Health.isDead()) continue;
 
-            slot.BeingController = null;
+            slot.Being = null;
         }
     }
 
@@ -94,7 +94,7 @@ public class BeingHolder : MonoBehaviour
 
         foreach (BeingSlot slot in allSlots)
         {
-            if (slot.BeingController)
+            if (slot.Being)
             {
                 output.Add(slot);
             }
@@ -107,11 +107,11 @@ public class BeingHolder : MonoBehaviour
     {
         foreach (BeingSlot slot in allSlots)
         {
-            if (!slot.BeingController)
+            if (!slot.Being)
             {
-                BeingController beingController = Instantiate(beingControllerPrefab, slot.transform);
-                beingController.BeingControllerInit(ResourceManager.GetBeing());
-                slot.BeingController = beingController;
+                Being being = Instantiate(beingControllerPrefab, slot.transform);
+                being.BeingInit(ResourceManager.GetBeing());
+                slot.Being = being;
                 return true;
             }
         }
