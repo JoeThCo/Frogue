@@ -7,31 +7,12 @@ public class BeingHolder : MonoBehaviour
     [SerializeField] protected Vector2Int gridSize = Vector2Int.one * 5;
     [SerializeField] private int BeingsToSpawn = 5;
 
-    public BeingSlot[] AliveBeings
+    public Being[] AliveBeings
     {
         get
         {
             UpdateBeings();
             return GetAliveBeings();
-        }
-    }
-    public bool HasAliveBeings
-    {
-        get
-        {
-            return AliveBeings.Length <= 0;
-        }
-    }
-    public int TotalSpeed
-    {
-        get
-        {
-            int outputSpeed = 0;
-            foreach (BeingSlot beingSlot in AliveBeings)
-            {
-                outputSpeed += beingSlot.Being.Speed.GetFinalValue();
-            }
-            return outputSpeed;
         }
     }
 
@@ -49,6 +30,26 @@ public class BeingHolder : MonoBehaviour
 
         MakeGrid();
         AddBeing(BeingsToSpawn);
+    }
+
+    public int GetHolderSpeed()
+    {
+        int outputSpeed = 0;
+        foreach (Being being in AliveBeings)
+        {
+            outputSpeed += being.Speed.GetFinalValue();
+        }
+        return outputSpeed;
+    }
+
+    public bool IsDead()
+    {
+        return AliveBeings.Length <= 0;
+    }
+
+    public Being GetNext()
+    {
+        return AliveBeings[0];
     }
 
     void MakeGrid()
@@ -81,23 +82,22 @@ public class BeingHolder : MonoBehaviour
     {
         foreach (BeingSlot slot in allSlots)
         {
-            if (!slot.Being) continue;
-            if (!slot.Being.Health.isDead()) continue;
-
-            slot.Being = null;
+            if (slot.Being && slot.Being.Health.isDead())
+            {
+                Destroy(slot.Being.gameObject);
+                slot.Being = null;
+            }
         }
     }
 
-    private BeingSlot[] GetAliveBeings()
+    private Being[] GetAliveBeings()
     {
-        List<BeingSlot> output = new List<BeingSlot>();
+        List<Being> output = new List<Being>();
 
         foreach (BeingSlot slot in allSlots)
         {
-            if (slot.Being)
-            {
-                output.Add(slot);
-            }
+            if (slot.Being && !slot.Being.Health.isDead())
+                output.Add(slot.Being);
         }
 
         return output.ToArray();

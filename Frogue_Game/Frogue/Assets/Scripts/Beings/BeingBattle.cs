@@ -28,6 +28,8 @@ public class BeingBattle : MonoBehaviour
     {
         BeingBattleBus.EmitFightStart();
 
+        yield return GridFight(playerGrid, baddieParty);
+
         if (!isBattling)
         {
             yield break;
@@ -36,6 +38,7 @@ public class BeingBattle : MonoBehaviour
         BeingBattleBus.EmitFightHalf();
         yield return new WaitForSeconds(1);
 
+        yield return GridFight(baddieParty, playerGrid);
         if (!isBattling)
         {
             yield break;
@@ -46,8 +49,11 @@ public class BeingBattle : MonoBehaviour
 
     IEnumerator GridFight(BeingHolder attacker, BeingHolder defender)
     {
-        foreach (BeingSlot beingSlot in attacker.AliveBeings)
+        foreach (Being being in attacker.AliveBeings)
         {
+            defender.GetNext().Health.TakeDamage(being.Damage);
+            yield return new WaitForSeconds(.1f);
+
             CheckBattleOver();
             if (!isBattling)
             {
@@ -58,7 +64,7 @@ public class BeingBattle : MonoBehaviour
 
     public void CheckBattleOver()
     {
-        if (playerGrid.HasAliveBeings || baddieParty.HasAliveBeings)
+        if (playerGrid.IsDead() || baddieParty.IsDead())
         {
             Debug.Log("Winner!");
             BeingBattleBus.EmitBattleOver();
