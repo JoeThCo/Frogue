@@ -17,6 +17,12 @@ public class BeingBattleUI : MonoBehaviour
         seed.SetText("Seed: " + GameManager.Seed);
     }
 
+    public void OnDisable()
+    {
+        BeingBattleBus.FightStart -= BeingBattleBus_BattleStart;
+        BeingBattleBus.FightEnd -= BeingBattleBus_BattleEnd;
+    }
+
     private void BeingBattleBus_BattleStart()
     {
         fight.gameObject.SetActive(false);

@@ -1,0 +1,7 @@
+0.0.7.a Check List
+
+1. Display one Baddie at a time
+2. Display effects
+3. SFX
+4. Music
+5. Simple juice
