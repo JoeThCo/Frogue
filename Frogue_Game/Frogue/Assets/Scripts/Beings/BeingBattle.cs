@@ -51,8 +51,7 @@ public class BeingBattle : MonoBehaviour
     {
         foreach (Being being in attacker.AliveBeings)
         {
-            defender.GetNext().Health.TakeDamage(being.Damage);
-            yield return new WaitForSeconds(.1f);
+            yield return being.DamageTween(defender.GetNext());
 
             CheckBattleOver();
             if (!isBattling)
