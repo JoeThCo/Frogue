@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerGrid : BeingHolder
 {
+    [SerializeField][Range(.15f, .5f)] private float swapTime = .25f;
     [SerializeField] private float cellSize = 2;
 
     public override Vector3 GetBeingSlotPosition(BeingSlot beingSlot)
@@ -16,7 +14,7 @@ public class PlayerGrid : BeingHolder
         return position;
     }
 
-    public void SwapBeingControllers(BeingSlot selected, BeingSlot other)
+    public void SwapBeings(BeingSlot selected, BeingSlot other)
     {
         if (other.Being == null)
         {
@@ -25,7 +23,7 @@ public class PlayerGrid : BeingHolder
             other.Being = selected.Being;
             selected.Being = null;
 
-            other.Being.transform.localPosition = Vector2.zero;
+            other.Being.transform.DOLocalMove(Vector2.zero, swapTime);
         }
         else
         {
@@ -37,8 +35,8 @@ public class PlayerGrid : BeingHolder
             selected.Being = other.Being;
             other.Being = tempController;
 
-            selected.Being.transform.localPosition = Vector3.zero;
-            other.Being.transform.localPosition = Vector3.zero;
+            selected.Being.transform.DOLocalMove(Vector2.zero, swapTime);
+            other.Being.transform.DOLocalMove(Vector2.zero, swapTime);
         }
     }
 }

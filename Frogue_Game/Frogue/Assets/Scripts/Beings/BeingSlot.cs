@@ -7,11 +7,13 @@ public class BeingSlot : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer outline;
     public Being Being { get; set; }
+    public bool isPlayerInteractable { get; private set; }
     public Vector2Int Coords { get; private set; }
     private Vector3 defaultScale = Vector3.zero;
 
-    public void BeingSlotInit(Vector2Int coords)
+    public void BeingSlotInit(Vector2Int coords, bool isPlayerInteractable)
     {
+        this.isPlayerInteractable = isPlayerInteractable;
         this.Coords = coords;
         this.defaultScale = outline.transform.localScale;
 

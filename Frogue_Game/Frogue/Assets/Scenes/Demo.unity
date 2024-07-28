@@ -310,6 +310,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: {x: 5, y: 5}
   BeingsToSpawn: 15
+  isPlayerInteractable: 1
+  swapTime: 0.25
   cellSize: 1.25
 --- !u!114 &378079392
 MonoBehaviour:
@@ -371,6 +373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridSize: {x: 1, y: 5}
   BeingsToSpawn: 5
+  isPlayerInteractable: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

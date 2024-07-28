@@ -38,6 +38,7 @@ public class BeingGridModify : MonoBehaviour
 
             BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
             if (otherBeingSlot == null) return;
+            if (!otherBeingSlot.isPlayerInteractable) return;
 
             if (!selectedSlot)
             {
@@ -48,7 +49,7 @@ public class BeingGridModify : MonoBehaviour
             }
             else
             {
-                beingGrid.SwapBeingControllers(selectedSlot, otherBeingSlot);
+                beingGrid.SwapBeings(selectedSlot, otherBeingSlot);
                 selectedSlot.OnDeselect();
                 selectedSlot = null;
                 Debug.Log("Swap!");

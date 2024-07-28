@@ -6,6 +6,8 @@ public class BeingHolder : MonoBehaviour
 {
     [SerializeField] protected Vector2Int gridSize = Vector2Int.one * 5;
     [SerializeField] private int BeingsToSpawn = 5;
+    [Space(10)]
+    [SerializeField] private bool isPlayerInteractable = false;
 
     public Being[] AliveBeings
     {
@@ -67,7 +69,7 @@ public class BeingHolder : MonoBehaviour
     void AddBeingSlot(Vector2Int coords)
     {
         BeingSlot beingSlot = Instantiate(beingSlotPrefab, transform);
-        beingSlot.BeingSlotInit(coords);
+        beingSlot.BeingSlotInit(coords, isPlayerInteractable);
         beingSlot.transform.localPosition = GetBeingSlotPosition(beingSlot);
 
         allSlots[coords.y, coords.x] = beingSlot;
