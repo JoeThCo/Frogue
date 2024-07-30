@@ -45,4 +45,12 @@ public class Being : MonoBehaviour
         transform.DOMove(startPosition, halfTime).SetEase(Ease.Linear);
         yield return new WaitForSeconds(halfTime);
     }
+
+    public void ChangeParentSlot(BeingSlot slot, float swapTime = .25f)
+    {
+        slot.Being = this;
+
+        transform.SetParent(slot.transform);
+        transform.DOLocalMove(Vector2.zero, swapTime).SetEase(Ease.Linear);
+    }
 }

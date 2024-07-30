@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BeingSlot : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer outline;
     public Being Being { get; set; }
     public bool isPlayerInteractable { get; private set; }
-    public Vector2Int Coords { get; private set; }
+    public Vector2Int Coords { get; set; }
     private Vector3 defaultScale = Vector3.zero;
 
     public void BeingSlotInit(Vector2Int coords, bool isPlayerInteractable)
@@ -48,5 +49,31 @@ public class BeingSlot : MonoBehaviour
     public override int GetHashCode()
     {
         return base.GetHashCode();
+    }
+
+    public void SwapBeings(BeingSlot other) 
+    {
+        if (other.Being == null)
+        {
+            Being.transform.SetParent(other.transform);
+
+            other.Being = Being;
+            Being = null;
+
+            other.Being.transform.DOLocalMove(Vector2.zero, .25f);
+        }
+        else 
+        {
+            BeingSlot tempSlot = this;
+            Being.transform.SetParent(other.transform);
+            other.Being.transform.SetParent(tempSlot.transform);
+
+            Being tempController = Being;
+            Being = other.Being;
+            other.Being = tempController;
+
+            Being.transform.DOLocalMove(Vector2.zero, .25f);
+            other.Being.transform.DOLocalMove(Vector2.zero, .25f);
+        }
     }
 }

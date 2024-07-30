@@ -9,15 +9,6 @@ public class BeingHolder : MonoBehaviour
     [Space(10)]
     [SerializeField] private bool isPlayerInteractable = false;
 
-    public Being[] AliveBeings
-    {
-        get
-        {
-            UpdateBeings();
-            return GetAliveBeings();
-        }
-    }
-
     private BeingSlot[,] allSlots;
 
     private BeingSlot beingSlotPrefab;
@@ -32,26 +23,6 @@ public class BeingHolder : MonoBehaviour
 
         MakeGrid();
         AddBeing(BeingsToSpawn);
-    }
-
-    public int GetHolderSpeed()
-    {
-        int outputSpeed = 0;
-        foreach (Being being in AliveBeings)
-        {
-            outputSpeed += being.Speed.GetFinalValue();
-        }
-        return outputSpeed;
-    }
-
-    public bool IsDead()
-    {
-        return AliveBeings.Length <= 0;
-    }
-
-    public Being GetNext()
-    {
-        return AliveBeings[0];
     }
 
     void MakeGrid()
@@ -75,36 +46,6 @@ public class BeingHolder : MonoBehaviour
         allSlots[coords.y, coords.x] = beingSlot;
     }
 
-    public virtual Vector3 GetBeingSlotPosition(BeingSlot beingSlot)
-    {
-        return Vector3.zero;
-    }
-
-    private void UpdateBeings()
-    {
-        foreach (BeingSlot slot in allSlots)
-        {
-            if (slot.Being && slot.Being.Health.isDead())
-            {
-                Destroy(slot.Being.gameObject);
-                slot.Being = null;
-            }
-        }
-    }
-
-    private Being[] GetAliveBeings()
-    {
-        List<Being> output = new List<Being>();
-
-        foreach (BeingSlot slot in allSlots)
-        {
-            if (slot.Being && !slot.Being.Health.isDead())
-                output.Add(slot.Being);
-        }
-
-        return output.ToArray();
-    }
-
     private bool AddBeing()
     {
         foreach (BeingSlot slot in allSlots)
@@ -124,5 +65,33 @@ public class BeingHolder : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
             AddBeing();
+    }
+
+    public bool IsDead()
+    {
+        return GetAliveBeings().Length <= 0;
+    }
+
+    public Being GetNext()
+    {
+        return GetAliveBeings()[0];
+    }
+
+    public virtual Vector3 GetBeingSlotPosition(BeingSlot beingSlot)
+    {
+        return Vector3.zero;
+    }
+
+    public Being[] GetAliveBeings()
+    {
+        List<Being> output = new List<Being>();
+
+        foreach (BeingSlot slot in allSlots)
+        {
+            if (slot.Being && !slot.Being.Health.isDead())
+                output.Add(slot.Being);
+        }
+
+        return output.ToArray();
     }
 }

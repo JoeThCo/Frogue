@@ -49,7 +49,7 @@ public class BeingBattle : MonoBehaviour
 
     IEnumerator GridFight(BeingHolder attacker, BeingHolder defender)
     {
-        foreach (Being being in attacker.AliveBeings)
+        foreach (Being being in attacker.GetAliveBeings())
         {
             yield return being.DamageTween(defender.GetNext());
 

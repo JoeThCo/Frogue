@@ -31,6 +31,11 @@ public class BeingGridModify : MonoBehaviour
     {
         if (!canInteract) return;
 
+        if (Input.GetKeyDown(KeyCode.Space) && selectedSlot != null)
+        {
+            Debug.Log(selectedSlot.Coords);
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
