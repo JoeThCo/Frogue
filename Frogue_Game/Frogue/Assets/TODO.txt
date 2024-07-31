@@ -1,7 +1,6 @@
-0.0.7.a Check List
+MVP TODO
 
-1. Display one Baddie at a time
-2. Display effects
-3. SFX
-4. Music
-5. Simple juice
+- Make baddie class, like beingSO
+- Bulk attack (even, odds, >,< row, column)
+- Abilities
+- Display Being Info

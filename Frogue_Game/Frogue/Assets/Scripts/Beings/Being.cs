@@ -8,7 +8,6 @@ public class Being : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     public Damage Damage { get; private set; }
     public Health Health { get; private set; }
-    public Speed Speed { get; private set; }
     public Effects Effects { get; private set; }
     public Types Types { get; private set; }
 
@@ -21,7 +20,6 @@ public class Being : MonoBehaviour
         Health.OnDeath += Health_OnDeath;
 
         Damage = new Damage(Effects, beingSO.startDamage);
-        Speed = new Speed(Effects, beingSO.startSpeed);
 
         spriteRenderer.color = Types.GetMainColor();
     }

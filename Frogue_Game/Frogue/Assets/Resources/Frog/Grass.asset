@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ab06cc6249de446a45e94f44f6c30c, type: 3}
-  m_Name: Test_Grass
+  m_Script: {fileID: 11500000, guid: 00fd7b46549afa24188989939639dde2, type: 3}
+  m_Name: Grass
   m_EditorClassIdentifier: 
-  startDamage: 1
-  startHealth: 5
-  startSpeed: 4
+  startDamage: 2
+  startHealth: 10
   startEffects:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}
   startTypes:

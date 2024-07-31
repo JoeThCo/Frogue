@@ -53,7 +53,12 @@ public class BeingHolder : MonoBehaviour
             if (!slot.Being)
             {
                 Being being = Instantiate(beingControllerPrefab, slot.transform);
-                being.BeingInit(ResourceManager.GetBeing());
+                
+                if (isPlayerInteractable)
+                    being.BeingInit(ResourceManager.GetFrog());
+                else
+                    being.BeingInit(ResourceManager.GetBaddie());
+
                 slot.Being = being;
                 return true;
             }
