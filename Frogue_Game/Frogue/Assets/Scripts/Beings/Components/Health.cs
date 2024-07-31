@@ -9,6 +9,7 @@ public class Health
     public int MaxHP { get; private set; }
 
     public event Action OnDeath;
+    public event Action<Health> OnHealthChanged;
 
     public Health(int startHealth)
     {
@@ -19,9 +20,11 @@ public class Health
     public void TakeDamage(Being being)
     {
         int finalDamage = being.Damage.GetFinalValue();
+        if (finalDamage <= 0) return;
+
         HPLeft -= finalDamage;
         SpawnDamageText(being, finalDamage);
-
+        OnHealthChanged?.Invoke(this);
         Debug.LogFormat("-{0} | {1} / {2}", being.Damage.GetFinalValue(), HPLeft, MaxHP);
 
         if (isDead())
@@ -33,6 +36,9 @@ public class Health
         DamageTextPopup damageText = GameObject.Instantiate(ResourceManager.GetUI("DamageTextPopUp")).GetComponent<DamageTextPopup>();
         damageText.DamageTextPopUpInit(being, finalDamage);
     }
+
+    public float GetPercent() { return (float)HPLeft / (float)MaxHP; }
+    public string GetHealthText() { return $"{HPLeft} / {MaxHP}"; }
 
     public bool isDead() { return HPLeft <= 0; }
 }

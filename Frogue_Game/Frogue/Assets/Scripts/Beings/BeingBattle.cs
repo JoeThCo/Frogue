@@ -52,12 +52,12 @@ public class BeingBattle : MonoBehaviour
         foreach (Being being in frogs.GetAliveBeings())
         {
             yield return being.DamageTween(baddie.GetNext());
-        }
 
-        CheckBattleOver();
-        if (!isBattling)
-        {
-            yield break;
+            CheckBattleOver();
+            if (!isBattling)
+            {
+                yield break;
+            }
         }
     }
 
@@ -68,12 +68,12 @@ public class BeingBattle : MonoBehaviour
         foreach (Being being in frogs.GetBulkAttackedBeings(baddieSo.GetRandomBulkAttack()))
         {
             yield return baddie.GetNext().DamageTween(being);
-        }
 
-        CheckBattleOver();
-        if (!isBattling)
-        {
-            yield break;
+            CheckBattleOver();
+            if (!isBattling)
+            {
+                yield break;
+            }
         }
     }
 
