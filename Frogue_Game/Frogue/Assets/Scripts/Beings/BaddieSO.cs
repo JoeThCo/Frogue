@@ -5,5 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Baddie", menuName = "ScriptableObject/Baddie")]
 public class BaddieSO : BeingSO
 {
-    //bulk attack
+    public BulkAttack[] BulkAttacks;
+
+    public BulkAttack GetRandomBulkAttack()
+    {
+        return BulkAttacks[GameManager.Random.Next(0, BulkAttacks.Length)];
+    }
 }

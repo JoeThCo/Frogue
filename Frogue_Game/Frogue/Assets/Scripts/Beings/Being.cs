@@ -11,15 +11,19 @@ public class Being : MonoBehaviour
     public Effects Effects { get; private set; }
     public Types Types { get; private set; }
 
+    public BeingSO BeingInfo { get; private set; }
+
     public void BeingInit(BeingSO beingSO)
     {
-        Effects = new Effects(beingSO.startEffects);
-        Types = new Types(beingSO.startTypes);
+        BeingInfo = beingSO;
 
-        Health = new Health(beingSO.startHealth);
+        Effects = new Effects(beingSO.GetEffects());
+        Types = new Types(beingSO.GetTypes());
+
+        Health = new Health(beingSO.GetHealth());
         Health.OnDeath += Health_OnDeath;
 
-        Damage = new Damage(Effects, beingSO.startDamage);
+        Damage = new Damage(Effects, beingSO.GetDamage());
 
         spriteRenderer.color = Types.GetMainColor();
     }

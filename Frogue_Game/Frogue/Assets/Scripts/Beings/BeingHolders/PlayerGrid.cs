@@ -12,4 +12,9 @@ public class PlayerGrid : BeingHolder
             return position + (Vector2.left * cellSize * 0.5f);
         return position;
     }
+
+    public Being[] GetBulkAttackedBeings(BulkAttack bulkAttack) 
+    {
+        return bulkAttack.GetBeingsToAttack(allSlots);
+    }
 }

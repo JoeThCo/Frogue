@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,7 @@ public class BeingHolder : MonoBehaviour
     [Space(10)]
     [SerializeField] private bool isPlayerInteractable = false;
 
-    private BeingSlot[,] allSlots;
+    protected BeingSlot[,] allSlots;
 
     private BeingSlot beingSlotPrefab;
     private Being beingControllerPrefab;
@@ -53,7 +54,7 @@ public class BeingHolder : MonoBehaviour
             if (!slot.Being)
             {
                 Being being = Instantiate(beingControllerPrefab, slot.transform);
-                
+
                 if (isPlayerInteractable)
                     being.BeingInit(ResourceManager.GetFrog());
                 else

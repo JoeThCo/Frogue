@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BeingBattle : MonoBehaviour
 {
-    [SerializeField] BeingHolder playerGrid;
-    [SerializeField] BeingHolder baddieParty;
+    [SerializeField] PlayerGrid playerGrid;
+    [SerializeField] BaddieParty baddieParty;
 
     public static bool isBattling = true;
 
@@ -28,7 +28,7 @@ public class BeingBattle : MonoBehaviour
     {
         BeingBattleBus.EmitFightStart();
 
-        yield return GridFight(playerGrid, baddieParty);
+        yield return FrogAttack(playerGrid, baddieParty);
 
         if (!isBattling)
         {
@@ -38,7 +38,7 @@ public class BeingBattle : MonoBehaviour
         BeingBattleBus.EmitFightHalf();
         yield return new WaitForSeconds(1);
 
-        yield return GridFight(baddieParty, playerGrid);
+        yield return BaddieAttack(baddieParty, playerGrid);
         if (!isBattling)
         {
             yield break;
@@ -47,17 +47,33 @@ public class BeingBattle : MonoBehaviour
         BeingBattleBus.EmitFightEnd();
     }
 
-    IEnumerator GridFight(BeingHolder attacker, BeingHolder defender)
+    IEnumerator FrogAttack(PlayerGrid frogs, BaddieParty baddie)
     {
-        foreach (Being being in attacker.GetAliveBeings())
+        foreach (Being being in frogs.GetAliveBeings())
         {
-            yield return being.DamageTween(defender.GetNext());
+            yield return being.DamageTween(baddie.GetNext());
+        }
 
-            CheckBattleOver();
-            if (!isBattling)
-            {
-                yield break;
-            }
+        CheckBattleOver();
+        if (!isBattling)
+        {
+            yield break;
+        }
+    }
+
+    IEnumerator BaddieAttack(BaddieParty baddie, PlayerGrid frogs)
+    {
+        BaddieSO baddieSo = (BaddieSO)baddie.GetNext().BeingInfo;
+
+        foreach (Being being in frogs.GetBulkAttackedBeings(baddieSo.GetRandomBulkAttack()))
+        {
+            yield return baddie.GetNext().DamageTween(being);
+        }
+
+        CheckBattleOver();
+        if (!isBattling)
+        {
+            yield break;
         }
     }
 

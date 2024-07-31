@@ -6,8 +6,13 @@ using UnityEngine.UI;
 
 public class BeingSO : ScriptableObject
 {
-    public int startDamage;
-    public int startHealth;
-    public Effect[] startEffects;
-    public BeingType[] startTypes;
+    [SerializeField] private int startDamage;
+    [SerializeField] private int startHealth;
+    [SerializeField] Effect[] startEffects;
+    [SerializeField] private BeingType[] startTypes;
+
+    public int GetDamage() { return startDamage; }
+    public int GetHealth() { return startHealth; }
+    public BeingType[] GetTypes() { return startTypes; }
+    public Effect[] GetEffects() { return startEffects; }
 }
