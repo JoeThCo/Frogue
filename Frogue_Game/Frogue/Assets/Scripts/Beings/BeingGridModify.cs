@@ -54,7 +54,7 @@ public class BeingGridModify : MonoBehaviour
             }
             else
             {
-                beingGrid.SwapBeings(selectedSlot, otherBeingSlot);
+                selectedSlot.SwapBeings(otherBeingSlot);
                 selectedSlot.OnDeselect();
                 selectedSlot = null;
                 Debug.Log("Swap!");

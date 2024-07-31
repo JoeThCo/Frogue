@@ -309,9 +309,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: {x: 5, y: 5}
-  BeingsToSpawn: 15
+  BeingsToSpawn: 7
   isPlayerInteractable: 1
-  swapTime: 0.25
   cellSize: 1.25
 --- !u!114 &378079392
 MonoBehaviour:

@@ -12,9 +12,4 @@ public class PlayerGrid : BeingHolder
             return position + (Vector2.left * cellSize * 0.5f);
         return position;
     }
-
-    public void SwapBeings(BeingSlot selected, BeingSlot other)
-    {
-        selected.SwapBeings(other);
-    }
 }
