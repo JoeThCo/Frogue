@@ -10,14 +10,14 @@ public class BeingHolder : MonoBehaviour
     [Space(10)]
     [SerializeField] private bool isPlayerInteractable = false;
 
-    protected BeingSlot[,] allSlots;
+    public BeingSlot[,] AllSlots;
 
     private BeingSlot beingSlotPrefab;
     private Being beingControllerPrefab;
 
     public virtual void Start()
     {
-        allSlots = new BeingSlot[gridSize.x, gridSize.y];
+        AllSlots = new BeingSlot[gridSize.x, gridSize.y];
 
         beingSlotPrefab = ResourceManager.GetUI("BeingSlot").GetComponent<BeingSlot>();
         beingControllerPrefab = ResourceManager.GetUI("Being").GetComponent<Being>();
@@ -44,25 +44,33 @@ public class BeingHolder : MonoBehaviour
         beingSlot.BeingSlotInit(coords, isPlayerInteractable);
         beingSlot.transform.localPosition = GetBeingSlotPosition(beingSlot);
 
-        allSlots[coords.y, coords.x] = beingSlot;
+        AllSlots[coords.y, coords.x] = beingSlot;
     }
 
     private bool AddBeing()
     {
-        foreach (BeingSlot slot in allSlots)
+        int index = 0;
+        foreach (BeingSlot slot in AllSlots)
         {
             if (!slot.Being)
             {
                 Being being = Instantiate(beingControllerPrefab, slot.transform);
 
                 if (isPlayerInteractable)
+                {
                     being.BeingInit(ResourceManager.GetFrog());
+                    being.gameObject.name = $"Frog #{index}";
+                }
                 else
+                {
                     being.BeingInit(ResourceManager.GetBaddie());
+                    being.gameObject.name = $"Baddie #{index}";
+                }
 
                 slot.Being = being;
                 return true;
             }
+            index++;
         }
         return false;
     }
@@ -92,7 +100,7 @@ public class BeingHolder : MonoBehaviour
     {
         List<Being> output = new List<Being>();
 
-        foreach (BeingSlot slot in allSlots)
+        foreach (BeingSlot slot in AllSlots)
         {
             if (slot.Being && !slot.Being.Health.isDead())
                 output.Add(slot.Being);

@@ -15,6 +15,6 @@ public class PlayerGrid : BeingHolder
 
     public Being[] GetBulkAttackedBeings(BulkAttack bulkAttack) 
     {
-        return bulkAttack.GetBeingsToAttack(allSlots);
+        return bulkAttack.GetBeingsToAttack(this);
     }
 }

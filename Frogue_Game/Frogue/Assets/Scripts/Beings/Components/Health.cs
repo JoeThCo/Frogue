@@ -17,15 +17,15 @@ public class Health
         MaxHP = HPLeft;
     }
 
-    public void TakeDamage(Being being)
+    public void TakeDamage(Being other)
     {
-        int finalDamage = being.Damage.GetFinalValue();
+        int finalDamage = other.Damage.GetFinalValue();
         if (finalDamage <= 0) return;
 
         HPLeft -= finalDamage;
-        SpawnDamageText(being, finalDamage);
+        SpawnDamageText(other, finalDamage);
         OnHealthChanged?.Invoke(this);
-        Debug.LogFormat("-{0} | {1} / {2}", being.Damage.GetFinalValue(), HPLeft, MaxHP);
+        Debug.LogFormat($"-{finalDamage} | {HPLeft} / {MaxHP}");
 
         if (isDead())
             OnDeath?.Invoke();
@@ -39,6 +39,5 @@ public class Health
 
     public float GetPercent() { return (float)HPLeft / (float)MaxHP; }
     public string GetHealthText() { return $"{HPLeft} / {MaxHP}"; }
-
     public bool isDead() { return HPLeft <= 0; }
 }

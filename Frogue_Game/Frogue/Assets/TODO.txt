@@ -1,6 +1,6 @@
 MVP TODO
 
-- Make baddie class, like beingSO
-- Bulk attack (even, odds, >,< row, column)
+- Make baddie class, like beingSO --Done!
+- Bulk attack (even, odds, >,< row, column) --Done!
 - Abilities
 - Display Being Info

@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class Effects
 {
-    public List<Effect> AllEffects { get; private set; } = new List<Effect>();
+    private List<Effect> AllEffects = new List<Effect>();
 
-    public Effects(Effect[] effects) 
+    public Effects(Effect[] effects)
     {
-        AllEffects.AddRange(effects);
+        AllEffects = new List<Effect>(effects);
     }
 
-    public void AddEffect(Effect effect)
+    public void AddEffect(Effect[] effects)
     {
-        AllEffects.Add(effect);
+        foreach (Effect effect in effects)
+        {
+            AllEffects.Add(effect);
+        }
     }
 
     public void RemoveEffect(Effect effect)

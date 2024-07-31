@@ -10,7 +10,6 @@ public class Being : MonoBehaviour
     public Health Health { get; private set; }
     public Effects Effects { get; private set; }
     public Types Types { get; private set; }
-
     public BeingSO BeingInfo { get; private set; }
 
     public void BeingInit(BeingSO beingSO)
@@ -42,7 +41,7 @@ public class Being : MonoBehaviour
         transform.DOMove(otherBeing.transform.position, halfTime).SetEase(Ease.Linear);
         yield return new WaitForSeconds(halfTime);
 
-        otherBeing.Health.TakeDamage(otherBeing);
+        otherBeing.Health.TakeDamage(this);
 
         transform.DOMove(startPosition, halfTime).SetEase(Ease.Linear);
         yield return new WaitForSeconds(halfTime);

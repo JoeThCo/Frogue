@@ -28,6 +28,7 @@ public class BeingBattle : MonoBehaviour
     {
         BeingBattleBus.EmitFightStart();
 
+        yield return AbilityCheck(playerGrid);
         yield return FrogAttack(playerGrid, baddieParty);
 
         if (!isBattling)
@@ -60,7 +61,6 @@ public class BeingBattle : MonoBehaviour
             }
         }
     }
-
     IEnumerator BaddieAttack(BaddieParty baddie, PlayerGrid frogs)
     {
         BaddieSO baddieSo = (BaddieSO)baddie.GetNext().BeingInfo;
@@ -73,6 +73,17 @@ public class BeingBattle : MonoBehaviour
             if (!isBattling)
             {
                 yield break;
+            }
+        }
+    }
+
+    IEnumerator AbilityCheck(BeingHolder beingHolder) 
+    {
+        foreach (Being being in beingHolder.GetAliveBeings()) 
+        {
+            foreach (Ability ability in being.BeingInfo.GetAbilities()) 
+            {
+                yield return ability.AbilityCheck(beingHolder);
             }
         }
     }

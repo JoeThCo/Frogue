@@ -2,23 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Ability", menuName = "ScriptableObject/BulkAttack")]
 public class BulkAttack : ScriptableObject
 {
-    public virtual Being[] GetBeingsToAttack(BeingSlot[,] allSlots)
+    [SerializeField] private Who WhoToAttack;
+
+    public Being[] GetBeingsToAttack(BeingHolder beingHolder)
     {
-        List<Being> output = new List<Being>();
-
-        foreach (BeingSlot slot in allSlots)
-        {
-            if (IsInBulkAttack(slot))
-                output.Add(slot.Being);
-        }
-
-        return output.ToArray();
-    }
-
-    protected virtual bool IsInBulkAttack(BeingSlot slot)
-    {
-        return slot.Being;
+        return WhoToAttack.GetWho(beingHolder);
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Damage : IFinalValue
 {
     private int DamageAmount;
-
     private Effects effects;
 
     public Damage(Effects effects, int startDamage) 

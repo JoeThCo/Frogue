@@ -8,6 +8,7 @@ public class BeingSO : ScriptableObject
 {
     [SerializeField] private int startDamage;
     [SerializeField] private int startHealth;
+    [SerializeField] private Ability[] startAbilities;
     [SerializeField] Effect[] startEffects;
     [SerializeField] private BeingType[] startTypes;
 
@@ -15,4 +16,5 @@ public class BeingSO : ScriptableObject
     public int GetHealth() { return startHealth; }
     public BeingType[] GetTypes() { return startTypes; }
     public Effect[] GetEffects() { return startEffects; }
+    public Ability[] GetAbilities() { return startAbilities; }
 }

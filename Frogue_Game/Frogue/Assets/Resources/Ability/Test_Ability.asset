@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00fd7b46549afa24188989939639dde2, type: 3}
-  m_Name: Fire
+  m_Script: {fileID: 11500000, guid: 5ba736460e43e5544923fd3823758082, type: 3}
+  m_Name: Test_Ability
   m_EditorClassIdentifier: 
-  startDamage: 2
-  startHealth: 10
-  startAbilities:
-  - {fileID: 11400000, guid: df7dda85b64660e48bb2198785f3a29e, type: 2}
-  startEffects:
+  WhoToTrigger: {fileID: 11400000, guid: 0cc698e6b63c7ed4db9c2bc2beae7c12, type: 2}
+  WhoToApplyEffect: {fileID: 11400000, guid: b2bb8695b5f62914f930b59e8ca56f06, type: 2}
+  effects:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}
-  startTypes:
-  - {fileID: 11400000, guid: ae3c360de7ab72a439e8c9503d888e77, type: 2}
+  - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}
