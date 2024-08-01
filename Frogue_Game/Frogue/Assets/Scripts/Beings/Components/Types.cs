@@ -32,4 +32,16 @@ public class Types
 
         return Color.white;
     }
+
+    public override string ToString()
+    {
+        string output = string.Empty;
+
+        foreach(BeingType type in BeingTypes) 
+        {
+            output += type.ToString() + " ";
+        }
+
+        return output;
+    }
 }

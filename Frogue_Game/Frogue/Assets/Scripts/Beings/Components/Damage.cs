@@ -17,4 +17,9 @@ public class Damage : IFinalValue
     {
         return effects.GetFinalValue(DamageAmount, typeof(DamageChange));
     }
+
+    public override string ToString()
+    {
+        return GetFinalValue().ToString();
+    }
 }

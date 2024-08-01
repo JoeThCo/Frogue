@@ -11,16 +11,16 @@ public class BeingBattleUI : MonoBehaviour
 
     private void Start()
     {
-        BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
-        BeingBattleBus.FightEnd += BeingBattleBus_BattleEnd;
+        BeingBattle.FightStart += BeingBattleBus_BattleStart;
+        BeingBattle.FightEnd += BeingBattleBus_BattleEnd;
 
         seed.SetText("Seed: " + GameManager.Seed);
     }
 
     public void OnDisable()
     {
-        BeingBattleBus.FightStart -= BeingBattleBus_BattleStart;
-        BeingBattleBus.FightEnd -= BeingBattleBus_BattleEnd;
+        BeingBattle.FightStart -= BeingBattleBus_BattleStart;
+        BeingBattle.FightEnd -= BeingBattleBus_BattleEnd;
     }
 
     private void BeingBattleBus_BattleStart()

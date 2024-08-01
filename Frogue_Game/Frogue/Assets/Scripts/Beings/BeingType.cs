@@ -12,4 +12,9 @@ public class BeingType : ScriptableObject
     {
         this.Color = _color;
     }
+
+    public override string ToString()
+    {
+        return name;
+    }
 }

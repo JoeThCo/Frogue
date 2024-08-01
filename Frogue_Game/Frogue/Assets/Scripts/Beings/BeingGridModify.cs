@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -11,10 +12,49 @@ public class BeingGridModify : MonoBehaviour
 
     bool canInteract = true;
 
+    public static event Action<BeingSlot> BeingSlotSelected;
+    public static event Action BeingSlotCleared;
+
     private void Start()
     {
-        BeingBattleBus.FightStart += BeingBattleBus_BattleStart;
-        BeingBattleBus.FightEnd += BeingBattleBus_BattleEnd;
+        BeingBattle.FightStart += BeingBattleBus_BattleStart;
+        BeingBattle.FightEnd += BeingBattleBus_BattleEnd;
+
+        BeingSlotSelected += BeingGridModify_BeingSlotSelected;
+        BeingSlotCleared += BeingGridModify_BeingSlotCleared;
+    }
+
+    private void OnDisable()
+    {
+        BeingBattle.FightStart -= BeingBattleBus_BattleStart;
+        BeingBattle.FightEnd -= BeingBattleBus_BattleEnd;
+
+        BeingSlotSelected -= BeingGridModify_BeingSlotSelected;
+        BeingSlotCleared -= BeingGridModify_BeingSlotCleared;
+    }
+
+    private void BeingGridModify_BeingSlotCleared()
+    {
+        if (selectedSlot == null) return;
+        selectedSlot.OnDeselect();
+        selectedSlot = null;
+    }
+
+    private void BeingGridModify_BeingSlotSelected(BeingSlot otherBeingSlot)
+    {
+        if (!selectedSlot)
+        {
+            if (!otherBeingSlot.Being) return;
+            selectedSlot = otherBeingSlot;
+            selectedSlot.OnSelect();
+        }
+        else
+        {
+            selectedSlot.SwapBeings(otherBeingSlot);
+            selectedSlot.OnDeselect();
+            selectedSlot = null;
+            BeingSlotCleared?.Invoke();
+        }
     }
 
     private void BeingBattleBus_BattleStart()
@@ -44,28 +84,12 @@ public class BeingGridModify : MonoBehaviour
             BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
             if (otherBeingSlot == null) return;
             if (!otherBeingSlot.isPlayerInteractable) return;
-
-            if (!selectedSlot)
-            {
-                if (!otherBeingSlot.Being) return;
-                selectedSlot = otherBeingSlot;
-                selectedSlot.OnSelect();
-                Debug.Log("Selected!");
-            }
-            else
-            {
-                selectedSlot.SwapBeings(otherBeingSlot);
-                selectedSlot.OnDeselect();
-                selectedSlot = null;
-                Debug.Log("Swap!");
-            }
+            BeingSlotSelected?.Invoke(otherBeingSlot);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (selectedSlot == null) return;
-            selectedSlot.OnDeselect();
-            selectedSlot = null;
+            BeingSlotCleared?.Invoke();
         }
     }
 }

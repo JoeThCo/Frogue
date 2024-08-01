@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class BeingBattle : MonoBehaviour
 {
@@ -9,9 +10,15 @@ public class BeingBattle : MonoBehaviour
 
     public static bool isBattling = true;
 
+    public static event Action FightStart;
+    public static event Action FightHalf;
+    public static event Action FightEnd;
+
+    public static event Action BattleOver;
+
     private void Start()
     {
-        BeingBattleBus.BattleOver += BeingBattleBus_BattleOver;
+        BattleOver += BeingBattleBus_BattleOver;
     }
 
     private void BeingBattleBus_BattleOver()
@@ -26,7 +33,7 @@ public class BeingBattle : MonoBehaviour
 
     public IEnumerator FightI()
     {
-        BeingBattleBus.EmitFightStart();
+        FightStart?.Invoke();
 
         yield return AbilityCheck(playerGrid);
         yield return FrogAttack(playerGrid, baddieParty);
@@ -36,7 +43,7 @@ public class BeingBattle : MonoBehaviour
             yield break;
         }
 
-        BeingBattleBus.EmitFightHalf();
+        FightHalf?.Invoke();
         yield return new WaitForSeconds(1);
 
         yield return BaddieAttack(baddieParty, playerGrid);
@@ -45,7 +52,7 @@ public class BeingBattle : MonoBehaviour
             yield break;
         }
 
-        BeingBattleBus.EmitFightEnd();
+        FightEnd?.Invoke();
     }
 
     IEnumerator FrogAttack(PlayerGrid frogs, BaddieParty baddie)
@@ -77,11 +84,11 @@ public class BeingBattle : MonoBehaviour
         }
     }
 
-    IEnumerator AbilityCheck(BeingHolder beingHolder) 
+    IEnumerator AbilityCheck(BeingHolder beingHolder)
     {
-        foreach (Being being in beingHolder.GetAliveBeings()) 
+        foreach (Being being in beingHolder.GetAliveBeings())
         {
-            foreach (Ability ability in being.BeingInfo.GetAbilities()) 
+            foreach (Ability ability in being.BeingInfo.GetAbilities())
             {
                 yield return ability.AbilityCheck(beingHolder);
             }
@@ -93,7 +100,7 @@ public class BeingBattle : MonoBehaviour
         if (playerGrid.IsDead() || baddieParty.IsDead())
         {
             Debug.Log("Winner!");
-            BeingBattleBus.EmitBattleOver();
+            BattleOver?.Invoke();
         }
     }
 }

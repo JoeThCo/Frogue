@@ -25,6 +25,6 @@ public class HealthBar : MonoBehaviour
     private void Health_OnHealthChanged(Health health)
     {
         healthBar.fillAmount = health.GetPercent();
-        healthText.SetText(health.GetHealthText());
+        healthText.SetText(health.ToString());
     }
 }

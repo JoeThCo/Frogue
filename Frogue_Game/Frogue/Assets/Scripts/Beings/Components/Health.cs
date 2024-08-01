@@ -36,8 +36,11 @@ public class Health
         DamageTextPopup damageText = GameObject.Instantiate(ResourceManager.GetUI("DamageTextPopUp")).GetComponent<DamageTextPopup>();
         damageText.DamageTextPopUpInit(being, finalDamage);
     }
-
     public float GetPercent() { return (float)HPLeft / (float)MaxHP; }
-    public string GetHealthText() { return $"{HPLeft} / {MaxHP}"; }
     public bool isDead() { return HPLeft <= 0; }
+
+    public override string ToString()
+    {
+        return $"{HPLeft}/{MaxHP}";
+    }
 }
