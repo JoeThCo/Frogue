@@ -1,6 +1,7 @@
-MVP TODO
+0.0.8 TODO
 
-- Make baddie class, like beingSO --Done!
-- Bulk attack (even, odds, >,< row, column) --Done!
-- Abilities --Done!
-- Display Being Info
+- SFX
+- Being Info better (Type Icons)
+- 5 new effects, 5 abilities
+- Relative Who's
+- replace bulk attack with Who

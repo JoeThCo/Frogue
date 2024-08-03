@@ -16,9 +16,31 @@ public class BeingBattle : MonoBehaviour
 
     public static event Action BattleOver;
 
+    public static event Action PlayerWin;
+    public static event Action GameOver;
+
     private void Start()
     {
         BattleOver += BeingBattleBus_BattleOver;
+        PlayerWin += BeingBattle_PlayerWin;
+        GameOver += BeingBattle_GameOver;
+    }
+
+    private void OnDisable()
+    {
+        BattleOver -= BeingBattleBus_BattleOver;
+        PlayerWin -= BeingBattle_PlayerWin;
+        GameOver -= BeingBattle_GameOver;
+    }
+
+    private void BeingBattle_GameOver()
+    {
+        MenuController.Instance.ShowMenu("GameOver");
+    }
+
+    private void BeingBattle_PlayerWin()
+    {
+        MenuController.Instance.ShowMenu("PlayerWin");
     }
 
     private void BeingBattleBus_BattleOver()
@@ -31,7 +53,7 @@ public class BeingBattle : MonoBehaviour
         StartCoroutine(FightI());
     }
 
-    public IEnumerator FightI()
+    private IEnumerator FightI()
     {
         FightStart?.Invoke();
 
@@ -44,7 +66,7 @@ public class BeingBattle : MonoBehaviour
         }
 
         FightHalf?.Invoke();
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(.5f);
 
         yield return BaddieAttack(baddieParty, playerGrid);
         if (!isBattling)
@@ -95,12 +117,18 @@ public class BeingBattle : MonoBehaviour
         }
     }
 
-    public void CheckBattleOver()
+    private void CheckBattleOver()
     {
-        if (playerGrid.IsDead() || baddieParty.IsDead())
+        if (playerGrid.IsDead())
         {
-            Debug.Log("Winner!");
             BattleOver?.Invoke();
+            GameOver?.Invoke();
+        }
+
+        if (baddieParty.IsDead())
+        {
+            BattleOver?.Invoke();
+            PlayerWin?.Invoke();
         }
     }
 }

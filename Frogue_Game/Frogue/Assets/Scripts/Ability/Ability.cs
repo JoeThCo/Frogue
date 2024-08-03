@@ -37,7 +37,6 @@ public class Ability : ScriptableObject
         ParticleSystem vfx = Instantiate(ResourceManager.GetVFX(effect), being.transform.position, Quaternion.identity);
         vfx.Play();
 
-        Destroy(vfx, vfx.main.duration);
         yield return new WaitForSeconds(vfx.main.duration);
     }
 }
