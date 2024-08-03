@@ -12,12 +12,15 @@ public static class ResourceManager
     private static Effect[] allEffects;
     private static GameObject[] allUI;
 
+    private static ParticleSystem[] allVFX;
+
     public static bool isLoaded { get; private set; } = false;
 
     public static void LoadResources()
     {
         if (isLoaded) return;
 
+        allVFX = Resources.LoadAll<ParticleSystem>("VFX");
         allEffects = Resources.LoadAll<Effect>("Effect");
         allUI = Resources.LoadAll<GameObject>("UI");
         allBulkAttacks = Resources.LoadAll<BulkAttack>("BulkAttack");
@@ -51,6 +54,11 @@ public static class ResourceManager
     public static GameObject GetUI(string name)
     {
         return FindByName<GameObject>(allUI, name);
+    }
+
+    public static ParticleSystem GetVFX(Effect effect)
+    {
+        return FindByName<ParticleSystem>(allVFX, effect.name);
     }
 
     private static T FindByName<T>(T[] gameObjects, string name) where T : UnityEngine.Object

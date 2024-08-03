@@ -16,9 +16,13 @@ public class Ability : ScriptableObject
         {
             foreach (Being being in WhoToApplyEffect.GetWho(beingHolder))
             {
-                being.Effects.AddEffect(effects);
-                Debug.Log($"{being.gameObject.name} gets {effects.Length} effects!");
-                yield return new WaitForSeconds(.25f);
+                foreach (Effect effect in effects)
+                {
+                    being.Effects.AddEffect(effect);
+
+                    Debug.Log($"{being.gameObject.name} gets {effect.name} effects!");
+                    yield return SpawnEffectVFX(being, effect);
+                }
             }
         }
     }
@@ -26,5 +30,14 @@ public class Ability : ScriptableObject
     private bool IsTriggering(BeingHolder beingHolder)
     {
         return WhoToTrigger.GetWho(beingHolder).Length > 0;
+    }
+
+    private IEnumerator SpawnEffectVFX(Being being, Effect effect)
+    {
+        ParticleSystem vfx = Instantiate(ResourceManager.GetVFX(effect), being.transform.position, Quaternion.identity);
+        vfx.Play();
+
+        Destroy(vfx, vfx.main.duration);
+        yield return new WaitForSeconds(vfx.main.duration);
     }
 }

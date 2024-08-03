@@ -13,6 +13,7 @@ public class BeingGridModify : MonoBehaviour
     bool canInteract = true;
 
     public static event Action<BeingSlot> BeingSlotSelected;
+    public static event Action<BeingSlot> BeingSlotSwapped;
     public static event Action BeingSlotCleared;
 
     private void Start()
@@ -21,6 +22,7 @@ public class BeingGridModify : MonoBehaviour
         BeingBattle.FightEnd += BeingBattleBus_BattleEnd;
 
         BeingSlotSelected += BeingGridModify_BeingSlotSelected;
+        BeingSlotSwapped += BeingGridModify_BeingSlotSwapped;
         BeingSlotCleared += BeingGridModify_BeingSlotCleared;
     }
 
@@ -30,7 +32,14 @@ public class BeingGridModify : MonoBehaviour
         BeingBattle.FightEnd -= BeingBattleBus_BattleEnd;
 
         BeingSlotSelected -= BeingGridModify_BeingSlotSelected;
+        BeingSlotSwapped += BeingGridModify_BeingSlotSwapped;
         BeingSlotCleared -= BeingGridModify_BeingSlotCleared;
+    }
+
+    private void BeingGridModify_BeingSlotSwapped(BeingSlot otherBeingSlot)
+    {
+        selectedSlot.SwapBeings(otherBeingSlot);
+        BeingSlotCleared?.Invoke();
     }
 
     private void BeingGridModify_BeingSlotCleared()
@@ -42,19 +51,9 @@ public class BeingGridModify : MonoBehaviour
 
     private void BeingGridModify_BeingSlotSelected(BeingSlot otherBeingSlot)
     {
-        if (!selectedSlot)
-        {
-            if (!otherBeingSlot.Being) return;
-            selectedSlot = otherBeingSlot;
-            selectedSlot.OnSelect();
-        }
-        else
-        {
-            selectedSlot.SwapBeings(otherBeingSlot);
-            selectedSlot.OnDeselect();
-            selectedSlot = null;
-            BeingSlotCleared?.Invoke();
-        }
+        if (!otherBeingSlot.Being) return;
+        selectedSlot = otherBeingSlot;
+        selectedSlot.OnSelect();
     }
 
     private void BeingBattleBus_BattleStart()
@@ -84,7 +83,16 @@ public class BeingGridModify : MonoBehaviour
             BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
             if (otherBeingSlot == null) return;
             if (!otherBeingSlot.isPlayerInteractable) return;
-            BeingSlotSelected?.Invoke(otherBeingSlot);
+
+            if (!selectedSlot)
+            {
+                BeingSlotSelected?.Invoke(otherBeingSlot);
+            }
+            else
+            {
+                BeingSlotSwapped?.Invoke(otherBeingSlot);
+            }
+
         }
 
         if (Input.GetMouseButtonDown(1))

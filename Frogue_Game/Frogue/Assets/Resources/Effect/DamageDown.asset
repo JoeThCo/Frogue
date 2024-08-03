@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f18d5de79e58264fb4bfd816182a2d6, type: 3}
-  m_Name: Damage Down
+  m_Name: DamageDown
   m_EditorClassIdentifier: 
+  effectVfx: {fileID: 5428065413033605605, guid: f1e6e00e0b96d8d44be7c1e99f6caed0, type: 3}
   ChangeAmount: -1

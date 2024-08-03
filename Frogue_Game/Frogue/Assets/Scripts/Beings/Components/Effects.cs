@@ -12,12 +12,9 @@ public class Effects
         AllEffects = new List<Effect>(effects);
     }
 
-    public void AddEffect(Effect[] effects)
+    public void AddEffect(Effect effect)
     {
-        foreach (Effect effect in effects)
-        {
-            AllEffects.Add(effect);
-        }
+        AllEffects.Add(effect);
     }
 
     public void RemoveEffect(Effect effect)

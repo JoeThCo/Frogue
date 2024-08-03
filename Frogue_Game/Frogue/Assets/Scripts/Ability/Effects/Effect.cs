@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Effect : ScriptableObject
 {
-    public virtual int GetChange() 
+    public virtual int GetChange()
     {
         return 0;
     }

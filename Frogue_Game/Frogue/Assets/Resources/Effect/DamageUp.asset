@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8f18d5de79e58264fb4bfd816182a2d6, type: 3}
-  m_Name: Damage Up
+  m_Name: DamageUp
   m_EditorClassIdentifier: 
   ChangeAmount: 1

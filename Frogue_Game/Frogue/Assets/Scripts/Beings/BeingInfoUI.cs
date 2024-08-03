@@ -32,7 +32,7 @@ public class BeingInfoUI : MonoBehaviour
         if (obj.Being == null) return;
 
         nameText.SetText(obj.Being.BeingInfo.name);
-        damageText.SetText(obj.Being.Damage.ToString());
+        damageText.SetText($"D: {obj.Being.Damage}");
         healthText.SetText(obj.Being.Health.ToString());
         typeText.SetText(obj.Being.Types.ToString());
 
