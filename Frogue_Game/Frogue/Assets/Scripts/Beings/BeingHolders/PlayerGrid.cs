@@ -13,8 +13,8 @@ public class PlayerGrid : BeingHolder
         return position;
     }
 
-    public Being[] GetBulkAttackedBeings(BulkAttack bulkAttack) 
+    public Being[] GetBeingsToAttack(Who who)
     {
-        return bulkAttack.GetBeingsToAttack(this);
+        return who.GetWho(this);
     }
 }

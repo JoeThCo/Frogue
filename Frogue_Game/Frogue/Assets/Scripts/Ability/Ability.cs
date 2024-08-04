@@ -19,8 +19,6 @@ public class Ability : ScriptableObject
                 foreach (Effect effect in effects)
                 {
                     being.Effects.AddEffect(effect);
-
-                    Debug.Log($"{being.gameObject.name} gets {effect.name} effects!");
                     yield return SpawnEffectVFX(being, effect);
                 }
             }

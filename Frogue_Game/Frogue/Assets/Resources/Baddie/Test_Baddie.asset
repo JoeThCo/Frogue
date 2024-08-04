@@ -19,5 +19,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}
   startTypes:
   - {fileID: 11400000, guid: ae3c360de7ab72a439e8c9503d888e77, type: 2}
-  BulkAttacks:
-  - {fileID: 11400000, guid: b06da01c726becf4e9809372c70920cd, type: 2}
+  WhoToAttack:
+  - {fileID: 11400000, guid: 0cc698e6b63c7ed4db9c2bc2beae7c12, type: 2}
+  - {fileID: 11400000, guid: b2bb8695b5f62914f930b59e8ca56f06, type: 2}

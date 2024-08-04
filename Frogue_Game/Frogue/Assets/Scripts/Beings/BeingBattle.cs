@@ -94,7 +94,7 @@ public class BeingBattle : MonoBehaviour
     {
         BaddieSO baddieSo = (BaddieSO)baddie.GetNext().BeingInfo;
 
-        foreach (Being being in frogs.GetBulkAttackedBeings(baddieSo.GetRandomBulkAttack()))
+        foreach (Being being in frogs.GetBeingsToAttack(baddieSo.GetRandomBulkAttack()))
         {
             yield return baddie.GetNext().DamageTween(being);
 

@@ -8,7 +8,6 @@ public static class ResourceManager
     private static FrogSO[] allFrogs;
     private static BaddieSO[] allBaddies;
 
-    private static BulkAttack[] allBulkAttacks;
     private static Effect[] allEffects;
     private static GameObject[] allUI;
 
@@ -23,17 +22,11 @@ public static class ResourceManager
         allVFX = Resources.LoadAll<ParticleSystem>("VFX");
         allEffects = Resources.LoadAll<Effect>("Effect");
         allUI = Resources.LoadAll<GameObject>("UI");
-        allBulkAttacks = Resources.LoadAll<BulkAttack>("BulkAttack");
 
         allBaddies = Resources.LoadAll<BaddieSO>("Baddie");
         allFrogs = Resources.LoadAll<FrogSO>("Frog");
 
         isLoaded = true;
-    }
-
-    public static BulkAttack GetBulkAttack()
-    {
-        return GetRandom<BulkAttack>(allBulkAttacks);
     }
 
     public static FrogSO GetFrog()
