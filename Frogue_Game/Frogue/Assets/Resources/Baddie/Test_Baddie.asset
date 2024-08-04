@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Test_Baddie
   m_EditorClassIdentifier: 
   startDamage: 3
-  startHealth: 100
+  startHealth: 125
   startAbilities: []
   startEffects:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}

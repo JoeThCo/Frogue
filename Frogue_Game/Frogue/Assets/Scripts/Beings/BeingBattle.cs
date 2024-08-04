@@ -24,6 +24,8 @@ public class BeingBattle : MonoBehaviour
         BattleOver += BeingBattleBus_BattleOver;
         PlayerWin += BeingBattle_PlayerWin;
         GameOver += BeingBattle_GameOver;
+
+        isBattling = true;
     }
 
     private void OnDisable()

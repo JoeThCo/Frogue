@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d7fab88d94314248874753038aefc37, type: 3}
-  m_Name: Odd
+  m_Name: OddColumns
   m_EditorClassIdentifier: 
   divideBy: 2
   result: 1

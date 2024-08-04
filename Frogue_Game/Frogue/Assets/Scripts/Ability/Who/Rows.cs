@@ -10,6 +10,6 @@ public class Rows : Who
 
     public override bool IsInWho(BeingSlot slot)
     {
-        return base.IsInWho(slot) && slot.Coords.x % divideBy == result;
+        return base.IsInWho(slot) && slot.Coords.y % divideBy == result;
     }
 }

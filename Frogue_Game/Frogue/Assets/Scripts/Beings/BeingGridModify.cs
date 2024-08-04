@@ -32,7 +32,7 @@ public class BeingGridModify : MonoBehaviour
         BeingBattle.FightEnd -= BeingBattleBus_BattleEnd;
 
         BeingSlotSelected -= BeingGridModify_BeingSlotSelected;
-        BeingSlotSwapped += BeingGridModify_BeingSlotSwapped;
+        BeingSlotSwapped -= BeingGridModify_BeingSlotSwapped;
         BeingSlotCleared -= BeingGridModify_BeingSlotCleared;
     }
 
