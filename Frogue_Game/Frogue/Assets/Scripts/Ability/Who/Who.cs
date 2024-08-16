@@ -19,6 +19,12 @@ public class Who : ScriptableObject
 
     public virtual bool IsInWho(BeingSlot slot)
     {
-        return slot.Being;
+        //return IsBeingInSlot(slot) doesnt work with override?
+        return false;
+    }
+
+    protected bool IsBeingInSlot(BeingSlot slot)
+    {
+        return slot != null && slot.Being != null;
     }
 }
