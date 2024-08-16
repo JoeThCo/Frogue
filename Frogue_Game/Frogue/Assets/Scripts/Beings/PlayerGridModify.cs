@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using UnityEngine;
 
-public class BeingGridModify : MonoBehaviour
+public class PlayerGridModify : MonoBehaviour
 {
     [SerializeField] private PlayerGrid beingGrid;
     [SerializeField] private BeingSlot selectedSlot;
@@ -14,7 +14,7 @@ public class BeingGridModify : MonoBehaviour
 
     public static event Action<BeingSlot> BeingSlotSelected;
     public static event Action<BeingSlot> BeingSlotSwapped;
-    public static event Action BeingSlotCleared;
+    public static event Action<BeingSlot> BeingSlotCleared;
 
     private void Start()
     {
@@ -39,10 +39,10 @@ public class BeingGridModify : MonoBehaviour
     private void BeingGridModify_BeingSlotSwapped(BeingSlot otherBeingSlot)
     {
         selectedSlot.SwapBeings(otherBeingSlot);
-        BeingSlotCleared?.Invoke();
+        BeingSlotCleared?.Invoke(otherBeingSlot);
     }
 
-    private void BeingGridModify_BeingSlotCleared()
+    private void BeingGridModify_BeingSlotCleared(BeingSlot otherBeingSlot)
     {
         if (selectedSlot == null) return;
         selectedSlot.OnDeselect();
@@ -69,11 +69,8 @@ public class BeingGridModify : MonoBehaviour
     private void Update()
     {
         if (!canInteract) return;
-
         if (Input.GetKeyDown(KeyCode.Space) && selectedSlot != null)
-        {
             Debug.Log(selectedSlot.Coords);
-        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -85,19 +82,13 @@ public class BeingGridModify : MonoBehaviour
             if (!otherBeingSlot.isPlayerInteractable) return;
 
             if (!selectedSlot)
-            {
                 BeingSlotSelected?.Invoke(otherBeingSlot);
-            }
             else
-            {
                 BeingSlotSwapped?.Invoke(otherBeingSlot);
-            }
 
         }
 
         if (Input.GetMouseButtonDown(1))
-        {
-            BeingSlotCleared?.Invoke();
-        }
+            BeingSlotCleared?.Invoke(selectedSlot);
     }
 }

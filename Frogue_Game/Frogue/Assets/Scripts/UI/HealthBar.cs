@@ -13,13 +13,20 @@ public class HealthBar : MonoBehaviour
 
     private void Start()
     {
+        if (being != null)
+            HealthBarInit(being);
+    }
+
+    public void HealthBarInit(Being being)
+    {
         being.Health.OnHealthChanged += Health_OnHealthChanged;
         Health_OnHealthChanged(being.Health);
     }
 
     private void OnDisable()
     {
-        being.Health.OnHealthChanged -= Health_OnHealthChanged;
+        if (being != null)
+            being.Health.OnHealthChanged -= Health_OnHealthChanged;
     }
 
     private void Health_OnHealthChanged(Health health)

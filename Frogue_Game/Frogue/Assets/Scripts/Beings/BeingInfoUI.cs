@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class BeingInfoUI : MonoBehaviour
 {
@@ -9,37 +10,39 @@ public class BeingInfoUI : MonoBehaviour
     [Space(10)]
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI damageText;
-    [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI typeText;
+    [Space(10)]
+    [SerializeField] private HealthBar healthBar;
 
     private void Start()
     {
-        BeingGridModify.BeingSlotSelected += BeingGridModify_BeingSlotSelected;
-        BeingGridModify.BeingSlotCleared += BeingGridModify_BeingSlotCleared;
+        PlayerGridModify.BeingSlotSelected += BeingGridModify_BeingSlotSelected;
+        PlayerGridModify.BeingSlotCleared += BeingGridModify_BeingSlotCleared;
 
-        BeingGridModify_BeingSlotCleared();
+        BeingGridModify_BeingSlotCleared(null);
     }
 
     private void OnDisable()
     {
-        BeingGridModify.BeingSlotSelected -= BeingGridModify_BeingSlotSelected;
-        BeingGridModify.BeingSlotCleared -= BeingGridModify_BeingSlotCleared;
+        PlayerGridModify.BeingSlotSelected -= BeingGridModify_BeingSlotSelected;
+        PlayerGridModify.BeingSlotCleared -= BeingGridModify_BeingSlotCleared;
     }
 
-    private void BeingGridModify_BeingSlotSelected(BeingSlot obj)
+    private void BeingGridModify_BeingSlotSelected(BeingSlot beingSlot)
     {
-        if (obj == null) return;
-        if (obj.Being == null) return;
+        if (beingSlot == null) return;
+        if (beingSlot.Being == null) return;
 
-        nameText.SetText(obj.Being.BeingInfo.name);
-        damageText.SetText($"D: {obj.Being.Damage}");
-        healthText.SetText(obj.Being.Health.ToString());
-        typeText.SetText(obj.Being.Types.ToString());
+        nameText.SetText(beingSlot.Being.BeingInfo.name);
+        damageText.SetText($"Damage: {beingSlot.Being.Damage}");
+        typeText.SetText(beingSlot.Being.Types.ToString());
+
+        healthBar.HealthBarInit(beingSlot.Being);
 
         infoPanel.gameObject.SetActive(true);
     }
 
-    private void BeingGridModify_BeingSlotCleared()
+    private void BeingGridModify_BeingSlotCleared(BeingSlot beingSlot)
     {
         infoPanel.gameObject.SetActive(false);
     }

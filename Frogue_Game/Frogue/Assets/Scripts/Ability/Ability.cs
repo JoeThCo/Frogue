@@ -6,8 +6,8 @@ using UnityEngine;
 public class Ability : ScriptableObject
 {
     public Who WhoToTrigger;
-    [Space(10)]
     public Who WhoToApplyEffect;
+    [Space(10)]
     public Effect[] effects;
 
     public IEnumerator AbilityCheck(BeingHolder beingHolder)

@@ -2,6 +2,26 @@
 
 - SFX
 - Being Info better (Type Icons)
-- 5 new effects, 5 abilities
-- Relative Who's, 5 New Whos
+- Relative Who's
 - replace bulk attack with Who --DONE!
+
+Effects
+-
+-
+-
+-
+-
+
+Abilities
+-
+-
+-
+-
+-
+
+Who
+- Columns
+-
+-
+-
+-
