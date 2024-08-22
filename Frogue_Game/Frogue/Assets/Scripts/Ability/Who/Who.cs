@@ -17,9 +17,13 @@ public class Who : ScriptableObject
         return output.ToArray();
     }
 
+    public bool IsTriggering(BeingHolder beingHolder) 
+    {
+        return GetWho(beingHolder).Length > 0;
+    }
+
     public virtual bool IsInWho(BeingSlot slot)
     {
-        //return IsBeingInSlot(slot) doesnt work with override?
         return false;
     }
 

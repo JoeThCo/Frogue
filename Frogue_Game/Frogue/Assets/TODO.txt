@@ -1,27 +1,30 @@
 0.0.8 TODO
 
-- SFX
+- Split Effects into Instant vs Persistant
 - Being Info better (Type Icons)
 - Relative Who's
+- SFX
+
 - replace bulk attack with Who --DONE!
 
 Effects
--
--
--
--
--
+- Heal --Done!
+- Max Health
 
-Abilities
--
--
--
--
--
+Abilities --Done!
+- Even Steven
+- Steven Odd
+- Todd Even
+- Odd Todd
+- Fire Friends
+- Water Friends
+- Grass Growth
 
-Who
-- Columns
--
--
--
--
+Who --Done!
+- Odd Rows
+- Even Rows
+- Odd Columns
+- Even Columns
+- Fire
+- Water
+- Grass

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Grid", menuName = "ScriptableObject/Who/Grid")]
+[CreateAssetMenu(fileName = "BoardWho", menuName = "ScriptableObject/Who/BoardWho")]
 public class BoardWho : Who
 {
     [SerializeField] private List<int> rows = new List<int>();
@@ -11,7 +11,7 @@ public class BoardWho : Who
     public override bool IsInWho(BeingSlot slot)
     {
         //Debug.Log($"{base.IsInWho(slot)} {IsInRows(slot)} {IsInColumns(slot)}");
-        return IsBeingInSlot(slot) && IsInRows(slot) || IsInColumns(slot);
+        return IsInRows(slot) || IsInColumns(slot);
     }
 
     private bool IsInRows(BeingSlot slot)

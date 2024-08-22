@@ -7,13 +7,17 @@ public class Effects
 {
     private List<Effect> AllEffects = new List<Effect>();
 
-    public Effects(Effect[] effects)
+    private Being being;
+
+    public Effects(Being being, Effect[] effects)
     {
+        this.being = being;
         AllEffects = new List<Effect>(effects);
     }
 
     public void AddEffect(Effect effect)
     {
+        effect.OnEffectAdded(being);
         AllEffects.Add(effect);
     }
 

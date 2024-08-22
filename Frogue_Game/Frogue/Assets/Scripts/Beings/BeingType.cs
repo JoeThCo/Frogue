@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Type", menuName = "ScriptableObject/Type")]
+[CreateAssetMenu(fileName = "BeingType", menuName = "ScriptableObject/BeingType")]
 public class BeingType : ScriptableObject
 {
     [SerializeField] private Color _color = Color.white;

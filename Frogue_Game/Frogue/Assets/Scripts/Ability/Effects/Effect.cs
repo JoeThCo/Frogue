@@ -8,4 +8,9 @@ public class Effect : ScriptableObject
     {
         return 0;
     }
+
+    public virtual void OnEffectAdded(Being being) 
+    {
+
+    }
 }

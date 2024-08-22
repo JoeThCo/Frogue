@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ba736460e43e5544923fd3823758082, type: 3}
+  m_Name: Water Healing
+  m_EditorClassIdentifier: 
+  abilityDescription: 
+  TriggerWhos:
+  - {fileID: 11400000, guid: ca11498dc72d214438ccbffd2335f425, type: 2}
+  ApplyEffectWho: {fileID: 11400000, guid: ca11498dc72d214438ccbffd2335f425, type: 2}
+  EffectsToApply:
+  - {fileID: 11400000, guid: 785112eeaef766d41917b2334cf538d7, type: 2}

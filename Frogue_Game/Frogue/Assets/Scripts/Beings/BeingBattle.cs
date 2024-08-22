@@ -92,6 +92,7 @@ public class BeingBattle : MonoBehaviour
             }
         }
     }
+
     IEnumerator BaddieAttack(BaddieParty baddie, PlayerGrid frogs)
     {
         BaddieSO baddieSo = (BaddieSO)baddie.GetNext().BeingInfo;
@@ -114,7 +115,8 @@ public class BeingBattle : MonoBehaviour
         {
             foreach (Ability ability in being.BeingInfo.GetAbilities())
             {
-                yield return ability.AbilityCheck(beingHolder);
+                if (ability != null)
+                    yield return ability.AbilityCheck(beingHolder);
             }
         }
     }

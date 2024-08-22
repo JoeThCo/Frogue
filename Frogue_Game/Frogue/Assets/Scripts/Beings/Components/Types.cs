@@ -5,17 +5,10 @@ using UnityEngine;
 public class Types
 {
     public List<BeingType> BeingTypes { get; private set; } = new List<BeingType>();
-    public bool HasBeingTypes
-    {
-        get
-        {
-            return BeingTypes.Count > 0;
-        }
-    }
 
     public Types(BeingType[] types)
     {
-        foreach (BeingType type in types) 
+        foreach (BeingType type in types)
         {
             type.TypeInit();
         }
@@ -23,21 +16,32 @@ public class Types
         BeingTypes.AddRange(types);
     }
 
-    public Color GetMainColor()
+    public bool IsBeingOfTypes(List<BeingType> beingTypes) 
     {
-        if (HasBeingTypes)
+        foreach(BeingType type in beingTypes) 
         {
-            return BeingTypes[0].Color;
+            if (IsBeingOfType(type))
+                return true;
         }
 
-        return Color.white;
+        return false;
+    }
+
+    private bool IsBeingOfType(BeingType type)
+    {
+        return BeingTypes.Contains(type);
+    }
+
+    public Color GetMainColor()
+    {
+        return BeingTypes[0].Color;
     }
 
     public override string ToString()
     {
         string output = string.Empty;
 
-        foreach(BeingType type in BeingTypes) 
+        foreach (BeingType type in BeingTypes)
         {
             output += type.ToString() + " ";
         }

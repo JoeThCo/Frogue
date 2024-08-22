@@ -16,10 +16,10 @@ public class Being : MonoBehaviour
     {
         BeingInfo = beingSO;
 
-        Effects = new Effects(beingSO.GetEffects());
+        Effects = new Effects(this, beingSO.GetEffects());
         Types = new Types(beingSO.GetTypes());
 
-        Health = new Health(beingSO.GetHealth());
+        Health = new Health(Effects, beingSO.GetHealth());
         Health.OnDeath += Health_OnDeath;
 
         Damage = new Damage(Effects, beingSO.GetDamage());

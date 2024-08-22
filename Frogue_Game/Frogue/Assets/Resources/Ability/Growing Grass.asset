@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ba736460e43e5544923fd3823758082, type: 3}
-  m_Name: Test_Ability
+  m_Name: Growing Grass
   m_EditorClassIdentifier: 
-  WhoToTrigger: {fileID: 11400000, guid: 0cc698e6b63c7ed4db9c2bc2beae7c12, type: 2}
-  WhoToApplyEffect: {fileID: 11400000, guid: 0cc698e6b63c7ed4db9c2bc2beae7c12, type: 2}
-  effects:
+  TriggerWhos:
+  - {fileID: 11400000, guid: 824fa27e66393c9489e172f6e9f2bdb9, type: 2}
+  ApplyEffectWho: {fileID: 11400000, guid: 824fa27e66393c9489e172f6e9f2bdb9, type: 2}
+  EffectsToApply:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}

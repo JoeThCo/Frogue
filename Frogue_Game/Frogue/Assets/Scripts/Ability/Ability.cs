@@ -5,18 +5,22 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Ability", menuName = "ScriptableObject/Ability/Ability")]
 public class Ability : ScriptableObject
 {
-    public Who WhoToTrigger;
-    public Who WhoToApplyEffect;
-    [Space(10)]
-    public Effect[] effects;
+    [TextArea] public string abilityDescription;
+
+    [Header("Cause")]
+    public Who[] TriggerWhos;
+
+    [Header("Effect")]    
+    public Who ApplyEffectWho;
+    public Effect[] EffectsToApply;
 
     public IEnumerator AbilityCheck(BeingHolder beingHolder)
     {
         if (IsTriggering(beingHolder))
         {
-            foreach (Being being in WhoToApplyEffect.GetWho(beingHolder))
+            foreach (Being being in ApplyEffectWho.GetWho(beingHolder))
             {
-                foreach (Effect effect in effects)
+                foreach (Effect effect in EffectsToApply)
                 {
                     being.Effects.AddEffect(effect);
                     yield return SpawnEffectVFX(being, effect);
@@ -27,7 +31,13 @@ public class Ability : ScriptableObject
 
     private bool IsTriggering(BeingHolder beingHolder)
     {
-        return WhoToTrigger.GetWho(beingHolder).Length > 0;
+        bool triggerOutput = true;
+
+        foreach (Who who in TriggerWhos) 
+            if (!who.IsTriggering(beingHolder))
+                triggerOutput = false;
+
+        return triggerOutput;
     }
 
     private IEnumerator SpawnEffectVFX(Being being, Effect effect)

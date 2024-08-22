@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00fd7b46549afa24188989939639dde2, type: 3}
-  m_Name: Fuego
+  m_Script: {fileID: 11500000, guid: 17eb8d1c221cf664c89f69ca355e0d30, type: 3}
+  m_Name: Fire
   m_EditorClassIdentifier: 
-  startDamage: 2
-  startHealth: 10
-  startAbilities: []
-  startEffects:
-  - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}
-  startTypes:
+  beingTypes:
   - {fileID: 11400000, guid: ae3c360de7ab72a439e8c9503d888e77, type: 2}
