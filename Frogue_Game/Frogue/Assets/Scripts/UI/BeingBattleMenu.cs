@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BeingBattleUI : MonoBehaviour
+public class BeingBattleMenu : Menu
 {
     [SerializeField] private TextMeshProUGUI seed;
     [SerializeField] private Button fight;

@@ -1,15 +1,21 @@
 0.0.8 TODO
 
-- Split Effects into Instant vs Persistant
-- Being Info better (Type Icons)
 - Relative Who's
-- SFX
 
-- replace bulk attack with Who --DONE!
+Being Info better
+- Icons for Type
+- Tab for Abilities --DONE!
+
+- SFX
+- One Song
 
 Effects
 - Heal --Done!
 - Max Health
+
+
+- Split Effects into Instant vs Persistant --DONE!
+- replace bulk attack with Who --DONE!
 
 Abilities --Done!
 - Even Steven

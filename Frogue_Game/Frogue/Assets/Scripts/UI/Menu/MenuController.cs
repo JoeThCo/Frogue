@@ -9,10 +9,9 @@ public class MenuController : MonoBehaviour
     [SerializeField] private string startMenu;
     [SerializeField] private Menu[] allMenus;
 
-    public event Action<Menu> OnMenuChange;
-
     public virtual void Start()
     {
+        MenusInit();
         ShowMenu(startMenu);
     }
 
@@ -20,7 +19,15 @@ public class MenuController : MonoBehaviour
     {
         foreach (Menu menu in allMenus)
         {
-            menu.gameObject.SetActive(menuName.Equals(menu.MenuName));
+            menu.menuParent.gameObject.SetActive(menuName.Equals(menu.MenuName));
+        }
+    }
+
+    private void MenusInit()
+    {
+        foreach (Menu menu in allMenus)
+        {
+            menu.MenuInit();
         }
     }
 }

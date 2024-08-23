@@ -80,7 +80,7 @@ public class PlayerGridModify : MonoBehaviour
             if (otherBeingSlot == null) return;
             if (!otherBeingSlot.isPlayerInteractable) return;
 
-            if (!selectedSlot) 
+            if (selectedSlot == null)
             {
                 if (otherBeingSlot.Being == null) return;
                 BeingSlotSelected?.Invoke(otherBeingSlot);

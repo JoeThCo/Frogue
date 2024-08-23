@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Ability", menuName = "ScriptableObject/Ability/Ability")]
-public class Ability : ScriptableObject
+public class Ability : ScriptableObject, IDescription
 {
     [Header("Cause")]
     public Who[] TriggerWhos;
 
-    [Header("Effect")]    
+    [Header("Effect")]
     public Who ApplyEffectWho;
     public Effect[] EffectsToApply;
 
@@ -27,11 +27,16 @@ public class Ability : ScriptableObject
         }
     }
 
+    public string GetDescription()
+    {
+        return "Test";
+    }
+
     private bool IsTriggering(BeingHolder beingHolder)
     {
         bool triggerOutput = true;
 
-        foreach (Who who in TriggerWhos) 
+        foreach (Who who in TriggerWhos)
             if (!who.IsTriggering(beingHolder))
                 triggerOutput = false;
 

@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class BeingInfoUI : MonoBehaviour
 {
-    private string lastMenu;
-    [SerializeField] private MenuController menuController;
     [SerializeField] private Transform infoParent;
 
     private void Start()
     {
-        menuController.OnMenuChange += MenuController_OnMenuChange;
         PlayerGridModify.BeingSlotSelected += PlayerGridModify_BeingSlotSelected;
         PlayerGridModify.BeingSlotCleared += PlayerGridModify_BeingSlotCleared;
 
@@ -19,14 +16,8 @@ public class BeingInfoUI : MonoBehaviour
 
     private void OnDisable()
     {
-        menuController.OnMenuChange -= MenuController_OnMenuChange;
         PlayerGridModify.BeingSlotSelected -= PlayerGridModify_BeingSlotSelected;
         PlayerGridModify.BeingSlotCleared -= PlayerGridModify_BeingSlotCleared;
-    }
-
-    private void PlayerGridModify_BeingSlotCleared(BeingSlot obj)
-    {
-        infoParent.gameObject.SetActive(false);
     }
 
     private void PlayerGridModify_BeingSlotSelected(BeingSlot obj)
@@ -34,9 +25,8 @@ public class BeingInfoUI : MonoBehaviour
         infoParent.gameObject.SetActive(true);
     }
 
-
-    private void MenuController_OnMenuChange(Menu obj)
+    private void PlayerGridModify_BeingSlotCleared(BeingSlot obj)
     {
-        lastMenu = obj.MenuName;
+        infoParent.gameObject.SetActive(false);
     }
 }
