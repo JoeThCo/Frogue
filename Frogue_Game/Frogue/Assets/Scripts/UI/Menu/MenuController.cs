@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public class MenuController : MonoBehaviour
 {
     [SerializeField] private string startMenu;
     [SerializeField] private Menu[] allMenus;
 
-    public static MenuController Instance;
+    public event Action<Menu> OnMenuChange;
 
-    private void Start()
+    public virtual void Start()
     {
-        Instance = this;
         ShowMenu(startMenu);
     }
 

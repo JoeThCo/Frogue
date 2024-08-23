@@ -51,7 +51,6 @@ public class PlayerGridModify : MonoBehaviour
 
     private void BeingGridModify_BeingSlotSelected(BeingSlot otherBeingSlot)
     {
-        if (!otherBeingSlot.Being) return;
         selectedSlot = otherBeingSlot;
         selectedSlot.OnSelect();
     }
@@ -81,8 +80,11 @@ public class PlayerGridModify : MonoBehaviour
             if (otherBeingSlot == null) return;
             if (!otherBeingSlot.isPlayerInteractable) return;
 
-            if (!selectedSlot)
+            if (!selectedSlot) 
+            {
+                if (otherBeingSlot.Being == null) return;
                 BeingSlotSelected?.Invoke(otherBeingSlot);
+            }
             else
                 BeingSlotSwapped?.Invoke(otherBeingSlot);
 

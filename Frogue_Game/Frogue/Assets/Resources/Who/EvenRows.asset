@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d7fab88d94314248874753038aefc37, type: 3}
   m_Name: EvenRows
   m_EditorClassIdentifier: 
+  whoInfo:
+    Description: is in a Even Row
   rows: 0000000002000000
   columns: 

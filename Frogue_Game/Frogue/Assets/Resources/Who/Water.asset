@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17eb8d1c221cf664c89f69ca355e0d30, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
+  whoInfo:
+    Description: is a Water Type
   beingTypes:
   - {fileID: 11400000, guid: 5b93d5afe7bf7e84e9178d828be7428f, type: 2}

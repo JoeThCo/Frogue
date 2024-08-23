@@ -37,12 +37,12 @@ public class BeingBattle : MonoBehaviour
 
     private void BeingBattle_GameOver()
     {
-        MenuController.Instance.ShowMenu("GameOver");
+        SceneMenuController.Instance.ShowMenu("GameOver");
     }
 
     private void BeingBattle_PlayerWin()
     {
-        MenuController.Instance.ShowMenu("PlayerWin");
+        SceneMenuController.Instance.ShowMenu("PlayerWin");
     }
 
     private void BeingBattleBus_BattleOver()

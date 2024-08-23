@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17eb8d1c221cf664c89f69ca355e0d30, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
+  whoInfo:
+    Description: is a Fire Type
   beingTypes:
   - {fileID: 11400000, guid: ae3c360de7ab72a439e8c9503d888e77, type: 2}
