@@ -5,8 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Ability", menuName = "ScriptableObject/Ability/Ability")]
 public class Ability : ScriptableObject
 {
-    [TextArea] public string abilityDescription;
-
     [Header("Cause")]
     public Who[] TriggerWhos;
 

@@ -17,7 +17,10 @@ public class Effects
 
     public void AddEffect(Effect effect)
     {
-        effect.OnEffectAdded(being);
+        IInstantEffect instantEffect = effect as IInstantEffect;
+        if (instantEffect != null)
+            instantEffect.OnInstantEffect(being);
+
         AllEffects.Add(effect);
     }
 
@@ -33,9 +36,10 @@ public class Effects
 
         foreach (Effect effect in AllEffects)
         {
-            if (effect.GetType().IsAssignableFrom(type))
+            IValueEffect valueEffect = effect as IValueEffect;
+            if (valueEffect != null && effect.GetType().IsAssignableFrom(type))
             {
-                output += effect.GetChange();
+                output += valueEffect.GetValueEffect();
             }
         }
         return output;

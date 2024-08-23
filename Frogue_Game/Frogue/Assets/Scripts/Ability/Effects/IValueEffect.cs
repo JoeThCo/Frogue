@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Effect : ScriptableObject
+public interface IValueEffect
 {
-
+    public int GetValueEffect();
 }
