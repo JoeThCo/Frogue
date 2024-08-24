@@ -4,33 +4,15 @@
 
 Being Info better
 - Icons for Type
-- Tab for Abilities --DONE!
 
 - SFX
+- Healing
+- Select/Unselect Being
+- Swap
+- Empty Click
+
+
 - One Song
 
 Effects
-- Heal --Done!
 - Max Health
-
-
-- Split Effects into Instant vs Persistant --DONE!
-- replace bulk attack with Who --DONE!
-
-Abilities --Done!
-- Even Steven
-- Steven Odd
-- Todd Even
-- Odd Todd
-- Fire Friends
-- Water Friends
-- Grass Growth
-
-Who --Done!
-- Odd Rows
-- Even Rows
-- Odd Columns
-- Even Columns
-- Fire
-- Water
-- Grass

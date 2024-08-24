@@ -58,6 +58,7 @@ public class PlayerGridModify : MonoBehaviour
     private void BeingBattleBus_BattleStart()
     {
         canInteract = false;
+        selectedSlot = null;
     }
 
     private void BeingBattleBus_BattleEnd()

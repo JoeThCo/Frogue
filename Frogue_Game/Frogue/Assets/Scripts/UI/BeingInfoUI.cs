@@ -10,6 +10,7 @@ public class BeingInfoUI : MonoBehaviour
     {
         PlayerGridModify.BeingSlotSelected += PlayerGridModify_BeingSlotSelected;
         PlayerGridModify.BeingSlotCleared += PlayerGridModify_BeingSlotCleared;
+        BeingBattle.FightStart += BeingBattle_FightStart;
 
         PlayerGridModify_BeingSlotCleared(null);
     }
@@ -18,6 +19,12 @@ public class BeingInfoUI : MonoBehaviour
     {
         PlayerGridModify.BeingSlotSelected -= PlayerGridModify_BeingSlotSelected;
         PlayerGridModify.BeingSlotCleared -= PlayerGridModify_BeingSlotCleared;
+        BeingBattle.FightStart -= BeingBattle_FightStart;
+    }
+
+    private void BeingBattle_FightStart()
+    {
+        infoParent.gameObject.SetActive(false);
     }
 
     private void PlayerGridModify_BeingSlotSelected(BeingSlot obj)

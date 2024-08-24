@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class BeingSlot : MonoBehaviour
 {
@@ -18,6 +19,20 @@ public class BeingSlot : MonoBehaviour
         this.Coords = coords;
         this.defaultScale = outline.transform.localScale;
 
+        OnDeselect();
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+        BeingBattle.FightStart += BeingBattle_FightStart;
+    }
+
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
+    {
+        BeingBattle.FightStart -= BeingBattle_FightStart;
+        SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+    }
+
+    private void BeingBattle_FightStart()
+    {
         OnDeselect();
     }
 
@@ -51,7 +66,7 @@ public class BeingSlot : MonoBehaviour
         return base.GetHashCode();
     }
 
-    public void SwapBeings(BeingSlot other) 
+    public void SwapBeings(BeingSlot other)
     {
         if (other.Being == null)
         {
@@ -62,7 +77,7 @@ public class BeingSlot : MonoBehaviour
 
             other.Being.transform.DOLocalMove(Vector2.zero, .25f);
         }
-        else 
+        else
         {
             BeingSlot tempSlot = this;
             Being.transform.SetParent(other.transform);

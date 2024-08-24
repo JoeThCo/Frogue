@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class BeingBattle : MonoBehaviour
 {
@@ -25,14 +26,18 @@ public class BeingBattle : MonoBehaviour
         PlayerWin += BeingBattle_PlayerWin;
         GameOver += BeingBattle_GameOver;
 
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+
         isBattling = true;
     }
 
-    private void OnDisable()
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
         BattleOver -= BeingBattleBus_BattleOver;
         PlayerWin -= BeingBattle_PlayerWin;
         GameOver -= BeingBattle_GameOver;
+
+        SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
     }
 
     private void BeingBattle_GameOver()
