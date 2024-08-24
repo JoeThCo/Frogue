@@ -15,7 +15,7 @@ public static class ResourceManager
 
     public static bool isLoaded { get; private set; } = false;
 
-    public static void LoadResources()
+    public static void Load()
     {
         if (isLoaded) return;
 
@@ -31,43 +31,26 @@ public static class ResourceManager
 
     public static FrogSO GetFrog()
     {
-        return GetRandom<FrogSO>(allFrogs);
+        return Helper.GetRandom<FrogSO>(allFrogs);
     }
 
     public static BaddieSO GetBaddie()
     {
-        return GetRandom<BaddieSO>(allBaddies);
+        return Helper.GetRandom<BaddieSO>(allBaddies);
     }
 
     public static Effect GetEffect()
     {
-        return GetRandom<Effect>(allEffects);
+        return Helper.GetRandom<Effect>(allEffects);
     }
 
     public static GameObject GetUI(string name)
     {
-        return FindByName<GameObject>(allUI, name);
+        return Helper.FindByName<GameObject>(allUI, name);
     }
 
     public static ParticleSystem GetVFX(Effect effect)
     {
-        return FindByName<ParticleSystem>(allVFX, effect.name);
-    }
-
-    private static T FindByName<T>(T[] gameObjects, string name) where T : UnityEngine.Object
-    {
-        foreach (T obj in gameObjects)
-        {
-            if (obj.name == name)
-            {
-                return obj;
-            }
-        }
-        throw new System.Exception($"No Object with name of {name}");
-    }
-
-    private static T GetRandom<T>(T[] gameObjects) where T : UnityEngine.Object
-    {
-        return gameObjects[GameManager.Random.Next(0, gameObjects.Length)];
+        return Helper.FindByName<ParticleSystem>(allVFX, effect.name);
     }
 }

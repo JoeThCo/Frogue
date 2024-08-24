@@ -28,6 +28,8 @@ public class Health : IFinalValue
 
         HPLeft -= finalDamage;
         SpawnDamageText(other, finalDamage);
+        SoundEffectsManager.PlaySFX("Damage", other);
+
         OnHealthChanged?.Invoke(this);
         Debug.LogFormat($"-{finalDamage} | {HPLeft} / {MaxHP}");
 

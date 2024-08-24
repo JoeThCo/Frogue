@@ -26,6 +26,8 @@ public class AbilityMenu : Menu
             Destroy(child.gameObject);
         }
 
+        if (obj.Being.BeingInfo == null) return;
+
         foreach (Ability ability in obj.Being.BeingInfo.GetAbilities())
         {
             AbilityInfoUI abilityInfoUI = Instantiate(abilityInfoUIPrefab, menuParent);

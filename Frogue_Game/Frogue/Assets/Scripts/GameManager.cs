@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         Random = new System.Random(Seed);
         Debug.LogFormat("Seed: {0}", Seed);
 
-        ResourceManager.LoadResources();
+        ResourceManager.Load();
+        SoundEffectsManager.Load();
     }
 }
