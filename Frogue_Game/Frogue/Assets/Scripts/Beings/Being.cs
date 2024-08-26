@@ -19,7 +19,7 @@ public class Being : MonoBehaviour
         Effects = new Effects(this, beingSO.GetEffects());
         Types = new Types(beingSO.GetTypes());
 
-        Health = new Health(Effects, beingSO.GetHealth());
+        Health = new Health(this, beingSO.GetHealth());
         Health.OnDeath += Health_OnDeath;
 
         Damage = new Damage(Effects, beingSO.GetDamage());
@@ -33,7 +33,7 @@ public class Being : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public IEnumerator DamageTween(Being otherBeing, float totalTime = .5f)
+    public IEnumerator DamageTween(Being otherBeing, float totalTime = .33f)
     {
         float halfTime = totalTime * .5f;
         Vector3 startPosition = transform.position;

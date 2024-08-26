@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerGridModify : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class PlayerGridModify : MonoBehaviour
 
     private void Start()
     {
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+
         BeingBattle.FightStart += BeingBattleBus_BattleStart;
         BeingBattle.FightEnd += BeingBattleBus_BattleEnd;
 
@@ -26,7 +29,7 @@ public class PlayerGridModify : MonoBehaviour
         BeingSlotCleared += BeingGridModify_BeingSlotCleared;
     }
 
-    private void OnDisable()
+    private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
         BeingBattle.FightStart -= BeingBattleBus_BattleStart;
         BeingBattle.FightEnd -= BeingBattleBus_BattleEnd;
@@ -34,12 +37,15 @@ public class PlayerGridModify : MonoBehaviour
         BeingSlotSelected -= BeingGridModify_BeingSlotSelected;
         BeingSlotSwapped -= BeingGridModify_BeingSlotSwapped;
         BeingSlotCleared -= BeingGridModify_BeingSlotCleared;
+
+        SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
     }
 
     private void BeingGridModify_BeingSlotSwapped(BeingSlot otherBeingSlot)
     {
         selectedSlot.SwapBeings(otherBeingSlot);
         BeingSlotCleared?.Invoke(otherBeingSlot);
+        SoundEffectsManager.PlaySFX("SlotSwapped", otherBeingSlot);
     }
 
     private void BeingGridModify_BeingSlotCleared(BeingSlot otherBeingSlot)
@@ -47,12 +53,14 @@ public class PlayerGridModify : MonoBehaviour
         if (selectedSlot == null) return;
         selectedSlot.OnDeselect();
         selectedSlot = null;
+        SoundEffectsManager.PlaySFX("SlotCleared", otherBeingSlot);
     }
 
     private void BeingGridModify_BeingSlotSelected(BeingSlot otherBeingSlot)
     {
         selectedSlot = otherBeingSlot;
         selectedSlot.OnSelect();
+        SoundEffectsManager.PlaySFX("SlotSelected", otherBeingSlot);
     }
 
     private void BeingBattleBus_BattleStart()

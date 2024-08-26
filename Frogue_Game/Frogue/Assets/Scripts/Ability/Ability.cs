@@ -45,7 +45,7 @@ public class Ability : ScriptableObject, IDescription
 
     private IEnumerator SpawnEffectVFX(Being being, Effect effect)
     {
-        ParticleSystem vfx = Instantiate(ResourceManager.GetVFX(effect), being.transform.position, Quaternion.identity);
+        ParticleSystem vfx = Instantiate(effect.vfx, being.transform.position, Quaternion.identity);
         vfx.Play();
 
         yield return new WaitForSeconds(vfx.main.duration);

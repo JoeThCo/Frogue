@@ -11,15 +11,33 @@ public class SoundEffectsManager : MonoBehaviour
     {
         sfxPrefab = Resources.Load<SoundEffect>("SFX/SFXPrefab");
         allSFXs = Resources.LoadAll<AudioSO>("SFX");
+    }
 
-        foreach (AudioSO s in allSFXs)
-            Debug.Log(s.name);
+    private static void SpawnSFX(string name, Vector2 position)
+    {
+        AudioSO audio = Helper.FindByName<AudioSO>(allSFXs, name);
+        SoundEffect soundEffect = Instantiate(sfxPrefab, position, Quaternion.identity).GetComponent<SoundEffect>();
+        soundEffect.PlaySound(audio);
+    }
+
+    private static void SpawnSFX(Effect effect, Vector2 position)
+    {
+        SoundEffect soundEffect = Instantiate(sfxPrefab, position, Quaternion.identity).GetComponent<SoundEffect>();
+        soundEffect.PlaySound(effect.audioSO);
+    }
+
+    public static void PlaySFX(Effect effect, Being being)
+    {
+        SpawnSFX(effect, being.transform.position);
     }
 
     public static void PlaySFX(string name, Being being)
     {
-        AudioSO audio = Helper.FindByName<AudioSO>(allSFXs, name);
-        SoundEffect soundEffect = Instantiate(sfxPrefab, being.transform.position, Quaternion.identity).GetComponent<SoundEffect>();
-        soundEffect.PlaySound(audio);
+        SpawnSFX(name, being.transform.position);
+    }
+
+    public static void PlaySFX(string name, BeingSlot beingSlot)
+    {
+        SpawnSFX(name, beingSlot.transform.position);
     }
 }

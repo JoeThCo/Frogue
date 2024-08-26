@@ -7,7 +7,7 @@ public class Damage : IFinalValue
     private int DamageAmount;
     private Effects effects;
 
-    public Damage(Effects effects, int startDamage) 
+    public Damage(Effects effects, int startDamage)
     {
         this.effects = effects;
         DamageAmount = startDamage;

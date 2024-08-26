@@ -21,6 +21,7 @@ public class Effects
         if (instantEffect != null)
             instantEffect.OnInstantEffect(being);
 
+        SoundEffectsManager.PlaySFX(effect, being);
         AllEffects.Add(effect);
     }
 

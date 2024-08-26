@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class Effect : ScriptableObject
 {
-
+    public ParticleSystem vfx;
+    public AudioSO audioSO;
 }

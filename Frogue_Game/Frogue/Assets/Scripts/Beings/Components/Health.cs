@@ -11,12 +11,11 @@ public class Health : IFinalValue
     public event Action OnDeath;
     public event Action<Health> OnHealthChanged;
 
-    private Effects effects;
+    private Being being;
 
-    public Health(Effects effects, int startHealth)
+    public Health(Being being, int startHealth)
     {
-        this.effects = effects;
-
+        this.being = being;
         HPLeft = startHealth;
         MaxHP = HPLeft;
     }
@@ -44,6 +43,8 @@ public class Health : IFinalValue
 
         HPLeft += finalHealing;
         HPLeft = Math.Min(HPLeft, MaxHP);
+        SoundEffectsManager.PlaySFX("Healing", being);
+
         OnHealthChanged?.Invoke(this);
         Debug.LogFormat($"+{finalHealing} | {HPLeft} / {MaxHP}");
     }
@@ -69,6 +70,6 @@ public class Health : IFinalValue
 
     public int GetFinalValue()
     {
-        return effects.GetFinalValue(HPLeft, typeof(Healing));
+        return being.Effects.GetFinalValue(HPLeft, typeof(Healing));
     }
 }
