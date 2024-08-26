@@ -58,7 +58,9 @@ public class BeingSlot : MonoBehaviour
         if (other == null) return false;
         BeingSlot compare = other as BeingSlot;
 
-        return compare.Coords == Coords && compare.Being == Being;
+        return compare.Coords.Equals(Coords) &&
+            Being.Equals(compare.Being) &&
+            compare.isPlayerInteractable == isPlayerInteractable;
     }
 
     public override int GetHashCode()

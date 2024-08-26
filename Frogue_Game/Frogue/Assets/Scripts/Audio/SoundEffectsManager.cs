@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundEffectsManager : MonoBehaviour
+public static class SoundEffectsManager
 {
     [SerializeField] private static SoundEffect sfxPrefab;
     [SerializeField] private static AudioSO[] allSFXs;
@@ -16,13 +16,13 @@ public class SoundEffectsManager : MonoBehaviour
     private static void SpawnSFX(string name, Vector2 position)
     {
         AudioSO audio = Helper.FindByName<AudioSO>(allSFXs, name);
-        SoundEffect soundEffect = Instantiate(sfxPrefab, position, Quaternion.identity).GetComponent<SoundEffect>();
+        SoundEffect soundEffect = GameObject.Instantiate(sfxPrefab, position, Quaternion.identity).GetComponent<SoundEffect>();
         soundEffect.PlaySound(audio);
     }
 
     private static void SpawnSFX(Effect effect, Vector2 position)
     {
-        SoundEffect soundEffect = Instantiate(sfxPrefab, position, Quaternion.identity).GetComponent<SoundEffect>();
+        SoundEffect soundEffect = GameObject.Instantiate(sfxPrefab, position, Quaternion.identity).GetComponent<SoundEffect>();
         soundEffect.PlaySound(effect.audioSO);
     }
 

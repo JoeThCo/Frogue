@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SlotSelected
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: f4bd3a399833b2943b6e9834b9c4f1fb, type: 3}
-  Volume: 1
-  frequencyMin: -0.15
-  frequencyMax: 0.15
+  Volume: 0.75
+  frequencyMin: -0.2
+  frequencyMax: 0.2

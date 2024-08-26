@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcb0f0317816b6f4eac10ab59c57cccc, type: 3}
   m_Name: +2 Health
   m_EditorClassIdentifier: 
+  vfx: {fileID: 5428065413033605605, guid: 1c509f6ba521a5246be7f423851049ea, type: 3}
+  audioSO: {fileID: 11400000, guid: 79f5c72aeac773e43b9c8cce522b2840, type: 2}
   HealingAmount: 2

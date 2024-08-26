@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 445d6060ac6e5a840acb89d9661ac88d, type: 3}
-  m_Name: SlotSwapped
+  m_Name: MaxHP
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: dab8e357ba6354b4893fce0fdeebe828, type: 3}
   Volume: 0.75

@@ -54,4 +54,21 @@ public class Being : MonoBehaviour
         transform.SetParent(slot.transform);
         transform.DOLocalMove(Vector2.zero, swapTime).SetEase(Ease.Linear);
     }
+
+    public override bool Equals(object other)
+    {
+        if (other == null) return false;
+        Being otherBeing = other as Being;
+
+        return otherBeing.Damage == Damage &&
+            otherBeing.Health == Health &&
+            otherBeing.Types == Types &&
+            otherBeing.BeingInfo == BeingInfo &&
+            otherBeing.Effects == Effects;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
 }

@@ -50,10 +50,14 @@ public class PlayerGridModify : MonoBehaviour
 
     private void BeingGridModify_BeingSlotCleared(BeingSlot otherBeingSlot)
     {
-        if (selectedSlot == null) return;
         selectedSlot.OnDeselect();
+
+        if (otherBeingSlot.Equals(selectedSlot)) 
+        {
+            SoundEffectsManager.PlaySFX("SlotCleared", otherBeingSlot);
+        }
+
         selectedSlot = null;
-        SoundEffectsManager.PlaySFX("SlotCleared", otherBeingSlot);
     }
 
     private void BeingGridModify_BeingSlotSelected(BeingSlot otherBeingSlot)
@@ -95,11 +99,15 @@ public class PlayerGridModify : MonoBehaviour
                 BeingSlotSelected?.Invoke(otherBeingSlot);
             }
             else
-                BeingSlotSwapped?.Invoke(otherBeingSlot);
-
+            {
+                if (selectedSlot.Equals(otherBeingSlot))
+                    BeingSlotCleared?.Invoke(otherBeingSlot);
+                else
+                    BeingSlotSwapped?.Invoke(otherBeingSlot);
+            }
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && selectedSlot != null)
             BeingSlotCleared?.Invoke(selectedSlot);
     }
 }

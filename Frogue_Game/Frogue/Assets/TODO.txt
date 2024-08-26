@@ -1,18 +1,10 @@
 0.0.8 TODO
 
+--------------------
+
+0.0.9 TODO
+
 - Relative Who's
 
 Being Info better
 - Icons for Type
-
-- SFX
-- Healing
-- Select/Unselect Being
-- Swap
-- Empty Click
-
-
-- One Song
-
-Effects
-- Max Health

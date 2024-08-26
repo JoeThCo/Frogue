@@ -30,7 +30,7 @@ public class Health : IFinalValue
         SoundEffectsManager.PlaySFX("Damage", other);
 
         OnHealthChanged?.Invoke(this);
-        Debug.LogFormat($"-{finalDamage} | {HPLeft} / {MaxHP}");
+        Debug.LogFormat($"-{finalDamage} HP | {HPLeft} / {MaxHP}");
 
         if (isDead())
             OnDeath?.Invoke();
@@ -38,20 +38,26 @@ public class Health : IFinalValue
 
     public void HealBeing(Healing healing)
     {
+        if (HPLeft >= MaxHP) return;
+
         int finalHealing = healing.HealingAmount;
         if (finalHealing <= 0) return;
 
         HPLeft += finalHealing;
         HPLeft = Math.Min(HPLeft, MaxHP);
-        SoundEffectsManager.PlaySFX("Healing", being);
 
         OnHealthChanged?.Invoke(this);
-        Debug.LogFormat($"+{finalHealing} | {HPLeft} / {MaxHP}");
+        Debug.LogFormat($"+{finalHealing} HP | {HPLeft} / {MaxHP}");
     }
 
     public void ChangeMaxHealth(MaxHealthChange maxHealthChange)
     {
+        int finalMaxHealthChange = maxHealthChange.HealthChange;
+        HPLeft += finalMaxHealthChange;
+        MaxHP += finalMaxHealthChange;
 
+        OnHealthChanged?.Invoke(this);
+        Debug.LogFormat($"+{finalMaxHealthChange} MAX HP | {HPLeft} / {MaxHP}");
     }
 
     void SpawnDamageText(Being being, int finalDamage)
