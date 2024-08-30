@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Fight
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2a1efbe3dd0e7ef4995c17bfb7173e47, type: 2}
-  m_sharedMaterial: {fileID: 345728221193392425, guid: 2a1efbe3dd0e7ef4995c17bfb7173e47, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 3430d3b508993014086dd23ce05741df, type: 2}
+  m_sharedMaterial: {fileID: 5104572880513520090, guid: 3430d3b508993014086dd23ce05741df, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,13 +92,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 118.5
+  m_fontSize: 66.4
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 15
   m_fontSizeMax: 130
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 32
   m_VerticalAlignment: 8192
   m_textAlignment: 65535

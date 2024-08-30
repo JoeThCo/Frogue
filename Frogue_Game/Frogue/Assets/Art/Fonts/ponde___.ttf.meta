@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4ff386d1eb7aa1041aaaaa1c42f68fed
+guid: 41abb0a8dee6d4f4f85b58cb77483baa
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Frogotype
+  - Ponderosa
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
