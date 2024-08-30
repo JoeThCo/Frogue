@@ -40,5 +40,5 @@ Art
 Audio
 - SFX for button pressing
 
-Juice
--
+Brainstorm
+-Ways to display effects, whos and abilities without text
