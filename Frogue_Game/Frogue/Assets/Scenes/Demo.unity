@@ -731,23 +731,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5170319894676511782, guid: 6b5dfd1c3a6dbc04691c37fd4e118d68, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5170319894676511782, guid: 6b5dfd1c3a6dbc04691c37fd4e118d68, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 737835404}
     - target: {fileID: 5170319894676511782, guid: 6b5dfd1c3a6dbc04691c37fd4e118d68, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5170319894676511782, guid: 6b5dfd1c3a6dbc04691c37fd4e118d68, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MainMenu
+      value: LoadScene
       objectReference: {fileID: 0}
     - target: {fileID: 5170319894676511782, guid: 6b5dfd1c3a6dbc04691c37fd4e118d68, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BattleMenu, Assembly-CSharp
+      value: SceneMenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5170319894676511782, guid: 6b5dfd1c3a6dbc04691c37fd4e118d68, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 5170319894676511782, guid: 6b5dfd1c3a6dbc04691c37fd4e118d68, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
