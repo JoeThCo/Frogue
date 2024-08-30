@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba736460e43e5544923fd3823758082, type: 3}
   m_Name: Even Steven
   m_EditorClassIdentifier: 
-  TriggerWhos:
-  - {fileID: 11400000, guid: 0cc698e6b63c7ed4db9c2bc2beae7c12, type: 2}
+  LocationWhos:
+  - {fileID: 11400000, guid: d6b6e02415fc96b4d8d8af17025483de, type: 2}
+  ConditionWhos:
+  - {fileID: 11400000, guid: d6b6e02415fc96b4d8d8af17025483de, type: 2}
   ApplyEffectWho: {fileID: 11400000, guid: 0cc698e6b63c7ed4db9c2bc2beae7c12, type: 2}
   EffectsToApply:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}

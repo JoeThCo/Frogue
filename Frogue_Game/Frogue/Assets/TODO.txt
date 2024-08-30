@@ -5,9 +5,7 @@ Code
 - Display ability information
 - Display what spots for activation and effect to give to
 - Display name of ability on trigger?
-- Different more readable font
 - Relative Who's
-- Ability Who's - if Location has Condition(s)
 - Add frogs from top to bottom, left to right
 - Make tools for generating new effects, whos abilities, etc
 
@@ -37,8 +35,10 @@ Art
 
 - envioment stuff? Clouds, flies, trees etc?
 
+
 Audio
 - SFX for button pressing
+
 
 Brainstorm
 -Ways to display effects, whos and abilities without text

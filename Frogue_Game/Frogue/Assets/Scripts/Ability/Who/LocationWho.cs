@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BoardWho", menuName = "ScriptableObject/Who/BoardWho")]
-public class BoardWho : Who
+[CreateAssetMenu(fileName = "LocationWho", menuName = "ScriptableObject/Who/LocationWho")]
+public class LocationWho : Who
 {
     [SerializeField] private List<int> rows = new List<int>();
     [SerializeField] private List<int> columns = new List<int>();

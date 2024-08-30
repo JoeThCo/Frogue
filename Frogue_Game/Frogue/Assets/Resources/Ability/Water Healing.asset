@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba736460e43e5544923fd3823758082, type: 3}
   m_Name: Water Healing
   m_EditorClassIdentifier: 
-  abilityDescription: 
-  TriggerWhos:
+  LocationWhos:
+  - {fileID: 11400000, guid: 26e2db4f72c00a64bb1964433e60f47c, type: 2}
+  ConditionWhos:
   - {fileID: 11400000, guid: ca11498dc72d214438ccbffd2335f425, type: 2}
-  ApplyEffectWho: {fileID: 11400000, guid: ca11498dc72d214438ccbffd2335f425, type: 2}
   EffectsToApply:
   - {fileID: 11400000, guid: 785112eeaef766d41917b2334cf538d7, type: 2}

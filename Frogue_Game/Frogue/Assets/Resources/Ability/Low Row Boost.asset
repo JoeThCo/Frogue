@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba736460e43e5544923fd3823758082, type: 3}
   m_Name: Low Row Boost
   m_EditorClassIdentifier: 
-  TriggerWhos:
+  LocationWhos:
   - {fileID: 11400000, guid: 6f3a83517da8f1b438f4d3a9d9ebde10, type: 2}
-  ApplyEffectWho: {fileID: 11400000, guid: 6f3a83517da8f1b438f4d3a9d9ebde10, type: 2}
+  ConditionWhos:
+  - {fileID: 11400000, guid: 6f3a83517da8f1b438f4d3a9d9ebde10, type: 2}
   EffectsToApply:
   - {fileID: 11400000, guid: 187d4a148b9beb740bb831050c3ac57e, type: 2}
