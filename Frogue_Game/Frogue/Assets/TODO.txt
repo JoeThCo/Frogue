@@ -10,7 +10,6 @@ Code
 
 
 Art
-- Icons for Type
 - Decide all art states a Being can be in
     - Idle
     - Attack

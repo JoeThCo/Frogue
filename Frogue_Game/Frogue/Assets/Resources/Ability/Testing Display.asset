@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ba736460e43e5544923fd3823758082, type: 3}
-  m_Name: Even Steven
+  m_Name: Testing Display
   m_EditorClassIdentifier: 
   LocationWhos:
-  - {fileID: 11400000, guid: d6b6e02415fc96b4d8d8af17025483de, type: 2}
-  ConditionWhos: []
+  - {fileID: 11400000, guid: 6f3a83517da8f1b438f4d3a9d9ebde10, type: 2}
+  - {fileID: 11400000, guid: b2bb8695b5f62914f930b59e8ca56f06, type: 2}
+  ConditionWhos:
+  - {fileID: 11400000, guid: ca11498dc72d214438ccbffd2335f425, type: 2}
   EffectsToApply:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}

@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LocationWhos:
   - {fileID: 11400000, guid: 108c557b0584765409b2de7e81446e29, type: 2}
-  ConditionWhos:
-  - {fileID: 11400000, guid: 108c557b0584765409b2de7e81446e29, type: 2}
+  ConditionWhos: []
   EffectsToApply:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}

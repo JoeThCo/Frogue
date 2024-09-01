@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17eb8d1c221cf664c89f69ca355e0d30, type: 3}
   m_Name: Grass
   m_EditorClassIdentifier: 
-  whoInfo:
-    Description: is a Grass Type
-  beingTypes:
+  BeingTypes:
   - {fileID: 11400000, guid: af1ff82cd4df63e4f9fb71f0c5868152, type: 2}

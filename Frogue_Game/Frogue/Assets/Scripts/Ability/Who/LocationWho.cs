@@ -11,16 +11,26 @@ public class LocationWho : Who
     public override bool IsInWho(BeingSlot slot)
     {
         //Debug.Log($"{base.IsInWho(slot)} {IsInRows(slot)} {IsInColumns(slot)}");
-        return IsInRows(slot) || IsInColumns(slot);
+        return IsBeingInSlot(slot) && IsInRows(slot) || IsInColumns(slot);
+    }
+
+    public bool IsInRows(int r)
+    {
+        return rows.Contains(r);
     }
 
     private bool IsInRows(BeingSlot slot)
     {
-        return IsBeingInSlot(slot) && rows.Contains(slot.Coords.y);
+        return rows.Contains(slot.Coords.y);
+    }
+
+    public bool IsInColumns(int c)
+    {
+        return columns.Contains(c);
     }
 
     private bool IsInColumns(BeingSlot slot)
     {
-        return IsBeingInSlot(slot) && columns.Contains(slot.Coords.x);
+        return columns.Contains(slot.Coords.x);
     }
 }

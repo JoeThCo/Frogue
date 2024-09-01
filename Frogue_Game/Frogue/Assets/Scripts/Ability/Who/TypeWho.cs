@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TypeWho", menuName = "ScriptableObject/Who/TypeWho")]
 public class TypeWho : ConditionWho
 {
-    [SerializeField] private List<BeingType> beingTypes = new List<BeingType>();
+    public List<BeingType> BeingTypes = new List<BeingType>();
 
     public override bool IsInWho(BeingSlot slot)
     {
@@ -14,6 +14,6 @@ public class TypeWho : ConditionWho
 
     private bool IsBeingOfTypes(BeingSlot slot)
     {
-        return slot.Being.Types.IsBeingOfTypes(beingTypes);
+        return slot.Being.Types.IsBeingOfTypes(BeingTypes);
     }
 }
