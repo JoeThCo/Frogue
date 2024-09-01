@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2538910552e8fd648bf5132e0adf2e80, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  _color: {r: 0.20803669, g: 0.6417036, b: 0.8018868, a: 1}
+  Color: {r: 0.37254903, g: 0.80392164, b: 0.8941177, a: 1}
+  Icon: {fileID: 460144742, guid: 0d828344338ebbb4184462bf0ead846a, type: 3}

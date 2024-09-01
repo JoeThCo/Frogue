@@ -8,11 +8,6 @@ public class Types
 
     public Types(BeingType[] types)
     {
-        foreach (BeingType type in types)
-        {
-            type.TypeInit();
-        }
-
         BeingTypes.AddRange(types);
     }
 
@@ -35,6 +30,11 @@ public class Types
     public Color GetMainColor()
     {
         return BeingTypes[0].Color;
+    }
+
+    public Sprite GetIcon() 
+    {
+        return BeingTypes[0].Icon;
     }
 
     public override string ToString()

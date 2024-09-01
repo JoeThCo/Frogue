@@ -9,7 +9,7 @@ public class InfoMenu : Menu
 {
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI damageText;
-    [SerializeField] private TextMeshProUGUI typeText;
+    [SerializeField] private Image typeImage;
     [Space(10)]
     [SerializeField] private HealthBar healthBar;
 
@@ -29,7 +29,7 @@ public class InfoMenu : Menu
     {
         nameText.SetText(beingSlot.Being.BeingInfo.name);
         damageText.SetText($"Damage: {beingSlot.Being.Damage}");
-        typeText.SetText(beingSlot.Being.Types.ToString());
+        typeImage.sprite = beingSlot.Being.Types.GetIcon();
 
         healthBar.HealthBarInit(beingSlot.Being);
     }

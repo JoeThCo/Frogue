@@ -6,11 +6,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Ability", menuName = "ScriptableObject/Ability/Ability")]
 public class Ability : ScriptableObject
 {
-    [Header("If")]
+    [Header("If...")]
     public LocationWho[] LocationWhos;
     public ConditionWho[] ConditionWhos;
 
-    [Header("Then")]
+    [Header("Then...")]
     public Effect[] EffectsToApply;
 
     public IEnumerator AbilityCheck(BeingHolder beingHolder)
