@@ -4,11 +4,11 @@ using System.Net.NetworkInformation;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Ability", menuName = "ScriptableObject/Ability/Ability")]
-public class Ability : ScriptableObject, IDescription
+public class Ability : ScriptableObject
 {
     [Header("If")]
     public LocationWho[] LocationWhos;
-    public Who[] ConditionWhos;
+    public ConditionWho[] ConditionWhos;
 
     [Header("Then")]
     public Effect[] EffectsToApply;
@@ -19,7 +19,7 @@ public class Ability : ScriptableObject, IDescription
         {
             foreach (LocationWho locationWho in LocationWhos)
             {
-                foreach (Who conditionWho in ConditionWhos)
+                foreach (ConditionWho conditionWho in ConditionWhos)
                 {
                     if (!locationWho.IsInWho(beingslot) || !conditionWho.IsInWho(beingslot)) continue;
 
@@ -31,11 +31,6 @@ public class Ability : ScriptableObject, IDescription
                 }
             }
         }
-    }
-
-    public string GetDescription()
-    {
-        return "Test";
     }
 
     private IEnumerator SpawnEffectVFX(Being being, Effect effect)

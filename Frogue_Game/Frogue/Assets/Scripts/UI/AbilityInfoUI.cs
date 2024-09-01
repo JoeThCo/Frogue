@@ -11,6 +11,5 @@ public class AbilityInfoUI : MonoBehaviour
     public void AbilityInfoInit(Ability ability)
     {
         abilityName.SetText(ability.name);
-        abilityDescription.SetText(ability.GetDescription());
     }
 }
