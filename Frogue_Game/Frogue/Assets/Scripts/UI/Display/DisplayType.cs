@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class DisplayType : MonoBehaviour
 {
-    [SerializeField] GridLayoutGroup typesParent;
-    [SerializeField] GameObject displayImagePrefab;
-
     public void Display(ConditionWho conditionWho)
     {
         TypeWho typeWho = conditionWho as TypeWho;
@@ -15,7 +12,7 @@ public class DisplayType : MonoBehaviour
 
         foreach (BeingType type in typeWho.BeingTypes)
         {
-            Image image = Instantiate(displayImagePrefab, typesParent.transform).GetComponent<Image>();
+            Image image = Instantiate(ResourceManager.GetUI("WhoImage"), transform).GetComponent<Image>();
             image.sprite = type.Icon;
         }
     }

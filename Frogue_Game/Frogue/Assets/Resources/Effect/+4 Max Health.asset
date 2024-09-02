@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d370e5551a34df4186d62155cc2a6cc, type: 3}
   m_Name: +4 Max Health
   m_EditorClassIdentifier: 
+  Color: {r: 0, g: 0.5568628, b: 0.03529412, a: 1}
+  Icon: {fileID: 21300000, guid: b76dc37def5d2c143bd34e5331619081, type: 3}
   vfx: {fileID: 5428065413033605605, guid: 46d5366e3426b6740884111d12f40a8b, type: 3}
   audioSO: {fileID: 11400000, guid: fee84e4e8f9012e4e9ece6fa79135de5, type: 2}
   HealthChange: 4

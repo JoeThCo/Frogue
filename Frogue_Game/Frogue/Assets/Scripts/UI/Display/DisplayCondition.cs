@@ -12,7 +12,7 @@ public class DisplayCondition : MonoBehaviour
         if (conditionWho is TypeWho)
         {
             TypeWho typeWho = conditionWho as TypeWho;
-            DisplayType displayType = Instantiate(displayTypePrefab, gameObject.transform);
+            DisplayType displayType = Instantiate(displayTypePrefab, transform);
             displayType.Display(typeWho);
         }
     }

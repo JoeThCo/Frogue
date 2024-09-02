@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f18d5de79e58264fb4bfd816182a2d6, type: 3}
   m_Name: DamageDown
   m_EditorClassIdentifier: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Icon: {fileID: 21300000, guid: 2cc9ce6c4a68caf4e99e97470c0ce2f2, type: 3}
   vfx: {fileID: 5428065413033605605, guid: 0273d7014bbd3ee46bdb082c956f7c5a, type: 3}
   audioSO: {fileID: 11400000, guid: 1105b213c9dd59e4f8fde6777c7142b4, type: 2}
   ChangeAmount: -1

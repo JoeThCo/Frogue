@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEditor.Playables;
 
 public class AbilityInfoUI : MonoBehaviour
 {
@@ -14,26 +15,43 @@ public class AbilityInfoUI : MonoBehaviour
 
     [Header("Parent")]
     [SerializeField] private DisplayLocation displayLocation;
-    [SerializeField] private HorizontalLayoutGroup conditionInfo;
+    [SerializeField] private DisplayCondition displayConditionInfo;
+    [SerializeField] private DisplayEffect displayEffect;
 
     public void AbilityInfoInit(BeingSlot beingSlot)
     {
         if (beingSlot.Being == null) return;
-        Ability ability = beingSlot.Being.BeingInfo.GetAbility();
 
+        Ability ability = beingSlot.Being.BeingInfo.GetAbility();
+        if (ability == null) return;
+
+        ClearInfo();
+        AddInfo(ability);
+    }
+
+    void ClearInfo()
+    {
         foreach (Transform t in displayLocation.transform)
             Destroy(t.gameObject);
 
-        foreach (Transform t in conditionInfo.transform)
+        foreach (Transform t in displayConditionInfo.transform)
             Destroy(t.gameObject);
 
+        foreach (Transform t in displayEffect.transform)
+            Destroy(t.gameObject);
+    }
+
+    void AddInfo(Ability ability)
+    {
         abilityName.SetText(ability.name);
         displayLocation.Display(ability);
 
         foreach (ConditionWho conditionWho in ability.ConditionWhos)
         {
-            DisplayCondition displayCondition = Instantiate(displayConditionPrefab, conditionInfo.transform).GetComponent<DisplayCondition>();
+            DisplayCondition displayCondition = Instantiate(displayConditionPrefab, displayConditionInfo.transform).GetComponent<DisplayCondition>();
             displayCondition.Display(conditionWho);
         }
+
+        displayEffect.Display(ability.EffectsToApply);
     }
 }

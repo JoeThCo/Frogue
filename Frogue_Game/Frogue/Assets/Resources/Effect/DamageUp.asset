@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f18d5de79e58264fb4bfd816182a2d6, type: 3}
   m_Name: DamageUp
   m_EditorClassIdentifier: 
+  Color: {r: 1, g: 0, b: 0, a: 1}
+  Icon: {fileID: 21300000, guid: add5b84cbfe5ca147abc6ad1d63c06fa, type: 3}
   vfx: {fileID: 5428065413033605605, guid: 4dc3abfd854b2024b97b45b6ee3bb703, type: 3}
   audioSO: {fileID: 11400000, guid: 1105b213c9dd59e4f8fde6777c7142b4, type: 2}
   ChangeAmount: 1

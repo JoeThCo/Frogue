@@ -5,8 +5,9 @@
 Code
 - Display ability information
 - Display what spots for activation and effect to give to
+
 - Display name of ability on trigger?
-- Relative Who's
+- Relative Who's (??)
 - Make tools for generating new effects, whos abilities, etc
 
 ~~~~~~~~~~~~~~~~~~~~~~~~
