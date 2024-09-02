@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BeingHolder : MonoBehaviour
 {
-    [SerializeField] protected Vector2Int gridSize = Vector2Int.one * 5;
+    [SerializeField] protected Vector2Int gridSize = Vector2Int.one * Helper.GRID_SIZE;
     [SerializeField] private int BeingsToSpawn = 5;
     [Space(10)]
     [SerializeField] private bool isPlayerInteractable = false;
@@ -17,7 +17,7 @@ public class BeingHolder : MonoBehaviour
 
     public virtual void Start()
     {
-        AllSlots = new BeingSlot[gridSize.x, gridSize.y];
+        AllSlots = new BeingSlot[Helper.GRID_SIZE, Helper.GRID_SIZE];
 
         beingSlotPrefab = ResourceManager.GetUI("BeingSlot").GetComponent<BeingSlot>();
         beingControllerPrefab = ResourceManager.GetUI("Being").GetComponent<Being>();

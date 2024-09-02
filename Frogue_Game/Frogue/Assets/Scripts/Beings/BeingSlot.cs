@@ -24,14 +24,23 @@ public class BeingSlot : MonoBehaviour
 
         OnDeselect();
 
-        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         BeingBattle.FightStart += BeingBattle_FightStart;
+        PlayerGridModify.BeingSlotCleared += PlayerGridModify_BeingSlotCleared;
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
     }
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
         BeingBattle.FightStart -= BeingBattle_FightStart;
+        PlayerGridModify.BeingSlotCleared -= PlayerGridModify_BeingSlotCleared;
+
         SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
+    }
+
+    private void PlayerGridModify_BeingSlotCleared(BeingSlot obj)
+    {
+        OnDeselect();
     }
 
     private void BeingBattle_FightStart()

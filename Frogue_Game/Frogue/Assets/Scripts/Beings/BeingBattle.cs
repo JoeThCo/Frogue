@@ -118,11 +118,9 @@ public class BeingBattle : MonoBehaviour
     {
         foreach (Being being in beingHolder.GetAliveBeings())
         {
-            foreach (Ability ability in being.BeingInfo.GetAbilities())
-            {
-                if (ability != null)
-                    yield return ability.AbilityCheck(beingHolder);
-            }
+            Ability ability = being.BeingInfo.GetAbility();
+            if (ability != null)
+                yield return ability.AbilityCheck(beingHolder);
         }
     }
 

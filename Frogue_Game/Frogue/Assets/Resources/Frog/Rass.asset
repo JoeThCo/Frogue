@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDamage: 2
   startHealth: 10
-  startAbilities:
-  - {fileID: 11400000, guid: 196312d4a297188469fcbb4f61d0c595, type: 2}
+  startAbility: {fileID: 11400000, guid: 25ba84b189fb4994e820517c8099ab0f, type: 2}
   startEffects:
   - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}
   startTypes:

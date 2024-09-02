@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Playables;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "LocationWho", menuName = "ScriptableObject/Who/LocationWho")]
@@ -38,11 +39,38 @@ public class LocationWho : Who
             for (int y = 0; y < output.GetLength(1); y++)
             {
                 bool result = false;
+
                 foreach (LocationWho locationWho in ability.LocationWhos)
                 {
                     if (result) continue;
                     result = locationWho.IsFilledDot(x, y);
                 }
+                output[x, y] = result;
+            }
+        }
+
+        return output;
+    }
+
+    public static bool[,] GetFilledDots(Ability[] abilities)
+    {
+        bool[,] output = new bool[Helper.GRID_SIZE, Helper.GRID_SIZE];
+
+        for (int x = 0; x < output.GetLength(0); x++)
+        {
+            for (int y = 0; y < output.GetLength(1); y++)
+            {
+                bool result = false;
+
+                foreach (Ability ability in abilities)
+                {
+                    foreach (LocationWho locationWho in ability.LocationWhos)
+                    {
+                        if (result) continue;
+                        result = locationWho.IsFilledDot(x, y);
+                    }
+                }
+
                 output[x, y] = result;
             }
         }

@@ -16,8 +16,17 @@ public class AbilityInfoUI : MonoBehaviour
     [SerializeField] private DisplayLocation displayLocation;
     [SerializeField] private HorizontalLayoutGroup conditionInfo;
 
-    public void AbilityInfoInit(Ability ability)
+    public void AbilityInfoInit(BeingSlot beingSlot)
     {
+        if (beingSlot.Being == null) return;
+        Ability ability = beingSlot.Being.BeingInfo.GetAbility();
+
+        foreach (Transform t in displayLocation.transform)
+            Destroy(t.gameObject);
+
+        foreach (Transform t in conditionInfo.transform)
+            Destroy(t.gameObject);
+
         abilityName.SetText(ability.name);
         displayLocation.Display(ability);
 

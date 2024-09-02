@@ -64,6 +64,7 @@ public class PlayerGridModify : MonoBehaviour
     {
         selectedSlot = otherBeingSlot;
         selectedSlot.OnSelect();
+        playerGrid.DisplaySelectionSlots(otherBeingSlot);
         SoundEffectsManager.PlaySFX("SlotSelected", otherBeingSlot);
     }
 
