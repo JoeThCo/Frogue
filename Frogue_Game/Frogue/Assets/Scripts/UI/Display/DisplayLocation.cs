@@ -12,21 +12,20 @@ public class DisplayLocation : MonoBehaviour
     public void Display(Ability ability)
     {
         foreach (Transform t in grid.transform)
-        {
             Destroy(t.gameObject);
-        }
 
+        bool[,] filledDots = LocationWho.GetFilledDots(ability);
         for (int x = 0; x < GRID_SIZE; x++)
         {
             for (int y = 0; y < GRID_SIZE; y++)
             {
                 GameObject whoDot = Instantiate(dotPrefab, grid.transform);
                 Image image = whoDot.GetComponent<Image>();
-                image.color = Color.red;
+                image.color = Color.white;
 
-                foreach (LocationWho locationWho in ability.LocationWhos) 
-                    if (locationWho.IsInRows(x) || locationWho.IsInColumns(y))
-                        image.color = Color.green;
+                foreach (LocationWho locationWho in ability.LocationWhos)
+                    if (filledDots[x, y])
+                        image.color = Color.black;
             }
         }
     }

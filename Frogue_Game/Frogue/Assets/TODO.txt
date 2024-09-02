@@ -1,5 +1,6 @@
-0.0.9 TODO
-0.0.9.a Build
+0.0.9.a TODO
+
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Code
 - Display ability information
@@ -8,6 +9,7 @@ Code
 - Relative Who's
 - Make tools for generating new effects, whos abilities, etc
 
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Art
 - Decide all art states a Being can be in
@@ -33,10 +35,7 @@ Art
 
 - envioment stuff? Clouds, flies, trees etc?
 
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Audio
 - SFX for button pressing
-
-
-Brainstorm
--Ways to display effects, whos and abilities without text

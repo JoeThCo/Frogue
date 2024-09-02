@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerGridModify : MonoBehaviour
 {
-    [SerializeField] private PlayerGrid beingGrid;
+    [SerializeField] private PlayerGrid playerGrid;
     [SerializeField] private BeingSlot selectedSlot;
 
     bool canInteract = true;

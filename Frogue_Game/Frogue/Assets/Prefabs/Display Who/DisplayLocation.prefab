@@ -51,6 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 977698957598647405}
   dotPrefab: {fileID: 8175659174462125430, guid: 54f0db14dcf6c2042bd965141303447c, type: 3}
+  emptyDot: {r: 1, g: 1, b: 1, a: 1}
+  filledInDot: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &977698957598647405
 MonoBehaviour:
   m_ObjectHideFlags: 0

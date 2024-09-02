@@ -12,6 +12,9 @@ public class BeingSlot : MonoBehaviour
     public bool isPlayerInteractable { get; private set; }
     public Vector2Int Coords { get; set; }
     private Vector3 defaultScale = Vector3.zero;
+    [Space(10)]
+    [SerializeField] private Color defaultOutline;
+    [SerializeField] private Color selectedOutline;
 
     public void BeingSlotInit(Vector2Int coords, bool isPlayerInteractable)
     {
@@ -43,13 +46,13 @@ public class BeingSlot : MonoBehaviour
 
     public void OnSelect()
     {
-        outline.color = Color.white;
+        outline.color = selectedOutline;
         outline.transform.localScale = defaultScale * 1.25f;
     }
 
     public void OnDeselect()
     {
-        outline.color = Color.black;
+        outline.color = defaultOutline;
         outline.transform.localScale = defaultScale;
     }
 

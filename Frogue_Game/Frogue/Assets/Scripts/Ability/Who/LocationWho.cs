@@ -14,23 +14,39 @@ public class LocationWho : Who
         return IsBeingInSlot(slot) && IsInRows(slot) || IsInColumns(slot);
     }
 
-    public bool IsInRows(int r)
-    {
-        return rows.Contains(r);
-    }
-
     private bool IsInRows(BeingSlot slot)
     {
         return rows.Contains(slot.Coords.y);
     }
 
-    public bool IsInColumns(int c)
-    {
-        return columns.Contains(c);
-    }
-
     private bool IsInColumns(BeingSlot slot)
     {
         return columns.Contains(slot.Coords.x);
+    }
+
+    public bool IsFilledDot(int x, int y)
+    {
+        return rows.Contains(x) || columns.Contains(y);
+    }
+
+    public static bool[,] GetFilledDots(Ability ability)
+    {
+        bool[,] output = new bool[Helper.GRID_SIZE, Helper.GRID_SIZE];
+
+        for (int x = 0; x < output.GetLength(0); x++)
+        {
+            for (int y = 0; y < output.GetLength(1); y++)
+            {
+                bool result = false;
+                foreach (LocationWho locationWho in ability.LocationWhos)
+                {
+                    if (result) continue;
+                    result = locationWho.IsFilledDot(x, y);
+                }
+                output[x, y] = result;
+            }
+        }
+
+        return output;
     }
 }

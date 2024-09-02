@@ -4,6 +4,8 @@ using UnityEngine;
 
 public static class Helper
 {
+    public const int GRID_SIZE = 4;
+
     public static Color RandomColor()
     {
         float r = (float)GameManager.Random.NextDouble();
@@ -15,12 +17,9 @@ public static class Helper
     public static T FindByName<T>(T[] gameObjects, string name) where T : UnityEngine.Object
     {
         foreach (T obj in gameObjects)
-        {
             if (obj.name == name)
-            {
                 return obj;
-            }
-        }
+
         throw new System.Exception($"No Object with name of {name}");
     }
 
