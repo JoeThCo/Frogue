@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00fd7b46549afa24188989939639dde2, type: 3}
+  m_Name: Njo
+  m_EditorClassIdentifier: 
+  startDamage: 5
+  startHealth: 8
+  startAbility: {fileID: 11400000, guid: 8784d7adf16e51c4ca1229d703177e56, type: 2}
+  startEffects: []
+  startTypes:
+  - {fileID: 11400000, guid: 7b72b0907b5c0844a88ea25ff0c5606e, type: 2}

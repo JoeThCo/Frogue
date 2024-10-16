@@ -111,7 +111,7 @@ public class BeingHolder : MonoBehaviour
         List<BeingSlot> output = new List<BeingSlot>();
 
         foreach (BeingSlot slot in AllSlots)
-            if (slot.Being && !slot.Being.Health.isDead())
+            if (slot && slot.Being && !slot.Being.Health.isDead())
                 output.Add(slot);
 
         return output.ToArray();

@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2538910552e8fd648bf5132e0adf2e80, type: 3}
+  m_Name: Poision
+  m_EditorClassIdentifier: 
+  Color: {r: 0.7393485, g: 0.12629052, b: 0.8113208, a: 1}
+  Icon: {fileID: 21300000, guid: f4ed8414cd1b86546bb00a27bb295afc, type: 3}
