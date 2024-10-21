@@ -68,18 +68,14 @@ public class BeingBattle : MonoBehaviour
         yield return FrogAttack(playerGrid, baddieParty);
 
         if (!isBattling)
-        {
             yield break;
-        }
 
         FightHalf?.Invoke();
         yield return new WaitForSeconds(.5f);
 
         yield return BaddieAttack(baddieParty, playerGrid);
         if (!isBattling)
-        {
             yield break;
-        }
 
         FightEnd?.Invoke();
     }
@@ -92,9 +88,7 @@ public class BeingBattle : MonoBehaviour
 
             CheckBattleOver();
             if (!isBattling)
-            {
                 yield break;
-            }
         }
     }
 
@@ -108,9 +102,7 @@ public class BeingBattle : MonoBehaviour
 
             CheckBattleOver();
             if (!isBattling)
-            {
                 yield break;
-            }
         }
     }
 

@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class Effects
 {
-    private List<Effect> AllEffects = new List<Effect>();
+    private List<Effect> AllEffects;
 
     private Being being;
 
-    public Effects(Being being, Effect[] effects)
+    public Effects(Being being)
     {
         this.being = being;
-        AllEffects = new List<Effect>(effects);
+        AllEffects = new List<Effect>();
     }
 
     public void AddEffect(Effect effect)

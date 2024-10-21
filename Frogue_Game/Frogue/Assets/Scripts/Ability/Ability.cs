@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "New Ability", menuName = "ScriptableObject/Ability/Ability")]
 public class Ability : ScriptableObject
@@ -23,7 +23,7 @@ public class Ability : ScriptableObject
                 {
                     if (!locationWho.IsInWho(beingslot) || !conditionWho.IsInWho(beingslot)) continue;
 
-                    foreach (Effect effect in EffectsToApply)
+                    foreach (Effect effect in EffectsToApply.OrderBy(e => e.Priority).ThenBy(e => e.name))
                     {
                         beingslot.Being.Effects.AddEffect(effect);
                         yield return SpawnEffectVFX(beingslot.Being, effect);

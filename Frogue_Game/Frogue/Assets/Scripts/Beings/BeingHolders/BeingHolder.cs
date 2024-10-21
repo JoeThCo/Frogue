@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BeingHolder : MonoBehaviour
@@ -50,27 +51,33 @@ public class BeingHolder : MonoBehaviour
     private bool AddBeing()
     {
         int index = 0;
-        foreach (BeingSlot slot in AllSlots)
+
+        for (int x = gridSize.x - 1; x >= 0; x--)
         {
-            if (!slot.Being)
+            for (int y = gridSize.y - 1; y >= 0; y--)
             {
-                Being being = Instantiate(beingControllerPrefab, slot.transform);
-
-                if (isPlayerInteractable)
+                BeingSlot slot = AllSlots[y, x];
+                if (!slot.Being)
                 {
-                    being.BeingInit(ResourceManager.GetFrog());
-                    being.gameObject.name = $"Frog #{index}";
-                }
-                else
-                {
-                    being.BeingInit(ResourceManager.GetBaddie());
-                    being.gameObject.name = $"Baddie #{index}";
-                }
+                    Being being = Instantiate(beingControllerPrefab, slot.transform);
 
-                slot.Being = being;
-                return true;
+                    if (isPlayerInteractable)
+                    {
+                        being.BeingInit(ResourceManager.GetFrog());
+                        being.gameObject.name = $"Frog #{index}";
+                    }
+                    else
+                    {
+                        being.BeingInit(ResourceManager.GetBaddie());
+                        being.gameObject.name = $"Baddie #{index}";
+                    }
+
+                    slot.Being = being;
+                    Debug.Log($"{x}, {y}");
+                    return true;
+                }
+                index++;
             }
-            index++;
         }
         return false;
     }
@@ -100,7 +107,7 @@ public class BeingHolder : MonoBehaviour
     {
         List<Being> output = new List<Being>();
 
-        foreach (BeingSlot slot in GetAliveBeingSlots())
+        foreach (BeingSlot slot in GetAliveBeingSlots().OrderBy(b => b.Coords.x).ThenBy(b => b.Coords.y))
             output.Add(slot.Being);
 
         return output.ToArray();

@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEditor.Playables;
 
 public class AbilityInfoUI : MonoBehaviour
 {

@@ -16,7 +16,7 @@ public class Being : MonoBehaviour
     {
         BeingInfo = beingSO;
 
-        Effects = new Effects(this, beingSO.GetEffects());
+        Effects = new Effects(this);
         Types = new Types(beingSO.GetTypes());
 
         Health = new Health(this, beingSO.GetHealth());
