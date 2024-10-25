@@ -76,7 +76,7 @@ public class BeingHolder : MonoBehaviour
                     }
 
                     slot.Being = being;
-                    Debug.Log($"{x}, {y}");
+                    //Debug.Log($"{x}, {y}");
                     return true;
                 }
                 index++;
