@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BeingHolder : MonoBehaviour
 {
     [SerializeField] protected Vector2Int gridSize = Vector2Int.one * Helper.GRID_SIZE;
+    [SerializeField] private float cellSize = 2;
+    [Space(10)]
     [SerializeField] private int BeingsToSpawn = 5;
     [Space(10)]
     [SerializeField] private bool isPlayerInteractable = false;
@@ -98,9 +101,17 @@ public class BeingHolder : MonoBehaviour
         return GetAliveBeings()[0];
     }
 
-    public virtual Vector3 GetBeingSlotPosition(BeingSlot beingSlot)
+    public Being[] GetBeingsToAttack(Who who)
     {
-        return Vector3.zero;
+        return who.GetWho(this);
+    }
+
+    public Vector3 GetBeingSlotPosition(BeingSlot beingSlot)
+    {
+        Vector2 position = ((Vector2)beingSlot.Coords * cellSize) - (Vector2.one * gridSize.x) + ((Vector2.up + Vector2.right) * Helper.GRID_SIZE * 0.5f);
+        if (beingSlot.Coords.y % 2 == 0)
+            return position + (Vector2.left * cellSize * 0.5f);
+        return position;
     }
 
     public Being[] GetAliveBeings()
@@ -122,5 +133,21 @@ public class BeingHolder : MonoBehaviour
                 output.Add(slot);
 
         return output.ToArray();
+    }
+
+    public void DisplaySelectionSlots(BeingSlot beingslot)
+    {
+        bool[,] filledIn = LocationWho.GetFilledDots(beingslot.Being.BeingInfo.GetAbility());
+
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                if (filledIn[x, y])
+                    AllSlots[x, y].OnSelect();
+                else
+                    AllSlots[x, y].OnDeselect();
+            }
+        }
     }
 }

@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerGridModify : MonoBehaviour
 {
-    [SerializeField] private PlayerGrid playerGrid;
+    [SerializeField] private BeingHolder playerGrid;
     [SerializeField] private BeingSlot selectedSlot;
 
     bool canInteract = true;
@@ -52,7 +52,7 @@ public class PlayerGridModify : MonoBehaviour
     {
         selectedSlot.OnDeselect();
 
-        if (otherBeingSlot.Equals(selectedSlot)) 
+        if (otherBeingSlot.Equals(selectedSlot))
         {
             SoundEffectsManager.PlaySFX("SlotCleared", otherBeingSlot);
         }

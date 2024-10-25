@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class BeingBattle : MonoBehaviour
 {
-    [SerializeField] PlayerGrid playerGrid;
-    [SerializeField] BaddieParty baddieParty;
+    [SerializeField] BeingHolder playerBeingHolder;
+    [SerializeField] BeingHolder baddieBeingHolder;
 
     public static bool isBattling = true;
 
@@ -64,8 +64,8 @@ public class BeingBattle : MonoBehaviour
     {
         FightStart?.Invoke();
 
-        yield return AbilityCheck(playerGrid);
-        yield return FrogAttack(playerGrid, baddieParty);
+        yield return AbilityCheck(playerBeingHolder);
+        yield return FrogAttack(playerBeingHolder, baddieBeingHolder);
 
         if (!isBattling)
             yield break;
@@ -73,14 +73,14 @@ public class BeingBattle : MonoBehaviour
         FightHalf?.Invoke();
         yield return new WaitForSeconds(.5f);
 
-        yield return BaddieAttack(baddieParty, playerGrid);
+        yield return BaddieAttack(baddieBeingHolder, playerBeingHolder);
         if (!isBattling)
             yield break;
 
         FightEnd?.Invoke();
     }
 
-    IEnumerator FrogAttack(PlayerGrid frogs, BaddieParty baddie)
+    IEnumerator FrogAttack(BeingHolder frogs, BeingHolder baddie)
     {
         foreach (Being being in frogs.GetAliveBeings())
         {
@@ -92,7 +92,7 @@ public class BeingBattle : MonoBehaviour
         }
     }
 
-    IEnumerator BaddieAttack(BaddieParty baddie, PlayerGrid frogs)
+    IEnumerator BaddieAttack(BeingHolder baddie, BeingHolder frogs)
     {
         BaddieSO baddieSo = (BaddieSO)baddie.GetNext().BeingInfo;
 
@@ -118,13 +118,13 @@ public class BeingBattle : MonoBehaviour
 
     private void CheckBattleOver()
     {
-        if (playerGrid.IsDead())
+        if (playerBeingHolder.IsDead())
         {
             BattleOver?.Invoke();
             GameOver?.Invoke();
         }
 
-        if (baddieParty.IsDead())
+        if (baddieBeingHolder.IsDead())
         {
             BattleOver?.Invoke();
             PlayerWin?.Invoke();
