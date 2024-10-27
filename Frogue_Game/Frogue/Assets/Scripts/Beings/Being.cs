@@ -5,7 +5,6 @@ using DG.Tweening;
 
 public class Being : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer spriteRenderer;
     public Damage Damage { get; private set; }
     public Health Health { get; private set; }
     public Effects Effects { get; private set; }
@@ -23,8 +22,6 @@ public class Being : MonoBehaviour
         Health.OnDeath += Health_OnDeath;
 
         Damage = new Damage(Effects, beingSO.GetDamage());
-
-        spriteRenderer.color = Types.GetMainColor();
     }
 
     private void Health_OnDeath()

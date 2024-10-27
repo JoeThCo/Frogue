@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -51,10 +52,9 @@ public class BeingHolder : MonoBehaviour
         AllSlots[coords.y, coords.x] = beingSlot;
     }
 
-    private bool AddBeing()
+    private bool AddFrog()
     {
         int index = 0;
-
         for (int x = gridSize.x - 1; x >= 0; x--)
         {
             for (int y = gridSize.y - 1; y >= 0; y--)
@@ -63,20 +63,33 @@ public class BeingHolder : MonoBehaviour
                 if (!slot.Being)
                 {
                     Being being = Instantiate(beingControllerPrefab, slot.transform);
-
-                    if (isPlayerInteractable)
-                    {
-                        being.BeingInit(ResourceManager.GetFrog());
-                        being.gameObject.name = $"Frog #{index}";
-                    }
-                    else
-                    {
-                        being.BeingInit(ResourceManager.GetBaddie());
-                        being.gameObject.name = $"Baddie #{index}";
-                    }
+                    being.BeingInit(ResourceManager.GetFrog());
+                    being.gameObject.name = $"Frog #{index}";
 
                     slot.Being = being;
-                    //Debug.Log($"{x}, {y}");
+                    return true;
+                }
+                index++;
+            }
+        }
+        return false;
+    }
+
+    private bool AddBaddie()
+    {
+        int index = 0;
+        for (int x = 0; x < gridSize.x; x++)
+        {
+            for (int y = 0; y < gridSize.y; y++)
+            {
+                BeingSlot slot = AllSlots[y, x];
+                if (!slot.Being)
+                {
+                    Being being = Instantiate(beingControllerPrefab, slot.transform);
+                    being.BeingInit(ResourceManager.GetBaddie());
+                    being.gameObject.name = $"Baddie #{index}";
+
+                    slot.Being = being;
                     return true;
                 }
                 index++;
@@ -87,8 +100,16 @@ public class BeingHolder : MonoBehaviour
 
     protected void AddBeing(int count)
     {
-        for (int i = 0; i < count; i++)
-            AddBeing();
+        if (isPlayerInteractable)
+        {
+            for (int i = 0; i < count; i++)
+                AddFrog();
+        }
+        else
+        {
+            for (int i = 0; i < count; i++)
+                AddBaddie();
+        }
     }
 
     public bool IsDead()
@@ -108,9 +129,9 @@ public class BeingHolder : MonoBehaviour
 
     public Vector3 GetBeingSlotPosition(BeingSlot beingSlot)
     {
-        Vector2 position = ((Vector2)beingSlot.Coords * cellSize) - (Vector2.one * gridSize.x) + ((Vector2.up + Vector2.right) * Helper.GRID_SIZE * 0.5f);
+        Vector3 position = (beingSlot.WorldCoords * cellSize) - ((Vector3.right + Vector3.forward) * gridSize.x) + ((Vector3.forward + Vector3.right) * Helper.GRID_SIZE * 0.5f);
         if (beingSlot.Coords.y % 2 == 0)
-            return position + (Vector2.left * cellSize * 0.5f);
+            return position + (Vector3.left * cellSize * 0.5f);
         return position;
     }
 

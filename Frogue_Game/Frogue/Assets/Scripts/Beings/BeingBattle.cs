@@ -65,7 +65,7 @@ public class BeingBattle : MonoBehaviour
         FightStart?.Invoke();
 
         yield return AbilityCheck(playerBeingHolder);
-        yield return FrogAttack(playerBeingHolder, baddieBeingHolder);
+        yield return Offense(playerBeingHolder, baddieBeingHolder);
 
         if (!isBattling)
             yield break;
@@ -73,32 +73,18 @@ public class BeingBattle : MonoBehaviour
         FightHalf?.Invoke();
         yield return new WaitForSeconds(.5f);
 
-        yield return BaddieAttack(baddieBeingHolder, playerBeingHolder);
+        yield return Offense(baddieBeingHolder, playerBeingHolder);
         if (!isBattling)
             yield break;
 
         FightEnd?.Invoke();
     }
 
-    IEnumerator FrogAttack(BeingHolder frogs, BeingHolder baddie)
+    IEnumerator Offense(BeingHolder frogs, BeingHolder baddie)
     {
         foreach (Being being in frogs.GetAliveBeings())
         {
             yield return being.DamageTween(baddie.GetNext());
-
-            CheckBattleOver();
-            if (!isBattling)
-                yield break;
-        }
-    }
-
-    IEnumerator BaddieAttack(BeingHolder baddie, BeingHolder frogs)
-    {
-        BaddieSO baddieSo = (BaddieSO)baddie.GetNext().BeingInfo;
-
-        foreach (Being being in frogs.GetBeingsToAttack(baddieSo.GetRandomBulkAttack()))
-        {
-            yield return baddie.GetNext().DamageTween(being);
 
             CheckBattleOver();
             if (!isBattling)

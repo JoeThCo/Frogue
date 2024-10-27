@@ -53,9 +53,7 @@ public class PlayerGridModify : MonoBehaviour
         selectedSlot.OnDeselect();
 
         if (otherBeingSlot.Equals(selectedSlot))
-        {
             SoundEffectsManager.PlaySFX("SlotCleared", otherBeingSlot);
-        }
 
         selectedSlot = null;
     }
@@ -82,33 +80,38 @@ public class PlayerGridModify : MonoBehaviour
     private void Update()
     {
         if (!canInteract) return;
+
         if (Input.GetKeyDown(KeyCode.Space) && selectedSlot != null)
             Debug.Log(selectedSlot.Coords);
 
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            if (hit.collider == null) return;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
-            if (otherBeingSlot == null) return;
-            if (!otherBeingSlot.isPlayerInteractable) return;
+            if (Physics.Raycast(ray, out hit))
+            {
+                BeingSlot otherBeingSlot = hit.collider.gameObject.GetComponent<BeingSlot>();
+                if (otherBeingSlot == null) return;
+                if (!otherBeingSlot.PlayerInteractable) return;
 
-            if (selectedSlot == null)
-            {
-                if (otherBeingSlot.Being == null) return;
-                BeingSlotSelected?.Invoke(otherBeingSlot);
-            }
-            else
-            {
-                if (selectedSlot.Equals(otherBeingSlot))
-                    BeingSlotCleared?.Invoke(otherBeingSlot);
+                if (selectedSlot == null)
+                {
+                    if (otherBeingSlot.Being == null) return;
+                    BeingSlotSelected?.Invoke(otherBeingSlot);
+                }
                 else
-                    BeingSlotSwapped?.Invoke(otherBeingSlot);
+                {
+                    if (selectedSlot.Equals(otherBeingSlot))
+                        BeingSlotCleared?.Invoke(otherBeingSlot);
+                    else
+                        BeingSlotSwapped?.Invoke(otherBeingSlot);
+                }
             }
         }
 
         if (Input.GetMouseButtonDown(1) && selectedSlot != null)
             BeingSlotCleared?.Invoke(selectedSlot);
     }
+
 }

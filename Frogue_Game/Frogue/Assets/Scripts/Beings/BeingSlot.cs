@@ -7,20 +7,24 @@ using UnityEngine.SceneManagement;
 
 public class BeingSlot : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer outline;
     public Being Being { get; set; }
-    public bool isPlayerInteractable { get; private set; }
+    public bool PlayerInteractable { get; private set; }
     public Vector2Int Coords { get; set; }
+    public Vector3 WorldCoords { get; set; }
     private Vector3 defaultScale = Vector3.zero;
     [Space(10)]
     [SerializeField] private Color defaultOutline;
     [SerializeField] private Color selectedOutline;
 
-    public void BeingSlotInit(Vector2Int coords, bool isPlayerInteractable)
+    public void BeingSlotInit(Vector2Int coords, bool playerInteractable)
     {
-        this.isPlayerInteractable = isPlayerInteractable;
+        this.PlayerInteractable = playerInteractable;
+
         this.Coords = coords;
-        this.defaultScale = outline.transform.localScale;
+        this.WorldCoords = new Vector3(coords.x, 0, coords.y);
+
+        if (!PlayerInteractable)
+            transform.Rotate(Vector3.up, 180);
 
         OnDeselect();
 
@@ -55,14 +59,10 @@ public class BeingSlot : MonoBehaviour
 
     public void OnSelect()
     {
-        outline.color = selectedOutline;
-        outline.transform.localScale = defaultScale * 1.25f;
     }
 
     public void OnDeselect()
     {
-        outline.color = defaultOutline;
-        outline.transform.localScale = defaultScale;
     }
 
     public override bool Equals(object other)
@@ -72,7 +72,7 @@ public class BeingSlot : MonoBehaviour
 
         return compare.Coords.Equals(Coords) &&
             Being.Equals(compare.Being) &&
-            compare.isPlayerInteractable == isPlayerInteractable;
+            compare.PlayerInteractable == PlayerInteractable;
     }
 
     public override int GetHashCode()
