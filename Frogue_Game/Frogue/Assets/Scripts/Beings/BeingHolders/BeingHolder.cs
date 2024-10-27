@@ -63,7 +63,7 @@ public class BeingHolder : MonoBehaviour
                 if (!slot.Being)
                 {
                     Being being = Instantiate(beingControllerPrefab, slot.transform);
-                    being.BeingInit(ResourceManager.GetFrog());
+                    being.BeingInit(ResourceManager.GetFrog(), isPlayerInteractable);
                     being.gameObject.name = $"Frog #{index}";
 
                     slot.Being = being;
@@ -86,7 +86,7 @@ public class BeingHolder : MonoBehaviour
                 if (!slot.Being)
                 {
                     Being being = Instantiate(beingControllerPrefab, slot.transform);
-                    being.BeingInit(ResourceManager.GetBaddie());
+                    being.BeingInit(ResourceManager.GetBaddie(), isPlayerInteractable);
                     being.gameObject.name = $"Baddie #{index}";
 
                     slot.Being = being;

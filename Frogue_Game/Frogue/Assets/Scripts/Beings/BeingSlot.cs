@@ -23,9 +23,6 @@ public class BeingSlot : MonoBehaviour
         this.Coords = coords;
         this.WorldCoords = new Vector3(coords.x, 0, coords.y);
 
-        if (!PlayerInteractable)
-            transform.Rotate(Vector3.up, 180);
-
         OnDeselect();
 
         BeingBattle.FightStart += BeingBattle_FightStart;

@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00fd7b46549afa24188989939639dde2, type: 3}
-  m_Name: Fuego
+  m_Name: Baddie
   m_EditorClassIdentifier: 
   startDamage: 2
   startHealth: 10
-  startAbility: {fileID: 11400000, guid: df7dda85b64660e48bb2198785f3a29e, type: 2}
-  startEffects:
-  - {fileID: 11400000, guid: d3002e82f1ec44445936cba5c4a19cdd, type: 2}
+  startAbility: {fileID: 0}
   startTypes:
-  - {fileID: 11400000, guid: ae3c360de7ab72a439e8c9503d888e77, type: 2}
+  - {fileID: 11400000, guid: af1ff82cd4df63e4f9fb71f0c5868152, type: 2}

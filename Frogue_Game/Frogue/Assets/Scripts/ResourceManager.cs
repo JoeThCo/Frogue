@@ -5,8 +5,8 @@ using UnityEngine;
 
 public static class ResourceManager
 {
-    private static FrogSO[] allFrogs;
-    private static BaddieSO[] allBaddies;
+    private static BeingSO[] allFrogs;
+    private static BeingSO[] allBaddies;
 
     private static Effect[] allEffects;
     private static GameObject[] allUI;
@@ -23,20 +23,20 @@ public static class ResourceManager
         allEffects = Resources.LoadAll<Effect>("Effect");
         allUI = Resources.LoadAll<GameObject>("UI");
 
-        allBaddies = Resources.LoadAll<BaddieSO>("Baddie");
-        allFrogs = Resources.LoadAll<FrogSO>("Frog");
+        allBaddies = Resources.LoadAll<BeingSO>("Baddie");
+        allFrogs = Resources.LoadAll<BeingSO>("Frog");
 
         isLoaded = true;
     }
 
-    public static FrogSO GetFrog()
+    public static BeingSO GetFrog()
     {
-        return Helper.GetRandom<FrogSO>(allFrogs);
+        return Helper.GetRandom<BeingSO>(allFrogs);
     }
 
-    public static BaddieSO GetBaddie()
+    public static BeingSO GetBaddie()
     {
-        return Helper.GetRandom<BaddieSO>(allBaddies);
+        return Helper.GetRandom<BeingSO>(allBaddies);
     }
 
     public static Effect GetEffect()

@@ -15,7 +15,6 @@ public class BeingInfoUI : MonoBehaviour
     [SerializeField] private Image typeImage;
     [Space(10)]
     [SerializeField] private HealthBar healthBar;
-    [SerializeField] private AbilityInfoUI abilityInfoUI;
 
     private void Start()
     {
@@ -42,11 +41,10 @@ public class BeingInfoUI : MonoBehaviour
         infoParent.gameObject.SetActive(true);
 
         nameText.SetText(beingSlot.Being.BeingInfo.name);
-        damageText.SetText($"Damage: {beingSlot.Being.Damage}");
+        damageText.SetText($"Damage:{beingSlot.Being.Damage}");
         typeImage.sprite = beingSlot.Being.Types.GetIcon();
 
         healthBar.HealthBarInit(beingSlot.Being);
-        abilityInfoUI.AbilityInfoInit(beingSlot);
     }
 
     private void PlayerGridModify_BeingSlotCleared(BeingSlot obj)

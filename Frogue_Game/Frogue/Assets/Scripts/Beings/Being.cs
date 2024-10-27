@@ -11,7 +11,9 @@ public class Being : MonoBehaviour
     public Types Types { get; private set; }
     public BeingSO BeingInfo { get; private set; }
 
-    public void BeingInit(BeingSO beingSO)
+    [SerializeField] private Transform BeingModel;
+
+    public void BeingInit(BeingSO beingSO, bool isPlayerInteractable)
     {
         BeingInfo = beingSO;
 
@@ -22,6 +24,9 @@ public class Being : MonoBehaviour
         Health.OnDeath += Health_OnDeath;
 
         Damage = new Damage(Effects, beingSO.GetDamage());
+
+        if (!isPlayerInteractable)
+            BeingModel.transform.Rotate(Vector3.up, 180);
     }
 
     private void Health_OnDeath()
