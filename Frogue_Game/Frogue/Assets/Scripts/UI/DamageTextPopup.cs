@@ -8,10 +8,10 @@ public class DamageTextPopup : MonoBehaviour
     [SerializeField] private TextMeshProUGUI damageText;
     [SerializeField] private float destroyTime = .35f;
 
-    public void DamageTextPopUpInit(BeingController beingController, int finalDamage)
+    public void DamageTextPopUpInit(Being being, int finalDamage)
     {
         damageText.SetText($"-{finalDamage}");
-        transform.position = beingController.transform.position;
+        transform.position = being.transform.position;
         Destroy(gameObject, destroyTime);
     }
 }

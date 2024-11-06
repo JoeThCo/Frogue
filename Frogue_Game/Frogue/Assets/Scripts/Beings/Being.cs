@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Being
+public class Being : MonoBehaviour
 {
     public Damage Damage { get; private set; }
     public Health Health { get; private set; }
@@ -11,16 +11,50 @@ public class Being
     public Types Types { get; private set; }
     public BeingSO BeingInfo { get; private set; }
 
-    public Being(BeingSO beingInfo)
+    [SerializeField] private Transform BeingModel;
+
+    public void BeingInit(BeingSO beingSO, bool isPlayerInteractable)
     {
-        this.BeingInfo = beingInfo;
+        BeingInfo = beingSO;
 
         Effects = new Effects(this);
-        Types = new Types(BeingInfo.GetTypes());
+        Types = new Types(beingSO.GetTypes());
 
-        Health = new Health(this, BeingInfo.GetHealth());
+        Health = new Health(this, beingSO.GetHealth());
+        Health.OnDeath += Health_OnDeath;
 
-        Damage = new Damage(Effects, BeingInfo.GetDamage());
+        Damage = new Damage(Effects, beingSO.GetDamage());
+
+        if (!isPlayerInteractable)
+            BeingModel.transform.Rotate(Vector3.up, 180);
+    }
+
+    private void Health_OnDeath()
+    {
+        Health.OnDeath -= Health_OnDeath;
+        Destroy(gameObject);
+    }
+
+    public IEnumerator DamageTween(Being otherBeing, float totalTime = .33f)
+    {
+        float halfTime = totalTime * .5f;
+        Vector3 startPosition = transform.position;
+
+        transform.DOMove(otherBeing.transform.position, halfTime).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(halfTime);
+
+        otherBeing.Health.TakeDamage(this);
+
+        transform.DOMove(startPosition, halfTime).SetEase(Ease.Linear);
+        yield return new WaitForSeconds(halfTime);
+    }
+
+    public void ChangeParentSlot(BeingSlot slot, float swapTime = .25f)
+    {
+        slot.Being = this;
+
+        transform.SetParent(slot.transform);
+        transform.DOLocalMove(Vector2.zero, swapTime).SetEase(Ease.Linear);
     }
 
     public override bool Equals(object other)

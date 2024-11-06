@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
-using TreeEditor;
 
 public class BeingBattle : MonoBehaviour
 {
@@ -23,11 +22,21 @@ public class BeingBattle : MonoBehaviour
 
     private void Start()
     {
+        BattleOver += BeingBattleBus_BattleOver;
+        PlayerWin += BeingBattle_PlayerWin;
+        GameOver += BeingBattle_GameOver;
+
+        SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+
         isBattling = true;
     }
 
     private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
     {
+        BattleOver -= BeingBattleBus_BattleOver;
+        PlayerWin -= BeingBattle_PlayerWin;
+        GameOver -= BeingBattle_GameOver;
+
         SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
     }
 
@@ -48,43 +57,63 @@ public class BeingBattle : MonoBehaviour
 
     public void Fight()
     {
-        BattleAction[] playerAbilities = Ability(playerBeingHolder);
-        BattleAction[] playerOffense = Offense(playerBeingHolder, baddieBeingHolder);
-
-        BattleAction[] baddieAbilities = Ability(playerBeingHolder);
-        BattleAction[] baddieOffense = Offense(baddieBeingHolder, playerBeingHolder);
-
-        Debug.Log($"Player {playerOffense.Length}");
-        Debug.Log($"Baddie {baddieOffense.Length}");
+        StartCoroutine(FightI());
     }
 
-    private BattleAction[] Ability(BeingHolder holder)
+    private IEnumerator FightI()
     {
-        List<BattleAction> output = new List<BattleAction>();
+        FightStart?.Invoke();
 
-        foreach (Being being in holder.GetAliveBeings())
-        {
-            Ability ability = being.BeingInfo.GetAbility();
-            //if (ability != null)
-            // yield return ability.AbilityCheck(beingHolder);
-        }
+        yield return AbilityCheck(playerBeingHolder);
+        yield return Offense(playerBeingHolder, baddieBeingHolder);
 
-        return output.ToArray();
+        if (!isBattling)
+            yield break;
+
+        FightHalf?.Invoke();
+        yield return new WaitForSeconds(.5f);
+
+        yield return Offense(baddieBeingHolder, playerBeingHolder);
+        if (!isBattling)
+            yield break;
+
+        FightEnd?.Invoke();
     }
 
-    private BattleAction[] Offense(BeingHolder frogs, BeingHolder baddie)
+    IEnumerator Offense(BeingHolder frogs, BeingHolder baddie)
     {
-        List<BattleAction> output = new List<BattleAction>();
-
         foreach (Being being in frogs.GetAliveBeings())
         {
-            Being next = baddie.GetNext();
+            yield return being.DamageTween(baddie.GetNext());
 
-            DamageAction damageAction = new DamageAction(being, next);
-            damageAction.Calculate();
-            output.Add(damageAction);
+            CheckBattleOver();
+            if (!isBattling)
+                yield break;
+        }
+    }
+
+    IEnumerator AbilityCheck(BeingHolder beingHolder)
+    {
+        foreach (Being being in beingHolder.GetAliveBeings())
+        {
+            Ability ability = being.BeingInfo.GetAbility();
+            if (ability != null)
+                yield return ability.AbilityCheck(beingHolder);
+        }
+    }
+
+    private void CheckBattleOver()
+    {
+        if (playerBeingHolder.IsDead())
+        {
+            BattleOver?.Invoke();
+            GameOver?.Invoke();
         }
 
-        return output.ToArray();
+        if (baddieBeingHolder.IsDead())
+        {
+            BattleOver?.Invoke();
+            PlayerWin?.Invoke();
+        }
     }
 }

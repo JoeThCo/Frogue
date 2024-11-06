@@ -25,18 +25,17 @@ public class Ability : ScriptableObject
 
                     foreach (Effect effect in EffectsToApply.OrderBy(e => e.Priority).ThenBy(e => e.name))
                     {
-                        beingslot.BeingController.Being.Effects.AddEffect(effect);
-                        beingslot.BeingController.AddEffect(effect); //visual effect
-                        yield return SpawnEffectVFX(beingslot.BeingController, effect);
+                        beingslot.Being.Effects.AddEffect(effect);
+                        yield return SpawnEffectVFX(beingslot.Being, effect);
                     }
                 }
             }
         }
     }
 
-    private IEnumerator SpawnEffectVFX(BeingController beingController, Effect effect)
+    private IEnumerator SpawnEffectVFX(Being being, Effect effect)
     {
-        ParticleSystem vfx = Instantiate(effect.vfx, beingController.transform.position, Quaternion.identity);
+        ParticleSystem vfx = Instantiate(effect.vfx, being.transform.position, Quaternion.identity);
         vfx.Play();
         yield return new WaitForSeconds(vfx.main.duration);
     }

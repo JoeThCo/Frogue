@@ -32,7 +32,7 @@ public class BeingInfoUI : MonoBehaviour
         PlayerGridModify.BeingSlotSelected -= PlayerGridModify_BeingSlotSelected;
         PlayerGridModify.BeingSlotCleared -= PlayerGridModify_BeingSlotCleared;
         BeingBattle.FightStart -= BeingBattle_FightStart;
-
+        
         SceneManager.activeSceneChanged -= SceneManager_activeSceneChanged;
     }
 
@@ -40,11 +40,11 @@ public class BeingInfoUI : MonoBehaviour
     {
         infoParent.gameObject.SetActive(true);
 
-        nameText.SetText(beingSlot.BeingController.Being.BeingInfo.name);
-        damageText.SetText($"Damage:{beingSlot.BeingController.Being.Damage}");
-        typeImage.sprite = beingSlot.BeingController.Being.Types.GetIcon();
+        nameText.SetText(beingSlot.Being.BeingInfo.name);
+        damageText.SetText($"Damage:{beingSlot.Being.Damage}");
+        typeImage.sprite = beingSlot.Being.Types.GetIcon();
 
-        healthBar.HealthBarInit(beingSlot.BeingController.Being);
+        healthBar.HealthBarInit(beingSlot.Being);
     }
 
     private void PlayerGridModify_BeingSlotCleared(BeingSlot obj)
