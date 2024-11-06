@@ -29,6 +29,11 @@ public class Being : MonoBehaviour
             BeingModel.transform.Rotate(Vector3.up, 180);
     }
 
+    public Being Clone()
+    {
+        return (Being)MemberwiseClone();
+    }
+
     private void Health_OnDeath()
     {
         Health.OnDeath -= Health_OnDeath;
