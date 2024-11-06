@@ -10,7 +10,7 @@ public class Who : ScriptableObject
 
         foreach (BeingSlot slot in beingHolder.GetAliveBeingSlots())
             if (IsInWho(slot))
-                output.Add(slot.Being);
+                output.Add(slot.BeingController.Being);
 
         return output.ToArray();
     }
@@ -22,6 +22,6 @@ public class Who : ScriptableObject
 
     protected bool IsBeingInSlot(BeingSlot slot)
     {
-        return slot != null && slot.Being != null;
+        return slot != null && slot.BeingController.Being != null;
     }
 }

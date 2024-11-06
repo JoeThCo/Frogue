@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Being : MonoBehaviour
+public class Being
 {
     public Damage Damage { get; private set; }
     public Health Health { get; private set; }
@@ -11,50 +11,16 @@ public class Being : MonoBehaviour
     public Types Types { get; private set; }
     public BeingSO BeingInfo { get; private set; }
 
-    [SerializeField] private Transform BeingModel;
-
-    public void BeingInit(BeingSO beingSO, bool isPlayerInteractable)
+    public Being(BeingSO beingInfo)
     {
-        BeingInfo = beingSO;
+        this.BeingInfo = beingInfo;
 
         Effects = new Effects(this);
-        Types = new Types(beingSO.GetTypes());
+        Types = new Types(BeingInfo.GetTypes());
 
-        Health = new Health(this, beingSO.GetHealth());
-        Health.OnDeath += Health_OnDeath;
+        Health = new Health(this, BeingInfo.GetHealth());
 
-        Damage = new Damage(Effects, beingSO.GetDamage());
-
-        if (!isPlayerInteractable)
-            BeingModel.transform.Rotate(Vector3.up, 180);
-    }
-
-    private void Health_OnDeath()
-    {
-        Health.OnDeath -= Health_OnDeath;
-        Destroy(gameObject);
-    }
-
-    public IEnumerator DamageTween(Being otherBeing, float totalTime = .33f)
-    {
-        float halfTime = totalTime * .5f;
-        Vector3 startPosition = transform.position;
-
-        transform.DOMove(otherBeing.transform.position, halfTime).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(halfTime);
-
-        otherBeing.Health.TakeDamage(this);
-
-        transform.DOMove(startPosition, halfTime).SetEase(Ease.Linear);
-        yield return new WaitForSeconds(halfTime);
-    }
-
-    public void ChangeParentSlot(BeingSlot slot, float swapTime = .25f)
-    {
-        slot.Being = this;
-
-        transform.SetParent(slot.transform);
-        transform.DOLocalMove(Vector2.zero, swapTime).SetEase(Ease.Linear);
+        Damage = new Damage(Effects, BeingInfo.GetDamage());
     }
 
     public override bool Equals(object other)

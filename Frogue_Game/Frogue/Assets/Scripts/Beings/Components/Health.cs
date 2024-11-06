@@ -20,20 +20,20 @@ public class Health : IFinalValue
         MaxHP = HPLeft;
     }
 
-    public void TakeDamage(Being other)
+    public int TakeDamage(Being other)
     {
         int finalDamage = other.Damage.GetFinalValue();
-        if (finalDamage <= 0) return;
+        if (finalDamage <= 0) return -1;
 
         HPLeft -= finalDamage;
-        SpawnDamageText(other, finalDamage);
-        SoundEffectsManager.PlaySFX("Damage", other);
 
         OnHealthChanged?.Invoke(this);
         Debug.LogFormat($"-{finalDamage} HP | {HPLeft} / {MaxHP}");
 
         if (isDead())
             OnDeath?.Invoke();
+
+        return finalDamage;
     }
 
     public void HealBeing(Healing healing)
@@ -58,12 +58,6 @@ public class Health : IFinalValue
 
         OnHealthChanged?.Invoke(this);
         Debug.LogFormat($"+{finalMaxHealthChange} MAX HP | {HPLeft} / {MaxHP}");
-    }
-
-    void SpawnDamageText(Being being, int finalDamage)
-    {
-        DamageTextPopup damageText = GameObject.Instantiate(ResourceManager.GetUI("DamageTextPopUp")).GetComponent<DamageTextPopup>();
-        damageText.DamageTextPopUpInit(being, finalDamage);
     }
 
     public float GetPercent() { return (float)HPLeft / (float)MaxHP; }

@@ -14,6 +14,6 @@ public class TypeWho : ConditionWho
 
     private bool IsBeingOfTypes(BeingSlot slot)
     {
-        return slot.Being.Types.IsBeingOfTypes(BeingTypes);
+        return slot.BeingController.Being.Types.IsBeingOfTypes(BeingTypes);
     }
 }

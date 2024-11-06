@@ -26,14 +26,14 @@ public static class SoundEffectsManager
         soundEffect.PlaySound(effect.audioSO);
     }
 
-    public static void PlaySFX(Effect effect, Being being)
+    public static void PlaySFX(Effect effect, BeingController beingController)
     {
-        SpawnSFX(effect, being.transform.position);
+        SpawnSFX(effect, beingController.transform.position);
     }
 
-    public static void PlaySFX(string name, Being being)
+    public static void PlaySFX(string name, BeingController beingController)
     {
-        SpawnSFX(name, being.transform.position);
+        SpawnSFX(name, beingController.transform.position);
     }
 
     public static void PlaySFX(string name, BeingSlot beingSlot)

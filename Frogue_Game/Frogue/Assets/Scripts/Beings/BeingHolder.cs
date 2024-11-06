@@ -18,14 +18,14 @@ public class BeingHolder : MonoBehaviour
     public BeingSlot[,] AllSlots;
 
     private BeingSlot beingSlotPrefab;
-    private Being beingControllerPrefab;
+    private BeingController beingControllerPrefab;
 
     public virtual void Start()
     {
         AllSlots = new BeingSlot[Helper.GRID_SIZE, Helper.GRID_SIZE];
 
         beingSlotPrefab = ResourceManager.GetUI("BeingSlot").GetComponent<BeingSlot>();
-        beingControllerPrefab = ResourceManager.GetUI("Being").GetComponent<Being>();
+        beingControllerPrefab = ResourceManager.GetUI("Being").GetComponent<BeingController>();
 
         MakeGrid();
         AddBeing(BeingsToSpawn);
@@ -60,13 +60,12 @@ public class BeingHolder : MonoBehaviour
             for (int y = gridSize.y - 1; y >= 0; y--)
             {
                 BeingSlot slot = AllSlots[y, x];
-                if (!slot.Being)
+                if (!slot.BeingController)
                 {
-                    Being being = Instantiate(beingControllerPrefab, slot.transform);
-                    being.BeingInit(ResourceManager.GetFrog(), isPlayerInteractable);
-                    being.gameObject.name = $"Frog #{index}";
-
-                    slot.Being = being;
+                    BeingController beingController = Instantiate(beingControllerPrefab, slot.transform);
+                    beingController.BeingControllerInit(new Being(ResourceManager.GetFrog()), isPlayerInteractable);
+                    beingController.gameObject.name = $"Frog #{index}";
+                    slot.BeingController = beingController;
                     return true;
                 }
                 index++;
@@ -83,13 +82,12 @@ public class BeingHolder : MonoBehaviour
             for (int y = 0; y < gridSize.y; y++)
             {
                 BeingSlot slot = AllSlots[y, x];
-                if (!slot.Being)
+                if (!slot.BeingController)
                 {
-                    Being being = Instantiate(beingControllerPrefab, slot.transform);
-                    being.BeingInit(ResourceManager.GetBaddie(), isPlayerInteractable);
-                    being.gameObject.name = $"Baddie #{index}";
-
-                    slot.Being = being;
+                    BeingController beingController = Instantiate(beingControllerPrefab, slot.transform);
+                    beingController.BeingControllerInit(new Being(ResourceManager.GetBaddie()), isPlayerInteractable);
+                    beingController.gameObject.name = $"Baddie #{index}";
+                    slot.BeingController = beingController;
                     return true;
                 }
                 index++;
@@ -140,7 +138,7 @@ public class BeingHolder : MonoBehaviour
         List<Being> output = new List<Being>();
 
         foreach (BeingSlot slot in GetAliveBeingSlots().OrderBy(b => b.Coords.x).ThenBy(b => b.Coords.y))
-            output.Add(slot.Being);
+            output.Add(slot.BeingController.Being);
 
         return output.ToArray();
     }
@@ -150,7 +148,7 @@ public class BeingHolder : MonoBehaviour
         List<BeingSlot> output = new List<BeingSlot>();
 
         foreach (BeingSlot slot in AllSlots)
-            if (slot && slot.Being && !slot.Being.Health.isDead())
+            if (slot && slot.BeingController && slot.BeingController.Being != null && !slot.BeingController.Being.Health.isDead())
                 output.Add(slot);
 
         return output.ToArray();
@@ -158,7 +156,7 @@ public class BeingHolder : MonoBehaviour
 
     public void DisplaySelectionSlots(BeingSlot beingslot)
     {
-        bool[,] filledIn = LocationWho.GetFilledDots(beingslot.Being.BeingInfo.GetAbility());
+        bool[,] filledIn = LocationWho.GetFilledDots(beingslot.BeingController.Being.BeingInfo.GetAbility());
 
         for (int x = 0; x < gridSize.x; x++)
         {

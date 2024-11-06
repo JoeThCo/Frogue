@@ -97,7 +97,7 @@ public class PlayerGridModify : MonoBehaviour
 
                 if (selectedSlot == null)
                 {
-                    if (otherBeingSlot.Being == null) return;
+                    if (otherBeingSlot.BeingController == null) return;
                     BeingSlotSelected?.Invoke(otherBeingSlot);
                 }
                 else

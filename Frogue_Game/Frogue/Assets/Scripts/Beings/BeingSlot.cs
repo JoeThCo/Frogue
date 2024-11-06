@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class BeingSlot : MonoBehaviour
 {
-    public Being Being { get; set; }
+    public BeingController BeingController { get; set; }
     public bool PlayerInteractable { get; private set; }
     public Vector2Int Coords { get; set; }
     public Vector3 WorldCoords { get; set; }
@@ -51,7 +51,7 @@ public class BeingSlot : MonoBehaviour
 
     public override string ToString()
     {
-        return Being.ToString() + " " + Coords.ToString();
+        return BeingController.Being.ToString() + " " + Coords.ToString();
     }
 
     public void OnSelect()
@@ -68,7 +68,7 @@ public class BeingSlot : MonoBehaviour
         BeingSlot compare = other as BeingSlot;
 
         return compare.Coords.Equals(Coords) &&
-            Being.Equals(compare.Being) &&
+            BeingController.Being.Equals(compare.BeingController.Being) &&
             compare.PlayerInteractable == PlayerInteractable;
     }
 
@@ -79,27 +79,28 @@ public class BeingSlot : MonoBehaviour
 
     public void SwapBeings(BeingSlot other)
     {
-        if (other.Being == null)
+        if (other.BeingController == null)
         {
-            Being.transform.SetParent(other.transform);
+            BeingController.transform.SetParent(other.transform);
 
-            other.Being = Being;
-            Being = null;
+            other.BeingController.Being = BeingController.Being;
+            BeingController.Being = null;
 
-            other.Being.transform.DOLocalMove(Vector2.zero, .25f);
+            other.BeingController.transform.DOLocalMove(Vector2.zero, .25f);
         }
         else
         {
             BeingSlot tempSlot = this;
-            Being.transform.SetParent(other.transform);
-            other.Being.transform.SetParent(tempSlot.transform);
+            BeingController.transform.SetParent(other.transform);
+            other.BeingController.transform.SetParent(tempSlot.transform);
 
-            Being tempController = Being;
-            Being = other.Being;
-            other.Being = tempController;
+            //swap BEINGS
+            Being tempBeing = BeingController.Being;
+            BeingController.Being = other.BeingController.Being;
+            other.BeingController.Being = tempBeing;
 
-            Being.transform.DOLocalMove(Vector2.zero, .25f);
-            other.Being.transform.DOLocalMove(Vector2.zero, .25f);
+            BeingController.transform.DOLocalMove(Vector2.zero, .25f);
+            other.BeingController.transform.DOLocalMove(Vector2.zero, .25f);
         }
     }
 }
