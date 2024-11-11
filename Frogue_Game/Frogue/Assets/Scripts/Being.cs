@@ -2,17 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Being : MonoBehaviour
+public class Being
 {
-    // Start is called before the first frame update
-    void Start()
+    public int HP { get; private set; }
+    public int Attack { get; private set; }
+    public Vector2Int Coords { get; private set; }
+
+    public bool IsDead { get { return HP <= 0; } }
+
+    public Being()
     {
-        
+        HP = Random.Range(1, 11);
+        Attack = Random.Range(1, 4);
     }
 
-    // Update is called once per frame
-    void Update()
+    public Being(int hp, int attack)
     {
-        
+        this.HP = hp;
+        this.Attack = attack;
+    }
+
+    public Being Clone()
+    {
+        return MemberwiseClone() as Being;
+    }
+
+    public void SetCoords(Vector2Int coords)
+    {
+        this.Coords = coords;
     }
 }
