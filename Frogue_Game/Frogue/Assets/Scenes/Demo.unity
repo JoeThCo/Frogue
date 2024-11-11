@@ -433,6 +433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BaddieDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 9136342392561847561, guid: 84be8c6842d2d804290480b6d2fdb45a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -846,6 +850,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1364401296}
     m_Modifications:
+    - target: {fileID: 8721333479433304289, guid: 84be8c6842d2d804290480b6d2fdb45a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 8722003399759597902, guid: 84be8c6842d2d804290480b6d2fdb45a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

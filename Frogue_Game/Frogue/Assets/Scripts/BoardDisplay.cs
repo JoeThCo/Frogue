@@ -7,6 +7,11 @@ using UnityEngine;
 
 public class BoardDisplay : MonoBehaviour
 {
+    [SerializeField] private float cellSize = 1.5f;
+    [Space(10)]
+    [SerializeField] private Transform slotParent;
+    [SerializeField] private Transform beingParent;
+
     public Board Board { get; private set; }
 
     private BeingDisplay beingDisplayPrefab;
@@ -19,28 +24,30 @@ public class BoardDisplay : MonoBehaviour
         beingDisplayPrefab = Resources.Load<BeingDisplay>("BeingDisplay");
         slotDisplayPrefab = Resources.Load<SlotDisplay>("SlotDisplay");
 
-        SpawnDisplaySlotDisplays(board);
-        SpawnDisplaySlot();
+        SpawnBeingDisplays(board);
+        SpawnSlotDisplays();
     }
 
-    private void SpawnDisplaySlot()
+    private void SpawnSlotDisplays()
     {
         for (int x = 0; x < Board.BOARD_SIZE; x++)
         {
             for (int y = 0; y < Board.BOARD_SIZE; y++)
             {
-                SlotDisplay slotDisplay = Instantiate(slotDisplayPrefab, new Vector3(x, 0, y), Quaternion.identity, transform);
+                SlotDisplay slotDisplay = Instantiate(slotDisplayPrefab, Vector3.zero, Quaternion.identity, slotParent);
+                slotDisplay.transform.localPosition = new Vector3(x, 0, y) * cellSize;
             }
         }
     }
 
-    private void SpawnDisplaySlotDisplays(Board board)
+    private void SpawnBeingDisplays(Board board)
     {
         foreach (Being being in board)
         {
             if (being == null) continue;
             Debug.Log(being);
-            BeingDisplay beingDisplay = Instantiate(beingDisplayPrefab, new Vector3(being.Coords.x, 0, being.Coords.y), Quaternion.identity, transform);
+            BeingDisplay beingDisplay = Instantiate(beingDisplayPrefab, Vector3.zero, Quaternion.identity, beingParent);
+            beingDisplay.transform.localPosition = new Vector3(being.Coords.x, 0, being.Coords.y) * cellSize;
         }
     }
 }
