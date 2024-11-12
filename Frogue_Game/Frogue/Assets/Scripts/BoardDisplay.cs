@@ -35,6 +35,7 @@ public class BoardDisplay : MonoBehaviour
             for (int y = 0; y < Board.BOARD_SIZE; y++)
             {
                 SlotDisplay slotDisplay = Instantiate(slotDisplayPrefab, Vector3.zero, Quaternion.identity, slotParent);
+                slotDisplay.SlotDisplayInit(new Vector2Int(x, y));
                 slotDisplay.transform.localPosition = new Vector3(x, 0, y) * cellSize;
             }
         }
@@ -47,6 +48,7 @@ public class BoardDisplay : MonoBehaviour
             if (being == null) continue;
             Debug.Log(being);
             BeingDisplay beingDisplay = Instantiate(beingDisplayPrefab, Vector3.zero, Quaternion.identity, beingParent);
+            beingDisplay.BeingDisplayInit(being);
             beingDisplay.transform.localPosition = new Vector3(being.Coords.x, 0, being.Coords.y) * cellSize;
         }
     }

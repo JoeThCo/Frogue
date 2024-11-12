@@ -6,6 +6,8 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField] BoardDisplay playerBoardDisplay;
     [SerializeField] BoardDisplay baddieBoardDisplay;
+    [Space(10)]
+    [SerializeField] private PlayerModify playerModify;
 
     public Board Player { get; private set; }
     public Board Baddie { get; private set; }
@@ -17,5 +19,12 @@ public class BattleManager : MonoBehaviour
 
         playerBoardDisplay.BoardDisplayInit(Player);
         baddieBoardDisplay.BoardDisplayInit(Baddie);
+
+        playerModify.PlayerModifyInit(Player);
+    }
+
+    public void Fight()
+    {
+        Battle battle = new Battle();
     }
 }

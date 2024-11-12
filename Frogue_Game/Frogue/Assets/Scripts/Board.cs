@@ -8,13 +8,11 @@ public class Board : IEnumerable<Being>
     public const int BOARD_SIZE = 3;
 
     private Being[,] board { get; set; }
-
     private Vector2Int NO_SLOTS { get; set; } = -Vector2Int.one;
 
     public Board()
     {
         board = new Being[BOARD_SIZE, BOARD_SIZE];
-
         Add(5);
     }
 

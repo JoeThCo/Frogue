@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BeingDisplay : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private TextMeshProUGUI debugText;
 
-    // Update is called once per frame
-    void Update()
+    public Being Being { get; private set; }
+
+    public void BeingDisplayInit(Being being)
     {
-        
+        this.Being = being;
+        debugText.SetText(being.ID.ToString());
     }
 }

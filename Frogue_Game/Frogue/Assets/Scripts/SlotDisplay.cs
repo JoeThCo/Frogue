@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlotDisplay : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Vector2Int Coords { get; private set; }
 
-    // Update is called once per frame
-    void Update()
+    public void SlotDisplayInit(Vector2Int coords)
     {
-        
+        this.Coords = coords;
     }
 }
