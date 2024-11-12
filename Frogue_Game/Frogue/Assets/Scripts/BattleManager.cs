@@ -25,6 +25,16 @@ public class BattleManager : MonoBehaviour
 
     public void Fight()
     {
-        Battle battle = new Battle();
+        Debug.Log("Fight");
+        Battle battle = new Battle(Player, Baddie);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            Player.PrintBoard();
+
+        if (Input.GetKeyDown(KeyCode.F))
+            Fight();
     }
 }

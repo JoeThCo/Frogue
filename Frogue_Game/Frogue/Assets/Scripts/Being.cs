@@ -25,9 +25,16 @@ public class Being
         this.Attack = attack;
     }
 
-    public Being Clone()
+    public Being DeepCopy()
     {
-        return MemberwiseClone() as Being;
+        Being newBeing = new Being();
+
+        newBeing.SetCoords(this.Coords);
+        newBeing.HP = this.HP;
+        newBeing.Attack = this.Attack;
+        newBeing.ID = this.ID;
+
+        return newBeing;
     }
 
     public void SetCoords(Vector2Int coords)
@@ -37,6 +44,6 @@ public class Being
 
     public override string ToString()
     {
-        return $"{ID} | HP: {HP}, ATK: {Attack}";
+        return $"{ID} ({Coords})| HP: {HP}, ATK: {Attack}";
     }
 }

@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 
@@ -46,7 +44,6 @@ public class BoardDisplay : MonoBehaviour
         foreach (Being being in board)
         {
             if (being == null) continue;
-            Debug.Log(being);
             BeingDisplay beingDisplay = Instantiate(beingDisplayPrefab, Vector3.zero, Quaternion.identity, beingParent);
             beingDisplay.BeingDisplayInit(being);
             beingDisplay.transform.localPosition = new Vector3(being.Coords.x, 0, being.Coords.y) * cellSize;

@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Battle
 {
-    public Battle()
-    {
+    private Board Player { get; set; }
+    private Board Baddie { get; set; }
 
+    public Battle(Board _p, Board _b)
+    {
+        Player = _p.DeepCopy();
+        Baddie = _b.DeepCopy();
     }
 }

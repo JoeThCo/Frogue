@@ -42,12 +42,16 @@ public class PlayerModify : MonoBehaviour
                         Vector3 tempPos = beingDisplay.transform.position;
                         beingDisplay.transform.DOMove(selectedBeingDisplay.transform.position, moveTime);
                         selectedBeingDisplay.transform.DOMove(tempPos, moveTime);
+
+                        playerBoard.Swap(beingDisplay.Being, selectedBeingDisplay.Being);
                     }
 
                     if (slotDisplay != null)
                     {
                         Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
                         selectedBeingDisplay.transform.DOMove(newPosition, moveTime);
+
+                        playerBoard.Move(selectedBeingDisplay.Being, slotDisplay.Coords);
                     }
 
                     selectedBeingDisplay = null;
