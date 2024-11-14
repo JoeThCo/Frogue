@@ -7,6 +7,8 @@ public class PlayerBoardDisplay : BoardDisplay
     public override void BoardDisplayInit(Board board)
     {
         base.BoardDisplayInit(board);
+        SpawnBeingDisplays(board, true);
+        SpawnSlotDisplays(true);
     }
 
     protected override void ModifyBeingDisplay(BeingDisplay beingDisplay)

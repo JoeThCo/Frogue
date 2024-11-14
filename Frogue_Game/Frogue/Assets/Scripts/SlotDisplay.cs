@@ -6,9 +6,11 @@ using UnityEngine;
 public class SlotDisplay : MonoBehaviour
 {
     public Vector2Int Coords { get; private set; }
+    public bool IsPlayerInteractable { get; private set; }
 
-    public void SlotDisplayInit(Vector2Int coords)
+    public void SlotDisplayInit(Vector2Int coords, bool isPlayerInteractable)
     {
-        this.Coords = coords;
+        Coords = coords;
+        IsPlayerInteractable = isPlayerInteractable;
     }
 }

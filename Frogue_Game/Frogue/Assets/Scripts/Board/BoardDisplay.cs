@@ -21,28 +21,25 @@ public class BoardDisplay : MonoBehaviour
 
         beingDisplayPrefab = Resources.Load<BeingDisplay>("BeingDisplay");
         slotDisplayPrefab = Resources.Load<SlotDisplay>("SlotDisplay");
-
-        SpawnBeingDisplays(board);
-        SpawnSlotDisplays();
     }
 
-    private void SpawnSlotDisplays()
+    protected void SpawnSlotDisplays(bool isPlayerInteractable)
     {
         for (int x = 0; x < Board.BOARD_SIZE; x++)
         {
             for (int y = 0; y < Board.BOARD_SIZE; y++)
             {
                 SlotDisplay slotDisplay = Instantiate(slotDisplayPrefab, Vector3.zero, Quaternion.identity, slotParent);
-                slotDisplay.SlotDisplayInit(new Vector2Int(x, y));
+                slotDisplay.SlotDisplayInit(new Vector2Int(x, y), isPlayerInteractable);
                 slotDisplay.transform.localPosition = new Vector3(x, 0, y) * cellSize;
             }
         }
     }
 
-    private BeingDisplay SpawnBeingDisplay(Being being)
+    private BeingDisplay SpawnBeingDisplay(Being being, bool isPlayerInteractable)
     {
         BeingDisplay beingDisplay = Instantiate(beingDisplayPrefab, Vector3.zero, Quaternion.identity, beingParent);
-        beingDisplay.BeingDisplayInit(being);
+        beingDisplay.BeingDisplayInit(being, isPlayerInteractable);
         return beingDisplay;
     }
 
@@ -51,12 +48,12 @@ public class BoardDisplay : MonoBehaviour
         beingDisplay.transform.localPosition = new Vector3(beingDisplay.Being.Coords.x, 0, beingDisplay.Being.Coords.y) * cellSize;
     }
 
-    private void SpawnBeingDisplays(Board board)
+    protected void SpawnBeingDisplays(Board board, bool isPlayerInteractable)
     {
         foreach (Being being in board)
         {
             if (being == null) continue;
-            BeingDisplay beingDisplay = SpawnBeingDisplay(being);
+            BeingDisplay beingDisplay = SpawnBeingDisplay(being, isPlayerInteractable);
             ModifyBeingDisplay(beingDisplay);
         }
     }

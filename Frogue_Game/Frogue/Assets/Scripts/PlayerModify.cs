@@ -39,6 +39,8 @@ public class PlayerModify : MonoBehaviour
 
                     if (beingDisplay != null && beingDisplay != selectedBeingDisplay)
                     {
+                        if (!beingDisplay.IsPlayerInteractable) return;
+
                         Vector3 tempPos = beingDisplay.transform.position;
                         beingDisplay.transform.DOMove(selectedBeingDisplay.transform.position, moveTime);
                         selectedBeingDisplay.transform.DOMove(tempPos, moveTime);
@@ -48,6 +50,8 @@ public class PlayerModify : MonoBehaviour
 
                     if (slotDisplay != null)
                     {
+                        if (!slotDisplay.IsPlayerInteractable) return;
+
                         Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
                         selectedBeingDisplay.transform.DOMove(newPosition, moveTime);
 

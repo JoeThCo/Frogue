@@ -9,10 +9,13 @@ public class BeingDisplay : MonoBehaviour
     [SerializeField] private Transform rotateTransform;
 
     public Being Being { get; private set; }
+    public bool IsPlayerInteractable { get; private set; }
 
-    public void BeingDisplayInit(Being being)
+    public void BeingDisplayInit(Being being, bool isPlayerInteractable)
     {
-        this.Being = being;
+        Being = being;
+        IsPlayerInteractable = isPlayerInteractable;
+
         debugText.SetText(being.ID.ToString());
     }
 
