@@ -6,8 +6,8 @@ public class Board : IEnumerable<Being>
 {
     public const int BOARD_SIZE = 3;
 
-    private Being[,] board { get; set; }
-    private Vector2Int NO_SLOTS { get; set; } = -Vector2Int.one;
+    protected Being[,] board { get; set; }
+    protected Vector2Int NO_SLOTS { get; set; } = -Vector2Int.one;
 
     public Board()
     {
@@ -77,17 +77,8 @@ public class Board : IEnumerable<Being>
         board[aCoords.x, aCoords.y] = b;
     }
 
-    public Vector2Int GetNextOpenSlot()
+    public virtual Vector2Int GetNextOpenSlot()
     {
-        for (int x = 0; x < BOARD_SIZE; x++)
-        {
-            for (int y = 0; y < BOARD_SIZE; y++)
-            {
-                if (board[x, y] == null || board[x, y].IsDead)
-                    return new Vector2Int(x, y);
-            }
-        }
-
         return NO_SLOTS;
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BoardDisplay : MonoBehaviour
 {
-    [SerializeField] private float cellSize = 1.5f;
+    [SerializeField] protected float cellSize = 1.5f;
     [Space(10)]
     [SerializeField] private Transform slotParent;
     [SerializeField] private Transform beingParent;
@@ -15,7 +15,7 @@ public class BoardDisplay : MonoBehaviour
     private BeingDisplay beingDisplayPrefab;
     private SlotDisplay slotDisplayPrefab;
 
-    public void BoardDisplayInit(Board board)
+    public virtual void BoardDisplayInit(Board board)
     {
         this.Board = board;
 
@@ -39,14 +39,25 @@ public class BoardDisplay : MonoBehaviour
         }
     }
 
+    private BeingDisplay SpawnBeingDisplay(Being being)
+    {
+        BeingDisplay beingDisplay = Instantiate(beingDisplayPrefab, Vector3.zero, Quaternion.identity, beingParent);
+        beingDisplay.BeingDisplayInit(being);
+        return beingDisplay;
+    }
+
+    protected virtual void ModifyBeingDisplay(BeingDisplay beingDisplay)
+    {
+        beingDisplay.transform.localPosition = new Vector3(beingDisplay.Being.Coords.x, 0, beingDisplay.Being.Coords.y) * cellSize;
+    }
+
     private void SpawnBeingDisplays(Board board)
     {
         foreach (Being being in board)
         {
             if (being == null) continue;
-            BeingDisplay beingDisplay = Instantiate(beingDisplayPrefab, Vector3.zero, Quaternion.identity, beingParent);
-            beingDisplay.BeingDisplayInit(being);
-            beingDisplay.transform.localPosition = new Vector3(being.Coords.x, 0, being.Coords.y) * cellSize;
+            BeingDisplay beingDisplay = SpawnBeingDisplay(being);
+            ModifyBeingDisplay(beingDisplay);
         }
     }
 }

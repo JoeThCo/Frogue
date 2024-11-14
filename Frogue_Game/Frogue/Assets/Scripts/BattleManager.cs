@@ -6,20 +6,21 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField] BoardDisplay playerBoardDisplay;
     [SerializeField] BoardDisplay baddieBoardDisplay;
-    [Space(10)]
-    [SerializeField] private PlayerModify playerModify;
 
-    public Board Player { get; private set; }
-    public Board Baddie { get; private set; }
+    public PlayerBoard Player { get; private set; }
+    public BaddieBoard Baddie { get; private set; }
+
+    private PlayerModify playerModify;
 
     private void Start()
     {
-        Player = new Board();
-        Baddie = new Board();
+        Player = new PlayerBoard();
+        Baddie = new BaddieBoard();
 
         playerBoardDisplay.BoardDisplayInit(Player);
         baddieBoardDisplay.BoardDisplayInit(Baddie);
 
+        playerModify = playerBoardDisplay.GetComponent<PlayerModify>();
         playerModify.PlayerModifyInit(Player);
     }
 
