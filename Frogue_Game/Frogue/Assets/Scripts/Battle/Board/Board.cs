@@ -15,6 +15,7 @@ public class Board : IEnumerable<Being>
         Add(5);
     }
 
+    #region Board
     public Board DeepCopy()
     {
         Board newBoard = new Board();
@@ -50,6 +51,11 @@ public class Board : IEnumerable<Being>
             being.SetCoords(next);
             board[next.x, next.y] = being;
         }
+    }
+
+    public void Remove(Being being)
+    {
+        board[being.Coords.x, being.Coords.y] = null;
     }
 
     public void Move(Being being, Vector2Int next)
@@ -106,4 +112,25 @@ public class Board : IEnumerable<Being>
                 Debug.Log("");
         }
     }
+    #endregion
+
+    #region Battle
+
+    private Being[] GetBeings()
+    {
+        List<Being> aliveBeings = new List<Being>();
+
+        foreach (Being current in board)
+            if (current != null && !current.IsDead)
+                aliveBeings.Add(current);
+
+        return aliveBeings.ToArray();
+    }
+
+    public Being GetNextBeing()
+    {
+        return GetBeings()[0];
+    }
+
+    #endregion
 }

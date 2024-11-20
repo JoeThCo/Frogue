@@ -11,6 +11,9 @@ public class Being
 
     public bool IsDead { get { return HP <= 0; } }
 
+    public BeingDisplay BeingDisplay { get; private set; }
+    public Board Board { get; private set; }
+
     public Being()
     {
         this.ID = Random.Range(-10000, 10000);
@@ -25,6 +28,7 @@ public class Being
         Being newBeing = new Being();
 
         newBeing.SetCoords(this.Coords);
+        newBeing.SetBeingDisplay(this.BeingDisplay);
         newBeing.HP = this.HP;
         newBeing.Damage = this.Damage;
         newBeing.ID = this.ID;
@@ -32,9 +36,19 @@ public class Being
         return newBeing;
     }
 
+    public void SetBeingDisplay(BeingDisplay beingDisplay)
+    {
+        this.BeingDisplay = beingDisplay;
+    }
+
     public void SetCoords(Vector2Int coords)
     {
         this.Coords = coords;
+    }
+
+    public void TakeDamage(Being b)
+    {
+        this.HP -= b.Damage;
     }
 
     public override string ToString()

@@ -14,7 +14,7 @@ public static class ResourceLoader
         if (IsLoaded) return;
 
         allBeingInfo = Resources.LoadAll<BeingInfo>("BeingInfo");
-        Debug.Log(allBeingInfo.Length);
+        Debug.Log($"Being Info: {allBeingInfo.Length}");
 
         IsLoaded = true;
     }

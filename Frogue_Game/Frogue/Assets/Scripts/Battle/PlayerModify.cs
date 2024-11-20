@@ -23,8 +23,9 @@ public class PlayerModify : MonoBehaviour
     private void SwapBeings(BeingDisplay beingDisplay, float moveTime = 0.25f)
     {
         Vector3 tempPos = beingDisplay.transform.position;
-        beingDisplay.transform.DOMove(selectedBeingDisplay.transform.position, moveTime);
-        selectedBeingDisplay.transform.DOMove(tempPos, moveTime);
+
+        beingDisplay.Move(selectedBeingDisplay.transform.position);
+        selectedBeingDisplay.Move(tempPos);
 
         playerBoard.Swap(beingDisplay.Being, selectedBeingDisplay.Being);
     }
@@ -32,8 +33,8 @@ public class PlayerModify : MonoBehaviour
     private void MoveToSlot(SlotDisplay slotDisplay, float moveTime = 0.25f)
     {
         Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
-        selectedBeingDisplay.transform.DOMove(newPosition, moveTime);
 
+        selectedBeingDisplay.Move(newPosition);
         playerBoard.Move(selectedBeingDisplay.Being, slotDisplay.Coords);
     }
 

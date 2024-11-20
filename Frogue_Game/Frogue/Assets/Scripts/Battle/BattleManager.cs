@@ -30,6 +30,15 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("Fight");
         Battle battle = new Battle(Player, Baddie);
+        Debug.Log($"Battle Actions: {battle.BattleActions.Length}");
+
+        StartCoroutine(DisplayBattle(battle));
+    }
+
+    private IEnumerator DisplayBattle(Battle battle)
+    {
+        foreach (BattleAction action in battle.BattleActions)
+            yield return action.Display();
     }
 
     private void Update()
