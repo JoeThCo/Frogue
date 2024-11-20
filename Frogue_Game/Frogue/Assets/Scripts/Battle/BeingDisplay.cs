@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class BeingDisplay : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI debugText;
+    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TextMeshProUGUI damageText;
+    [Space(10)]
     [SerializeField] private Transform rotateTransform;
 
     public Being Being { get; private set; }
@@ -16,7 +18,8 @@ public class BeingDisplay : MonoBehaviour
         Being = being;
         IsPlayerInteractable = isPlayerInteractable;
 
-        debugText.SetText(being.ID.ToString());
+        hpText.SetText(being.HP.ToString());
+        damageText.SetText(being.Damage.ToString());
     }
 
     public void Rotate(float y)

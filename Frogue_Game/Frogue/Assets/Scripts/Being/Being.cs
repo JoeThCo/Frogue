@@ -6,7 +6,7 @@ public class Being
 {
     public int ID { get; private set; }
     public int HP { get; private set; }
-    public int Attack { get; private set; }
+    public int Damage { get; private set; }
     public Vector2Int Coords { get; private set; }
 
     public bool IsDead { get { return HP <= 0; } }
@@ -14,15 +14,10 @@ public class Being
     public Being()
     {
         this.ID = Random.Range(-10000, 10000);
-        HP = Random.Range(1, 11);
-        Attack = Random.Range(1, 4);
-    }
 
-    public Being(int hp, int attack)
-    {
-        this.ID = Random.Range(-10000, 10000);
-        this.HP = hp;
-        this.Attack = attack;
+        BeingInfo info = ResourceLoader.GetBeingInfo();
+        HP = info.GetHealth();
+        Damage = info.GetDamage();
     }
 
     public Being DeepCopy()
@@ -31,7 +26,7 @@ public class Being
 
         newBeing.SetCoords(this.Coords);
         newBeing.HP = this.HP;
-        newBeing.Attack = this.Attack;
+        newBeing.Damage = this.Damage;
         newBeing.ID = this.ID;
 
         return newBeing;
@@ -44,6 +39,6 @@ public class Being
 
     public override string ToString()
     {
-        return $"{ID} ({Coords})| HP: {HP}, ATK: {Attack}";
+        return $"{ID} ({Coords})| HP: {HP}, ATK: {Damage}";
     }
 }

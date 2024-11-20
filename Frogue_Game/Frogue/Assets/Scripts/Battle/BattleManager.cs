@@ -14,6 +14,8 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        ResourceLoader.Load();
+
         Player = new PlayerBoard();
         Baddie = new BaddieBoard();
 
