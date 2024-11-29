@@ -27,7 +27,7 @@ public static class ResourceLoader
             return null;
         }
 
-        int randomIndex = Random.Range(0, array.Length);
+        int randomIndex = BattleManager.Random.Next(0, array.Length);
         return array[randomIndex];
     }
 

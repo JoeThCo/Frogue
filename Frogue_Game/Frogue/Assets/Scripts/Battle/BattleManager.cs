@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    [SerializeField] private int Seed;
+    [Space]
     [SerializeField] BoardDisplay playerBoardDisplay;
     [SerializeField] BoardDisplay baddieBoardDisplay;
 
@@ -13,8 +15,11 @@ public class BattleManager : MonoBehaviour
 
     private PlayerModify playerModify;
 
+    public static System.Random Random;
+
     private void Start()
     {
+        Random = new System.Random(Seed);
         ResourceLoader.Load();
 
         Player = new PlayerBoard();
