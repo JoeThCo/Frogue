@@ -8,6 +8,8 @@ public abstract class BattleAction
 
     public BattleAction(Board board, Being being) { }
 
+    public BattleAction(Board winner, Board player) { }
+
     protected abstract void Calculate();
 
     public abstract IEnumerator Display();

@@ -9,6 +9,36 @@ public class Board : IEnumerable<Being>
     protected Being[,] board { get; set; }
     protected Vector2Int NO_SLOTS { get; set; } = -Vector2Int.one;
 
+    public Being Next
+    {
+        get
+        {
+            return AliveBeings[0];
+        }
+    }
+
+    public Being[] AliveBeings
+    {
+        get
+        {
+            List<Being> aliveBeings = new List<Being>();
+
+            foreach (Being current in board)
+                if (current != null && !current.IsDead)
+                    aliveBeings.Add(current);
+
+            return aliveBeings.ToArray();
+        }
+
+    }
+    public bool IsDead
+    {
+        get
+        {
+            return AliveBeings.Length <= 0;
+        }
+    }
+
     public Board()
     {
         board = new Being[BOARD_SIZE, BOARD_SIZE];
@@ -16,9 +46,17 @@ public class Board : IEnumerable<Being>
     }
 
     #region Board
-    public Board DeepCopy()
+
+    private Being this[int x, int y]
     {
-        Board newBoard = new Board();
+        get => board[x, y];
+        set => board[x, y] = value;
+    }
+
+    #region DeepCopy
+    public PlayerBoard PlayerDeepCopy()
+    {
+        PlayerBoard newBoard = new PlayerBoard();
 
         newBoard.board = new Being[BOARD_SIZE, BOARD_SIZE];
 
@@ -37,13 +75,35 @@ public class Board : IEnumerable<Being>
         return newBoard;
     }
 
-    public void Add(int size)
+    public BaddieBoard BaddieDeepCopy()
+    {
+        BaddieBoard newBoard = new BaddieBoard();
+
+        newBoard.board = new Being[BOARD_SIZE, BOARD_SIZE];
+
+        for (int x = 0; x < BOARD_SIZE; x++)
+        {
+            for (int y = 0; y < BOARD_SIZE; y++)
+            {
+                Being being = board[x, y];
+                if (being != null)
+                {
+                    newBoard.board[x, y] = being.DeepCopy();
+                }
+            }
+        }
+
+        return newBoard;
+    }
+    #endregion
+
+    private void Add(int size)
     {
         for (int i = 0; i < size; i++)
             Add(new Being());
     }
 
-    public void Add(Being being)
+    private void Add(Being being)
     {
         Vector2Int next = GetNextOpenSlot();
         if (next != NO_SLOTS)
@@ -115,22 +175,11 @@ public class Board : IEnumerable<Being>
     #endregion
 
     #region Battle
-
-    private Being[] GetBeings()
+    public void UpdateBoard(Board board)
     {
-        List<Being> aliveBeings = new List<Being>();
-
-        foreach (Being current in board)
-            if (current != null && !current.IsDead)
-                aliveBeings.Add(current);
-
-        return aliveBeings.ToArray();
+        for (int y = 0; y < BOARD_SIZE; y++)
+            for (int x = 0; x < BOARD_SIZE; x++)
+                this.board[x, y] = board[x, y];
     }
-
-    public Being GetNextBeing()
-    {
-        return GetBeings()[0];
-    }
-
     #endregion
 }

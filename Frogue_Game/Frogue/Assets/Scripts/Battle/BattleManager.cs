@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,17 +29,30 @@ public class BattleManager : MonoBehaviour
 
     public void Fight()
     {
+        StartCoroutine(FightI());
+    }
+
+    private IEnumerator FightI()
+    {
         Debug.Log("Fight");
         Battle battle = new Battle(Player, Baddie);
         Debug.Log($"Battle Actions: {battle.BattleActions.Length}");
 
-        StartCoroutine(DisplayBattle(battle));
+        yield return StartCoroutine(DisplayBattle(battle));
+
+        ApplyBattle(battle);
     }
 
     private IEnumerator DisplayBattle(Battle battle)
     {
         foreach (BattleAction action in battle.BattleActions)
             yield return action.Display();
+    }
+
+    private void ApplyBattle(Battle battle)
+    {
+        Player.UpdateBoard(battle.Player);
+        Baddie.UpdateBoard(battle.Baddie);
     }
 
     private void Update()

@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class Battle
 {
-    private Board Player { get; set; }
-    private Board Baddie { get; set; }
-
+    public PlayerBoard Player { get; private set; }
+    public BaddieBoard Baddie { get; private set; }
     public int PlusMinus { get; private set; } = 0;
     public BattleAction[] BattleActions { get; private set; }
 
-    public Battle(Board _p, Board _b)
+    public Battle(PlayerBoard _p, BaddieBoard _b)
     {
-        Player = _p.DeepCopy();
-        Baddie = _b.DeepCopy();
+        Player = _p.PlayerDeepCopy();
+        Baddie = _b.BaddieDeepCopy();
 
         BattleActions = GetBattleActions(Player, Baddie);
     }
 
-    private BattleAction[] GetBattleActions(Board player, Board baddie)
+    private BattleAction[] GetBattleActions(PlayerBoard player, BaddieBoard baddie)
     {
         List<BattleAction> actions = new List<BattleAction>();
 
@@ -34,15 +33,26 @@ public class Battle
 
         foreach (Being aCurrent in a)
         {
-            Being bNext = b.GetNextBeing();
-
-            DamageAction damageAction = new DamageAction(aCurrent, bNext);
-            actions.Add(damageAction);
-
-            if (bNext.IsDead)
+            if (!b.IsDead)
             {
-                DeadAction deadAction = new DeadAction(b, bNext);
-                actions.Add(deadAction);
+                Being bNext = b.Next;
+
+                DamageAction damageAction = new DamageAction(aCurrent, bNext);
+                actions.Add(damageAction);
+
+                if (bNext.IsDead)
+                {
+                    DeadAction deadAction = new DeadAction(b, bNext);
+                    actions.Add(deadAction);
+                }
+            }
+            else
+            {
+                if (a is PlayerBoard)
+                    actions.Add(new BattleOverAction((PlayerBoard)a, (BaddieBoard)b));
+                else
+                    actions.Add(new BattleOverAction((PlayerBoard)b, (BaddieBoard)a));
+                return actions.ToArray();
             }
         }
 
