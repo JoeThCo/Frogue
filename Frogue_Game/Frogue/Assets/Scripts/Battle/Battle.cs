@@ -11,8 +11,8 @@ public class Battle
 
     public Battle(PlayerBoard _p, BaddieBoard _b)
     {
-        Player = _p.PlayerDeepCopy();
-        Baddie = _b.BaddieDeepCopy();
+        Player = _p.DeepCopy<PlayerBoard>();
+        Baddie = _b.DeepCopy<BaddieBoard>();
 
         BattleActions = GetBattleActions(Player, Baddie);
     }
@@ -21,13 +21,13 @@ public class Battle
     {
         List<BattleAction> actions = new List<BattleAction>();
 
-        actions.AddRange(GetDamageActions(player, baddie));
-        actions.AddRange(GetDamageActions(baddie, player));
+        actions.AddRange(GetActions(player, baddie));
+        actions.AddRange(GetActions(baddie, player));
 
         return actions.ToArray();
     }
 
-    private BattleAction[] GetDamageActions(Board a, Board b)
+    private BattleAction[] GetActions(Board a, Board b)
     {
         List<BattleAction> actions = new List<BattleAction>();
 
@@ -52,6 +52,7 @@ public class Battle
                     actions.Add(new BattleOverAction((PlayerBoard)a, (BaddieBoard)b));
                 else
                     actions.Add(new BattleOverAction((PlayerBoard)b, (BaddieBoard)a));
+
                 return actions.ToArray();
             }
         }

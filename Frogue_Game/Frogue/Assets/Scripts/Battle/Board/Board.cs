@@ -53,11 +53,9 @@ public class Board : IEnumerable<Being>
         set => board[x, y] = value;
     }
 
-    #region DeepCopy
-    public PlayerBoard PlayerDeepCopy()
+    public T DeepCopy<T>() where T : Board, new()
     {
-        PlayerBoard newBoard = new PlayerBoard();
-
+        T newBoard = new T();
         newBoard.board = new Being[BOARD_SIZE, BOARD_SIZE];
 
         for (int x = 0; x < BOARD_SIZE; x++)
@@ -66,36 +64,12 @@ public class Board : IEnumerable<Being>
             {
                 Being being = board[x, y];
                 if (being != null)
-                {
                     newBoard.board[x, y] = being.DeepCopy();
-                }
             }
         }
 
         return newBoard;
     }
-
-    public BaddieBoard BaddieDeepCopy()
-    {
-        BaddieBoard newBoard = new BaddieBoard();
-
-        newBoard.board = new Being[BOARD_SIZE, BOARD_SIZE];
-
-        for (int x = 0; x < BOARD_SIZE; x++)
-        {
-            for (int y = 0; y < BOARD_SIZE; y++)
-            {
-                Being being = board[x, y];
-                if (being != null)
-                {
-                    newBoard.board[x, y] = being.DeepCopy();
-                }
-            }
-        }
-
-        return newBoard;
-    }
-    #endregion
 
     private void Add(int size)
     {
