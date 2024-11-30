@@ -10,6 +10,8 @@ public class BeingDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI damageText;
     [Space(10)]
     [SerializeField] private Transform rotateTransform;
+    [SerializeField] private Transform uiTransform;
+
 
     public Being Being { get; private set; }
     public bool IsPlayerInteractable { get; private set; }
@@ -22,6 +24,8 @@ public class BeingDisplay : MonoBehaviour
 
         hpText.SetText(being.HP.ToString());
         damageText.SetText(being.Damage.ToString());
+
+        uiTransform.LookAt(BattleManager.MainCamera.transform.position);
     }
 
     public void Move(Vector3 newPosition, float moveTime = 0.25f)

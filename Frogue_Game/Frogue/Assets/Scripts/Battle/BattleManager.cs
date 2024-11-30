@@ -15,11 +15,14 @@ public class BattleManager : MonoBehaviour
 
     private PlayerModify playerModify;
 
-    public static System.Random Random;
+    public static Camera MainCamera { get; private set; }
+    public static System.Random Random { get; private set; }
 
     private void Start()
     {
         Random = new System.Random(Seed);
+        MainCamera = Camera.main;
+
         ResourceLoader.Load();
 
         Player = new PlayerBoard();

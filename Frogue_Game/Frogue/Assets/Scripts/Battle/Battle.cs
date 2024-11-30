@@ -35,11 +35,12 @@ public class Battle
         {
             if (!b.IsDead)
             {
+                //damage
                 Being bNext = b.Next;
-
                 DamageAction damageAction = new DamageAction(aCurrent, bNext);
                 actions.Add(damageAction);
 
+                //dead action
                 if (bNext.IsDead)
                 {
                     DeadAction deadAction = new DeadAction(b, bNext);
@@ -48,6 +49,7 @@ public class Battle
             }
             else
             {
+                //battle over
                 if (a is PlayerBoard)
                     actions.Add(new BattleOverAction((PlayerBoard)a, (BaddieBoard)b));
                 else
