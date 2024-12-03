@@ -11,8 +11,12 @@ public class BeingDisplay : MonoBehaviour
     [Space(10)]
     [SerializeField] private Transform rotateTransform;
     [SerializeField] private Transform uiTransform;
+    [Space(10)]
+    [SerializeField] private float MoveTime = .25f;
+    [SerializeField] private Ease Ease = Ease.Linear;
 
-
+    public float HalfMoveTime { get { return MoveTime * 0.5f; } }
+    public Vector3 ReturnPosition { get; set; }
     public Being Being { get; private set; }
     public bool IsPlayerInteractable { get; private set; }
 
@@ -28,20 +32,39 @@ public class BeingDisplay : MonoBehaviour
         uiTransform.LookAt(BattleManager.MainCamera.transform.position);
     }
 
-    public void Move(Vector3 newPosition, float moveTime = 0.25f)
+    #region Move
+    public void Move(Vector3 newPosition)
     {
-        transform.DOMove(newPosition, moveTime).SetEase(Ease.Linear);
+        transform.DOMove(newPosition, MoveTime).SetEase(Ease.Linear);
     }
 
-    public IEnumerator MoveToandFrom(BeingDisplay beingDisplay, float moveTime = .25f)
+    public IEnumerator MoveTo(BeingDisplay beingDisplay)
     {
-        Vector3 startPos = transform.position;
+        Move(beingDisplay.transform.position);
+        yield return new WaitForSeconds(MoveTime);
+    }
 
-        Move(beingDisplay.transform.position, moveTime);
-        yield return new WaitForSeconds(moveTime);
+    public IEnumerator MoveToReturn()
+    {
+        Move(ReturnPosition);
+        yield return new WaitForSeconds(MoveTime);
+    }
 
-        Move(startPos, moveTime);
-        yield return new WaitForSeconds(moveTime);
+    public void SaveReturnPostion()
+    {
+        ReturnPosition = transform.position;
+    }
+    #endregion
+
+    public IEnumerator OnDamage()
+    {
+        ResourceLoader.SpawnParticle("Damage", transform.position);
+        ResourceLoader.SpawnSoundEffect("Damage", transform.position);
+
+        yield return transform.DOShakePosition(MoveTime, strength: .5f);
+        transform.DOShakeRotation(MoveTime);
+        transform.DOShakeScale(MoveTime);
+
     }
 
     public void Rotate(float y)

@@ -22,6 +22,12 @@ public class DamageAction : BattleAction
 
     public override IEnumerator Display()
     {
-        yield return a.BeingDisplay.MoveToandFrom(b.BeingDisplay);
+        a.BeingDisplay.SaveReturnPostion();
+
+        yield return a.BeingDisplay.MoveTo(b.BeingDisplay);
+
+        yield return b.BeingDisplay.OnDamage();
+
+        yield return a.BeingDisplay.MoveToReturn();
     }
 }

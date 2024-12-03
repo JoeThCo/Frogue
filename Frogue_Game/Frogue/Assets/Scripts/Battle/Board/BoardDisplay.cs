@@ -19,8 +19,8 @@ public class BoardDisplay : MonoBehaviour
     {
         this.Board = board;
 
-        beingDisplayPrefab = Resources.Load<BeingDisplay>("BeingDisplay");
-        slotDisplayPrefab = Resources.Load<SlotDisplay>("SlotDisplay");
+        beingDisplayPrefab = ResourceLoader.GetGameDisplay("BeingDisplay").GetComponent<BeingDisplay>();
+        slotDisplayPrefab = ResourceLoader.GetGameDisplay("SlotDisplay").GetComponent<SlotDisplay>();
     }
 
     protected void SpawnSlotDisplays(bool isPlayerInteractable)

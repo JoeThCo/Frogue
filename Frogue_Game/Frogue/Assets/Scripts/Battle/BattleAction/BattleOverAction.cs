@@ -21,9 +21,15 @@ public class BattleOverAction : BattleAction
     public override IEnumerator Display()
     {
         if (isPlayerWinner)
+        {
             Debug.Log("You Win!");
+            ResourceLoader.SpawnSoundEffect("PlayerWin");
+        }
         else
+        {
             Debug.Log("Game Over!");
+            ResourceLoader.SpawnSoundEffect("GameOver");
+        }
         yield return this;
     }
 
