@@ -5,6 +5,8 @@ using UnityEngine;
 public class BeingInfo
 {
     public int ID { get; private set; }
+
+    public int StartHP { get; private set; }
     public int HP { get; private set; }
     public int Attack { get; private set; }
     public Vector2Int Coords { get; private set; }
@@ -15,16 +17,19 @@ public class BeingInfo
     {
         BeingInit info = ResourceLoader.GetBeingInit();
         HP = info.GetHealth();
+        StartHP = HP;
         Attack = info.GetDamage();
 
         Coords = coords;
         ID = Coords.y + (Coords.x * Board.BOARD_SIZE) + 1;
     }
 
-    public BeingInfo(int iD, int hP, int damage, Vector2Int coords, BeingDisplay beingDisplay)
+    public BeingInfo(int iD, int hP, int startHp, int damage, Vector2Int coords, BeingDisplay beingDisplay)
     {
         ID = iD;
         HP = hP;
+        StartHP = startHp;
+        StartHP = HP;
         Attack = damage;
         Coords = coords;
         BeingDisplay = beingDisplay;

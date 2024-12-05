@@ -43,7 +43,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator FightI()
     {
         Battle battle = new Battle(Player, Baddie);
-        Debug.LogWarning($"Battle Actions: {battle.BattleActions.Length}");
+        Debug.LogWarning($"Battle Actions: {battle.BattleActions.Length} for +/- ({battle.PlusMinus})");
 
         Player.Update(battle.PlayerSnapshot);
         Baddie.Update(battle.BaddieSnapshot);

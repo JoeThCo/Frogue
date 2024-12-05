@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Battle
@@ -33,6 +34,14 @@ public class Battle
         return actions.ToArray();
     }
 
+    private void UpdatePlusMinus(SnapshotBoard board, BattleAction action)
+    {
+        if (board.IsPlayerBoard)
+            PlusMinus += action.PlusMinusCost();
+        else
+            PlusMinus -= action.PlusMinusCost();
+    }
+
     private BattleAction[] GetActions(SnapshotBoard attacker, SnapshotBoard defender)
     {
         List<BattleAction> actions = new List<BattleAction>();
@@ -44,19 +53,26 @@ public class Battle
                 //damage
                 SnapshotBeing defenseNext = defender.Next;
                 DamageAction damageAction = new DamageAction(attackerCurrent, defenseNext);
+                UpdatePlusMinus(attacker, damageAction);
+                
                 actions.Add(damageAction);
 
                 //dead action
                 if (damageAction.IsDead)
                 {
                     DeadAction deadAction = new DeadAction(defender, defenseNext);
+                    UpdatePlusMinus(defender, deadAction);
+
                     actions.Add(deadAction);
                 }
             }
             else
             {
                 //battle over
-                actions.Add(new BattleOverAction(attacker));
+                BattleOverAction battleOverAction = new BattleOverAction(attacker);
+                actions.Add(battleOverAction);
+                UpdatePlusMinus(attacker, battleOverAction);
+
                 return actions.ToArray();
             }
         }

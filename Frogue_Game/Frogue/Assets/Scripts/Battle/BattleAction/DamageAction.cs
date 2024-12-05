@@ -53,4 +53,9 @@ public class DamageAction : BattleAction
     {
         return $"{Attacker.BeingInfo.ID} (HP {DisplayDefender.BeingInfo.HP}) attacked by {Attacker.BeingInfo.ID} (ATK {Attacker.BeingInfo.Attack}) | {DisplayDefender.BeingInfo.HP} => {FinalHealth}";
     }
+
+    public override int PlusMinusCost()
+    {
+        return FinalHealth;
+    }
 }

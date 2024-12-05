@@ -23,6 +23,6 @@ public class Being
 
     public override string ToString()
     {
-        return $"{BeingInfo.ID} | ({BeingInfo.Coords})| [{BeingInfo.HP} | {BeingInfo.Attack}]";
+        return $"{BeingInfo.ID} | ({BeingInfo.Coords})| [{BeingInfo.HP}/{BeingInfo.StartHP} | {BeingInfo.Attack}]";
     }
 }

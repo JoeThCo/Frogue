@@ -33,4 +33,9 @@ public class BattleOverAction : BattleAction
             return $"Player wins!";
         return $"CPU wins!";
     }
+
+    public override int PlusMinusCost()
+    {
+        return 999;
+    }
 }

@@ -30,4 +30,9 @@ public class DeadAction : BattleAction
     {
         return $"{DeadSnapshotBeing.BeingInfo.ID} died!";
     }
+
+    public override int PlusMinusCost()
+    {
+        return DeadSnapshotBeing.BeingInfo.StartHP * 2;
+    }
 }

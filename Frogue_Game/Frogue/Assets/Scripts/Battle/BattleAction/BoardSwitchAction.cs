@@ -20,4 +20,9 @@ public class BoardSwitchAction : BattleAction
     {
         return $"Halftime!";
     }
+
+    public override int PlusMinusCost()
+    {
+        return 0;
+    }
 }
