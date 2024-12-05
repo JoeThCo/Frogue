@@ -12,17 +12,16 @@ public class DeadAction : BattleAction
         this.Being = being;
         this.Board = board;
 
-        Calculate();
+        BeingAction();
     }
 
-    protected override void Calculate()
+    protected override void BeingAction()
     {
-        Board.Remove(Being);
+
     }
 
-    public override IEnumerator Display()
+    public override IEnumerator BeingDisplayAction()
     {
-        Being.BeingDisplay.OnDead();
         yield return new WaitForSeconds(.10f);
     }
 }

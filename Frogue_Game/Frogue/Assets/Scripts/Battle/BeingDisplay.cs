@@ -17,25 +17,30 @@ public class BeingDisplay : MonoBehaviour
 
     public float HalfMoveTime { get { return MoveTime * 0.5f; } }
     public Vector3 ReturnPosition { get; set; }
-    public Being Being { get; private set; }
+    public Vector2Int Coords { get; private set; }
     public bool IsPlayerInteractable { get; private set; }
 
     public void BeingDisplayInit(Being being, bool isPlayerInteractable)
     {
-        Being = being;
-        Being.SetBeingDisplay(this);
+        this.Coords = being.BeingInfo.Coords;
+        being.SetBeingDisplay(this);
         IsPlayerInteractable = isPlayerInteractable;
 
-        hpText.SetText(being.HP.ToString());
-        damageText.SetText(being.Damage.ToString());
+        hpText.SetText(being.BeingInfo.HP.ToString());
+        damageText.SetText(being.BeingInfo.Damage.ToString());
 
         uiTransform.LookAt(BattleManager.MainCamera.transform.position);
+    }
+
+    public void UpdateCoords(Vector2Int coords) 
+    {
+        this.Coords = coords;
     }
 
     #region Move
     public void Move(Vector3 newPosition)
     {
-        transform.DOMove(newPosition, MoveTime).SetEase(Ease.Linear);
+        transform.DOMove(newPosition, MoveTime).SetEase(Ease);
     }
 
     public IEnumerator MoveTo(BeingDisplay beingDisplay)
@@ -64,7 +69,6 @@ public class BeingDisplay : MonoBehaviour
         yield return transform.DOShakePosition(MoveTime, strength: .5f);
         transform.DOShakeRotation(MoveTime);
         transform.DOShakeScale(MoveTime);
-
     }
 
     public void Rotate(float y)

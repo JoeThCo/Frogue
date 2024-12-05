@@ -12,7 +12,7 @@ public class BaddieBoard : Board
         {
             for (int y = 0; y < BOARD_SIZE; y++)
             {
-                if (board[x, y] == null || board[x, y].IsDead)
+                if (board[x, y] == null || board[x, y].BeingInfo.IsDead)
                     return new Vector2Int(x, y);
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public static class ResourceLoader
 {
-    private static Dictionary<string, BeingInfo> beingInfoDictionary;
+    private static Dictionary<string, BeingInit> beingInitDictionary;
     private static Dictionary<string, GameObject> gameDisplayDictionary;
     private static Dictionary<string, ParticleSystem> particleDictionary;
     private static Dictionary<string, AudioScriptableObject> soundEffectDictionary;
@@ -17,8 +17,8 @@ public static class ResourceLoader
     {
         if (IsLoaded) return;
 
-        BeingInfo[] allBeingInfo = Resources.LoadAll<BeingInfo>("BeingInfo");
-        beingInfoDictionary = allBeingInfo.ToDictionary(beingInfo => beingInfo.name, beingInfo => beingInfo);
+        BeingInit[] allBeingInit = Resources.LoadAll<BeingInit>("BeingInit");
+        beingInitDictionary = allBeingInit.ToDictionary(beingInfo => beingInfo.name, beingInfo => beingInfo);
 
         GameObject[] allGameObjects = Resources.LoadAll<GameObject>("GameDisplay");
         gameDisplayDictionary = allGameObjects.ToDictionary(gameObject => gameObject.name, gameObject => gameObject);
@@ -58,7 +58,7 @@ public static class ResourceLoader
         return array[randomIndex];
     }
 
-    public static BeingInfo GetBeingInfo() { return GetRandom<BeingInfo>(beingInfoDictionary.Values.ToArray()); }
+    public static BeingInit GetBeingInit() { return GetRandom<BeingInit>(beingInitDictionary.Values.ToArray()); }
 
     public static GameObject GetGameDisplay(string name) { return GetByName<GameObject>(name, gameDisplayDictionary); }
 

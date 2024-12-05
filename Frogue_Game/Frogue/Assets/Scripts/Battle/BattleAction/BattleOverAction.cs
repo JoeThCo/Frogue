@@ -15,10 +15,10 @@ public class BattleOverAction : BattleAction
         this.Player = player;
         this.Baddie = baddie;
 
-        Calculate();
+        BeingAction();
     }
 
-    public override IEnumerator Display()
+    public override IEnumerator BeingDisplayAction()
     {
         if (isPlayerWinner)
         {
@@ -33,7 +33,7 @@ public class BattleOverAction : BattleAction
         yield return this;
     }
 
-    protected override void Calculate()
+    protected override void BeingAction()
     {
         isPlayerWinner = !Player.IsDead && Baddie.IsDead;
     }

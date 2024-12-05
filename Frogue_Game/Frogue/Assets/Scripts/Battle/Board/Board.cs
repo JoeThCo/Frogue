@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Board : IEnumerable<Being>
@@ -24,13 +25,13 @@ public class Board : IEnumerable<Being>
             List<Being> aliveBeings = new List<Being>();
 
             foreach (Being current in board)
-                if (current != null && !current.IsDead)
+                if (current != null && !current.BeingInfo.IsDead)
                     aliveBeings.Add(current);
 
             return aliveBeings.ToArray();
         }
-
     }
+
     public bool IsDead
     {
         get
@@ -53,7 +54,7 @@ public class Board : IEnumerable<Being>
         set => board[x, y] = value;
     }
 
-    public T DeepCopy<T>() where T : Board, new()
+    public T GetBeingSnapshot<T>() where T : Board, new()
     {
         T newBoard = new T();
         newBoard.board = new Being[BOARD_SIZE, BOARD_SIZE];
@@ -64,7 +65,7 @@ public class Board : IEnumerable<Being>
             {
                 Being being = board[x, y];
                 if (being != null)
-                    newBoard.board[x, y] = being.DeepCopy();
+                    newBoard.board[x, y] = being.MakeSnapshot();
             }
         }
 
@@ -74,47 +75,54 @@ public class Board : IEnumerable<Being>
     private void Add(int size)
     {
         for (int i = 0; i < size; i++)
-            Add(new Being());
+            Add();
     }
 
-    private void Add(Being being)
+    private void Add()
     {
         Vector2Int next = GetNextOpenSlot();
+
         if (next != NO_SLOTS)
         {
-            being.SetCoords(next);
+            Being being = new Being(next);
             board[next.x, next.y] = being;
         }
     }
 
     public void Remove(Being being)
     {
-        board[being.Coords.x, being.Coords.y] = null;
+        board[being.BeingInfo.Coords.x, being.BeingInfo.Coords.y] = null;
     }
 
-    public void Move(Being being, Vector2Int next)
+    public void Move(BeingDisplay beingDisplay, Vector2Int next)
     {
+        Being being = board[beingDisplay.Coords.x, beingDisplay.Coords.y];
         if (being == null) return;
 
-        being.SetCoords(next);
+        being.BeingInfo.UpdateCoords(next);
         board[next.x, next.y] = being;
+
+        board[beingDisplay.Coords.x, beingDisplay.Coords.y] = null;
+        beingDisplay.UpdateCoords(next);
     }
 
-    public void Swap(Being a, Being b)
+    public void Swap(BeingDisplay fromDisplay, BeingDisplay toDisplay)
     {
-        if (a == null || b == null) return;
+        Being fromBeing = board[fromDisplay.Coords.x, fromDisplay.Coords.y];
+        Being toBeing = board[toDisplay.Coords.x, toDisplay.Coords.y];
+        if (fromBeing == null || toBeing == null) return;
 
-        Vector2Int aCoords = a.Coords;
-        Vector2Int bCoords = b.Coords;
+        Vector2Int fromCoords = fromBeing.BeingInfo.Coords;
+        Vector2Int toCoords = toBeing.BeingInfo.Coords;
 
-        board[aCoords.x, aCoords.y] = null;
-        board[bCoords.x, bCoords.y] = null;
+        board[fromCoords.x, fromCoords.y] = null;
+        board[toCoords.x, toCoords.y] = null;
 
-        a.SetCoords(bCoords);
-        b.SetCoords(aCoords);
+        fromBeing.BeingInfo.UpdateCoords(toCoords);
+        toBeing.BeingInfo.UpdateCoords(fromCoords);
 
-        board[bCoords.x, bCoords.y] = a;
-        board[aCoords.x, aCoords.y] = b;
+        board[toCoords.x, toCoords.y] = fromBeing;
+        board[fromCoords.x, fromCoords.y] = toBeing;
     }
 
     public virtual Vector2Int GetNextOpenSlot()

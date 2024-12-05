@@ -10,7 +10,7 @@ public abstract class BattleAction
 
     public BattleAction(Board winner, Board player) { }
 
-    protected abstract void Calculate();
+    protected abstract void BeingAction();
 
-    public abstract IEnumerator Display();
+    public abstract IEnumerator BeingDisplayAction();
 }

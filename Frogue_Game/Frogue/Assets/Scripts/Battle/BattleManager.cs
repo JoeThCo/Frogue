@@ -54,7 +54,7 @@ public class BattleManager : MonoBehaviour
     private IEnumerator DisplayBattle(Battle battle)
     {
         foreach (BattleAction action in battle.BattleActions)
-            yield return action.Display();
+            yield return action.BeingDisplayAction();
     }
 
     private void ApplyBattle(Battle battle)

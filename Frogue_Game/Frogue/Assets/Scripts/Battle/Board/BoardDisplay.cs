@@ -45,7 +45,7 @@ public class BoardDisplay : MonoBehaviour
 
     protected virtual void ModifyBeingDisplay(BeingDisplay beingDisplay)
     {
-        beingDisplay.transform.localPosition = new Vector3(beingDisplay.Being.Coords.x, 0, beingDisplay.Being.Coords.y) * cellSize;
+        beingDisplay.transform.localPosition = new Vector3(beingDisplay.Coords.x, 0, beingDisplay.Coords.y) * cellSize;
     }
 
     protected void SpawnBeingDisplays(Board board, bool isPlayerInteractable)

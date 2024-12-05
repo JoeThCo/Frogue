@@ -20,22 +20,22 @@ public class PlayerModify : MonoBehaviour
         this.playerBoard = playerBoard;
     }
 
-    private void SwapBeings(BeingDisplay beingDisplay, float moveTime = 0.25f)
+    private void SwapBeings(BeingDisplay beingDisplay)
     {
         Vector3 tempPos = beingDisplay.transform.position;
 
         beingDisplay.Move(selectedBeingDisplay.transform.position);
         selectedBeingDisplay.Move(tempPos);
 
-        playerBoard.Swap(beingDisplay.Being, selectedBeingDisplay.Being);
+        playerBoard.Swap(beingDisplay, selectedBeingDisplay);
     }
 
-    private void MoveToSlot(SlotDisplay slotDisplay, float moveTime = 0.25f)
+    private void MoveToSlot(SlotDisplay slotDisplay)
     {
         Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
 
         selectedBeingDisplay.Move(newPosition);
-        playerBoard.Move(selectedBeingDisplay.Being, slotDisplay.Coords);
+        playerBoard.Move(selectedBeingDisplay, slotDisplay.Coords);
     }
 
     private void Update()
@@ -56,12 +56,10 @@ public class PlayerModify : MonoBehaviour
 
                 if (selectedBeingDisplay != null)
                 {
-                    float moveTime = 0.25f;
-
                     //swapping two beings
                     if (beingDisplay != null && beingDisplay != selectedBeingDisplay)
                     {
-                        SwapBeings(beingDisplay, moveTime);
+                        SwapBeings(beingDisplay);
                     }
 
                     //moving being to a slot

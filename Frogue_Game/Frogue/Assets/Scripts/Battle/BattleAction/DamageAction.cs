@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class DamageAction : BattleAction
 {
-    public Being a { get; private set; }
-    public Being b { get; private set; }
+    public Being Attacker { get; private set; }
+    public Being Defender { get; private set; }
 
-    public DamageAction(Being a, Being b) : base(a, b)
+    public DamageAction(Being attacker, Being defender) : base(attacker, defender)
     {
-        this.a = a;
-        this.b = b;
+        this.Attacker = attacker;
+        this.Defender = defender;
 
-        Calculate();
+        BeingAction();
     }
 
-    protected override void Calculate()
+    protected override void BeingAction()
     {
-        b.TakeDamage(a);
+        Defender.BeingInfo.TakeDamage(Attacker.BeingInfo.Damage);
     }
 
-    public override IEnumerator Display()
+    public override IEnumerator BeingDisplayAction()
     {
-        a.BeingDisplay.SaveReturnPostion();
+        Attacker.BeingDisplay.SaveReturnPostion();
 
-        yield return a.BeingDisplay.MoveTo(b.BeingDisplay);
+        yield return Attacker.BeingDisplay.MoveTo(Defender.BeingDisplay);
 
-        yield return b.BeingDisplay.OnDamage();
+        yield return Defender.BeingDisplay.OnDamage();
 
-        yield return a.BeingDisplay.MoveToReturn();
+        yield return Attacker.BeingDisplay.MoveToReturn();
     }
 }

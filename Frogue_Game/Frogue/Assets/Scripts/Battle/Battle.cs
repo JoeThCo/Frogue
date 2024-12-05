@@ -11,8 +11,8 @@ public class Battle
 
     public Battle(PlayerBoard _p, BaddieBoard _b)
     {
-        Player = _p.DeepCopy<PlayerBoard>();
-        Baddie = _b.DeepCopy<BaddieBoard>();
+        Player = _p.GetBeingSnapshot<PlayerBoard>();
+        Baddie = _b.GetBeingSnapshot<BaddieBoard>();
 
         BattleActions = GetBattleActions(Player, Baddie);
     }
@@ -27,33 +27,33 @@ public class Battle
         return actions.ToArray();
     }
 
-    private BattleAction[] GetActions(Board a, Board b)
+    private BattleAction[] GetActions(Board attacker, Board defender)
     {
         List<BattleAction> actions = new List<BattleAction>();
 
-        foreach (Being aCurrent in a)
+        foreach (Being attackerCurrent in attacker)
         {
-            if (!b.IsDead)
+            if (!defender.IsDead)
             {
                 //damage
-                Being bNext = b.Next;
-                DamageAction damageAction = new DamageAction(aCurrent, bNext);
+                Being defenseNext = defender.Next;
+                DamageAction damageAction = new DamageAction(attackerCurrent, defenseNext);
                 actions.Add(damageAction);
 
                 //dead action
-                if (bNext.IsDead)
+                if (defenseNext.BeingInfo.IsDead)
                 {
-                    DeadAction deadAction = new DeadAction(b, bNext);
+                    DeadAction deadAction = new DeadAction(defender, defenseNext);
                     actions.Add(deadAction);
                 }
             }
             else
             {
                 //battle over
-                if (a is PlayerBoard)
-                    actions.Add(new BattleOverAction((PlayerBoard)a, (BaddieBoard)b));
+                if (attacker is PlayerBoard)
+                    actions.Add(new BattleOverAction((PlayerBoard)attacker, (BaddieBoard)defender));
                 else
-                    actions.Add(new BattleOverAction((PlayerBoard)b, (BaddieBoard)a));
+                    actions.Add(new BattleOverAction((PlayerBoard)defender, (BaddieBoard)attacker));
 
                 return actions.ToArray();
             }
