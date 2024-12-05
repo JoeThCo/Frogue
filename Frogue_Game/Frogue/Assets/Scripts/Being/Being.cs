@@ -5,27 +5,24 @@ using UnityEngine;
 public class Being
 {
     public BeingInfo BeingInfo { get; protected set; }
-    public BeingDisplay BeingDisplay { get; protected set; }
-
-    public Being(Being being) { }
 
     public Being(Vector2Int coords)
     {
         this.BeingInfo = new BeingInfo(ResourceLoader.GetBeingInit(), coords);
     }
 
-    public BeingSnapshot MakeSnapshot() 
+    public Being(SnapshotBeing snapshotBeing)
     {
-        return new BeingSnapshot(this);
+        this.BeingInfo = snapshotBeing.BeingInfo;
     }
 
-    public void SetBeingDisplay(BeingDisplay beingDisplay)
+    public SnapshotBeing MakeSnapshot() 
     {
-        this.BeingDisplay = beingDisplay;
+        return new SnapshotBeing(this);
     }
 
     public override string ToString()
     {
-        return $"{BeingInfo.ID} | ({BeingInfo.Coords})| [{BeingInfo.HP} | {BeingInfo.Damage}]";
+        return $"{BeingInfo.ID} | ({BeingInfo.Coords})| [{BeingInfo.HP} | {BeingInfo.Attack}]";
     }
 }

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public abstract class BattleAction
 {
-    public BattleAction(Being a, Being b) { }
+    public BattleAction() { }
+    public BattleAction(SnapshotBoard snapshotBoard) { }
 
-    public BattleAction(Board board, Being being) { }
+    public BattleAction(SnapshotBeing attacker, SnapshotBeing defender) { }
 
-    public BattleAction(Board winner, Board player) { }
+    public BattleAction(SnapshotBoard snapshotBoard, SnapshotBeing being) { }
 
-    protected abstract void BeingAction();
+    protected abstract void CalculateAction();
 
-    public abstract IEnumerator BeingDisplayAction();
+    public abstract IEnumerator DisplayAction();
 }

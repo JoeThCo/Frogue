@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Board : IEnumerable<Being>
@@ -8,37 +7,8 @@ public class Board : IEnumerable<Being>
     public const int BOARD_SIZE = 3;
 
     protected Being[,] board { get; set; }
+
     protected Vector2Int NO_SLOTS { get; set; } = -Vector2Int.one;
-
-    public Being Next
-    {
-        get
-        {
-            return AliveBeings[0];
-        }
-    }
-
-    public Being[] AliveBeings
-    {
-        get
-        {
-            List<Being> aliveBeings = new List<Being>();
-
-            foreach (Being current in board)
-                if (current != null && !current.BeingInfo.IsDead)
-                    aliveBeings.Add(current);
-
-            return aliveBeings.ToArray();
-        }
-    }
-
-    public bool IsDead
-    {
-        get
-        {
-            return AliveBeings.Length <= 0;
-        }
-    }
 
     public Board()
     {
@@ -52,24 +22,6 @@ public class Board : IEnumerable<Being>
     {
         get => board[x, y];
         set => board[x, y] = value;
-    }
-
-    public T GetBeingSnapshot<T>() where T : Board, new()
-    {
-        T newBoard = new T();
-        newBoard.board = new Being[BOARD_SIZE, BOARD_SIZE];
-
-        for (int x = 0; x < BOARD_SIZE; x++)
-        {
-            for (int y = 0; y < BOARD_SIZE; y++)
-            {
-                Being being = board[x, y];
-                if (being != null)
-                    newBoard.board[x, y] = being.MakeSnapshot();
-            }
-        }
-
-        return newBoard;
     }
 
     private void Add(int size)
@@ -89,9 +41,21 @@ public class Board : IEnumerable<Being>
         }
     }
 
-    public void Remove(Being being)
+    public void Update(SnapshotBeing[] snapshotBeings)
     {
-        board[being.BeingInfo.Coords.x, being.BeingInfo.Coords.y] = null;
+        board = new Being[BOARD_SIZE, BOARD_SIZE];
+        foreach (SnapshotBeing snapshotBeing in snapshotBeings)
+            Set(new Being(snapshotBeing), snapshotBeing.BeingInfo.Coords);
+    }
+
+    private void Set(Being being, Vector2Int coords)
+    {
+        board[coords.x, coords.y] = being;
+    }
+
+    private void Remove(BeingDisplay beingDisplay)
+    {
+        Set(null, beingDisplay.Coords);
     }
 
     public void Move(BeingDisplay beingDisplay, Vector2Int next)
@@ -102,7 +66,7 @@ public class Board : IEnumerable<Being>
         being.BeingInfo.UpdateCoords(next);
         board[next.x, next.y] = being;
 
-        board[beingDisplay.Coords.x, beingDisplay.Coords.y] = null;
+        Remove(beingDisplay);
         beingDisplay.UpdateCoords(next);
     }
 
@@ -110,19 +74,18 @@ public class Board : IEnumerable<Being>
     {
         Being fromBeing = board[fromDisplay.Coords.x, fromDisplay.Coords.y];
         Being toBeing = board[toDisplay.Coords.x, toDisplay.Coords.y];
-        if (fromBeing == null || toBeing == null) return;
 
         Vector2Int fromCoords = fromBeing.BeingInfo.Coords;
         Vector2Int toCoords = toBeing.BeingInfo.Coords;
 
-        board[fromCoords.x, fromCoords.y] = null;
-        board[toCoords.x, toCoords.y] = null;
+        Set(null, fromCoords);
+        Set(null, toCoords);
 
         fromBeing.BeingInfo.UpdateCoords(toCoords);
         toBeing.BeingInfo.UpdateCoords(fromCoords);
 
-        board[toCoords.x, toCoords.y] = fromBeing;
-        board[fromCoords.x, fromCoords.y] = toBeing;
+        Set(fromBeing, toCoords);
+        Set(toBeing, fromCoords);
     }
 
     public virtual Vector2Int GetNextOpenSlot()
@@ -153,15 +116,6 @@ public class Board : IEnumerable<Being>
             else
                 Debug.Log("");
         }
-    }
-    #endregion
-
-    #region Battle
-    public void UpdateBoard(Board board)
-    {
-        for (int y = 0; y < BOARD_SIZE; y++)
-            for (int x = 0; x < BOARD_SIZE; x++)
-                this.board[x, y] = board[x, y];
     }
     #endregion
 }

@@ -23,16 +23,16 @@ public class BeingDisplay : MonoBehaviour
     public void BeingDisplayInit(Being being, bool isPlayerInteractable)
     {
         this.Coords = being.BeingInfo.Coords;
-        being.SetBeingDisplay(this);
+        being.BeingInfo.SetBeingDiplay(this);
         IsPlayerInteractable = isPlayerInteractable;
 
         hpText.SetText(being.BeingInfo.HP.ToString());
-        damageText.SetText(being.BeingInfo.Damage.ToString());
+        damageText.SetText(being.BeingInfo.Attack.ToString());
 
         uiTransform.LookAt(BattleManager.MainCamera.transform.position);
     }
 
-    public void UpdateCoords(Vector2Int coords) 
+    public void UpdateCoords(Vector2Int coords)
     {
         this.Coords = coords;
     }
@@ -61,10 +61,11 @@ public class BeingDisplay : MonoBehaviour
     }
     #endregion
 
-    public IEnumerator OnDamage()
+    public IEnumerator OnDamage(DamageAction damageAction)
     {
         ResourceLoader.SpawnParticle("Damage", transform.position);
         ResourceLoader.SpawnSoundEffect("Damage", transform.position);
+        hpText.SetText(damageAction.FinalHealth.ToString());
 
         yield return transform.DOShakePosition(MoveTime, strength: .5f);
         transform.DOShakeRotation(MoveTime);

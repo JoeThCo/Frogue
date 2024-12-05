@@ -4,24 +4,30 @@ using UnityEngine;
 
 public class DeadAction : BattleAction
 {
-    public Being Being { get; private set; }
-    public Board Board { get; private set; }
+    public SnapshotBoard Board { get; private set; }
+    public SnapshotBeing DeadSnapshotBeing { get; private set; }
 
-    public DeadAction(Board board, Being being) : base(board, being)
+    public DeadAction(SnapshotBoard board, SnapshotBeing being) : base(board, being)
     {
-        this.Being = being;
         this.Board = board;
+        this.DeadSnapshotBeing = new SnapshotBeing(being);
 
-        BeingAction();
+        CalculateAction();
     }
 
-    protected override void BeingAction()
+    protected override void CalculateAction()
     {
-
+        //handleded in GetActions()
     }
 
-    public override IEnumerator BeingDisplayAction()
+    public override IEnumerator DisplayAction()
     {
+        DeadSnapshotBeing.BeingInfo.BeingDisplay.OnDead();
         yield return new WaitForSeconds(.10f);
+    }
+
+    public override string ToString()
+    {
+        return $"{DeadSnapshotBeing.BeingInfo.ID} died!";
     }
 }

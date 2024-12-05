@@ -1,47 +1,53 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Battle
 {
-    public PlayerBoard Player { get; private set; }
-    public BaddieBoard Baddie { get; private set; }
     public int PlusMinus { get; private set; } = 0;
     public BattleAction[] BattleActions { get; private set; }
 
-    public Battle(PlayerBoard _p, BaddieBoard _b)
-    {
-        Player = _p.GetBeingSnapshot<PlayerBoard>();
-        Baddie = _b.GetBeingSnapshot<BaddieBoard>();
+    public SnapshotBeing[] PlayerSnapshot { get; private set; }
+    public SnapshotBeing[] BaddieSnapshot { get; private set; }
 
-        BattleActions = GetBattleActions(Player, Baddie);
+    public Battle(PlayerBoard playerBoard, BaddieBoard baddieBoard)
+    {
+        SnapshotBoard playerSnapshotBoard = new SnapshotBoard(playerBoard);
+        SnapshotBoard baddieSnapshotBoard = new SnapshotBoard(baddieBoard);
+
+        BattleActions = GetBattleActions(playerSnapshotBoard, baddieSnapshotBoard);
+
+        PlayerSnapshot = playerSnapshotBoard.AliveSnapshotBeings;
+        BaddieSnapshot = baddieSnapshotBoard.AliveSnapshotBeings;
     }
 
-    private BattleAction[] GetBattleActions(PlayerBoard player, BaddieBoard baddie)
+    private BattleAction[] GetBattleActions(SnapshotBoard playerSnapshotBoard, SnapshotBoard baddieSnapshotBoard)
     {
         List<BattleAction> actions = new List<BattleAction>();
 
-        actions.AddRange(GetActions(player, baddie));
-        actions.AddRange(GetActions(baddie, player));
+        actions.AddRange(GetActions(playerSnapshotBoard, baddieSnapshotBoard));
+        actions.Add(new BoardSwitchAction());
+        actions.AddRange(GetActions(baddieSnapshotBoard, playerSnapshotBoard));
 
         return actions.ToArray();
     }
 
-    private BattleAction[] GetActions(Board attacker, Board defender)
+    private BattleAction[] GetActions(SnapshotBoard attacker, SnapshotBoard defender)
     {
         List<BattleAction> actions = new List<BattleAction>();
 
-        foreach (Being attackerCurrent in attacker)
+        foreach (SnapshotBeing attackerCurrent in attacker.AliveSnapshotBeings)
         {
             if (!defender.IsDead)
             {
                 //damage
-                Being defenseNext = defender.Next;
+                SnapshotBeing defenseNext = defender.Next;
                 DamageAction damageAction = new DamageAction(attackerCurrent, defenseNext);
                 actions.Add(damageAction);
 
                 //dead action
-                if (defenseNext.BeingInfo.IsDead)
+                if (damageAction.IsDead)
                 {
                     DeadAction deadAction = new DeadAction(defender, defenseNext);
                     actions.Add(deadAction);
@@ -50,14 +56,13 @@ public class Battle
             else
             {
                 //battle over
-                if (attacker is PlayerBoard)
-                    actions.Add(new BattleOverAction((PlayerBoard)attacker, (BaddieBoard)defender));
-                else
-                    actions.Add(new BattleOverAction((PlayerBoard)defender, (BaddieBoard)attacker));
-
+                actions.Add(new BattleOverAction(attacker));
                 return actions.ToArray();
             }
         }
+
+        if (defender.IsDead)
+            actions.Add(new BattleOverAction(attacker));
 
         return actions.ToArray();
     }

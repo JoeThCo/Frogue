@@ -42,25 +42,22 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator FightI()
     {
-        Debug.Log("Fight");
         Battle battle = new Battle(Player, Baddie);
-        Debug.Log($"Battle Actions: {battle.BattleActions.Length}");
+        Debug.LogWarning($"Battle Actions: {battle.BattleActions.Length}");
+
+        Player.Update(battle.PlayerSnapshot);
+        Baddie.Update(battle.BaddieSnapshot);
 
         yield return StartCoroutine(DisplayBattle(battle));
-
-        ApplyBattle(battle);
     }
 
     private IEnumerator DisplayBattle(Battle battle)
     {
         foreach (BattleAction action in battle.BattleActions)
-            yield return action.BeingDisplayAction();
-    }
-
-    private void ApplyBattle(Battle battle)
-    {
-        Player.UpdateBoard(battle.Player);
-        Baddie.UpdateBoard(battle.Baddie);
+        {
+            Debug.Log(action.ToString());
+            yield return action.DisplayAction();
+        }
     }
 
     private void Update()

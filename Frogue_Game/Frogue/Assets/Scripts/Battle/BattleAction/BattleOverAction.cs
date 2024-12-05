@@ -4,37 +4,33 @@ using UnityEngine;
 
 public class BattleOverAction : BattleAction
 {
-    public PlayerBoard Player { get; private set; }
-    public BaddieBoard Baddie { get; private set; }
+    public SnapshotBoard SnapshotBoard { get; private set; }
 
-    private bool isPlayerWinner;
-
-
-    public BattleOverAction(PlayerBoard player, BaddieBoard baddie) : base(player, baddie)
+    public BattleOverAction(SnapshotBoard snapshotBoard) : base(snapshotBoard)
     {
-        this.Player = player;
-        this.Baddie = baddie;
+        this.SnapshotBoard = snapshotBoard;
 
-        BeingAction();
+        CalculateAction();
     }
 
-    public override IEnumerator BeingDisplayAction()
+    public override IEnumerator DisplayAction()
     {
-        if (isPlayerWinner)
-        {
-            Debug.Log("You Win!");
+        if (SnapshotBoard.IsPlayerBoard)
             ResourceLoader.SpawnSoundEffect("PlayerWin");
-        }
         else
-        {
-            Debug.Log("Game Over!");
             ResourceLoader.SpawnSoundEffect("GameOver");
-        }
         yield return this;
     }
 
-    protected override void BeingAction()
+    protected override void CalculateAction()
     {
-        isPlayerWinner = !Player.IsDead && Baddie.IsDead;
+        //handleded in GetActions()
+    }
+
+    public override string ToString()
+    {
+        if (SnapshotBoard.IsPlayerBoard)
+            return $"Player wins!";
+        return $"CPU wins!";
     }
 }

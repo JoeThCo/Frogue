@@ -4,30 +4,53 @@ using UnityEngine;
 
 public class DamageAction : BattleAction
 {
-    public Being Attacker { get; private set; }
-    public Being Defender { get; private set; }
+    public SnapshotBeing Attacker { get; private set; }
 
-    public DamageAction(Being attacker, Being defender) : base(attacker, defender)
+    public SnapshotBeing CalculateDefender { get; private set; }
+    public SnapshotBeing DisplayDefender { get; private set; }
+
+    public bool IsDead
+    {
+        get
+        {
+            return CalculateDefender.BeingInfo.IsDead;
+        }
+    }
+
+    public int FinalHealth
+    {
+        get
+        {
+            return DisplayDefender.BeingInfo.HP - Attacker.BeingInfo.Attack;
+        }
+    }
+
+    public DamageAction(SnapshotBeing attacker, SnapshotBeing defender) : base(attacker, defender)
     {
         this.Attacker = attacker;
-        this.Defender = defender;
+        this.CalculateDefender = defender;
 
-        BeingAction();
+        this.DisplayDefender = new SnapshotBeing(defender);
+
+        CalculateAction();
     }
 
-    protected override void BeingAction()
+    public override IEnumerator DisplayAction()
     {
-        Defender.BeingInfo.TakeDamage(Attacker.BeingInfo.Damage);
+        Attacker.BeingInfo.BeingDisplay.SaveReturnPostion();
+
+        yield return Attacker.BeingInfo.BeingDisplay.MoveTo(DisplayDefender.BeingInfo.BeingDisplay);
+        yield return DisplayDefender.BeingInfo.BeingDisplay.OnDamage(this);
+        yield return Attacker.BeingInfo.BeingDisplay.MoveToReturn();
     }
 
-    public override IEnumerator BeingDisplayAction()
+    protected override void CalculateAction()
     {
-        Attacker.BeingDisplay.SaveReturnPostion();
+        CalculateDefender.BeingInfo.TakeDamage(Attacker.BeingInfo.Attack);
+    }
 
-        yield return Attacker.BeingDisplay.MoveTo(Defender.BeingDisplay);
-
-        yield return Defender.BeingDisplay.OnDamage();
-
-        yield return Attacker.BeingDisplay.MoveToReturn();
+    public override string ToString()
+    {
+        return $"{Attacker.BeingInfo.ID} (HP {DisplayDefender.BeingInfo.HP}) attacked by {Attacker.BeingInfo.ID} (ATK {Attacker.BeingInfo.Attack}) | {DisplayDefender.BeingInfo.HP} => {FinalHealth}";
     }
 }
