@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Damage
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: 57548058f6e11b24996a8a8027a16a1e, type: 3}
-  Volume: 1
+  Volume: 0.6
   frequencyMin: -0.25
   frequencyMax: 0.25

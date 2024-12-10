@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: PlayerWin
   m_EditorClassIdentifier: 
   Clip: {fileID: 8300000, guid: de287d3837b2d6044892cd6373ba5776, type: 3}
-  Volume: 1
+  Volume: 0.5
   frequencyMin: -0.25
   frequencyMax: 0.25
