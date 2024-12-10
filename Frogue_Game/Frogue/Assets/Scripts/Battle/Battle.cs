@@ -54,7 +54,7 @@ public class Battle
                 SnapshotBeing defenseNext = defender.Next;
                 DamageAction damageAction = new DamageAction(attackerCurrent, defenseNext);
                 UpdatePlusMinus(attacker, damageAction);
-                
+
                 actions.Add(damageAction);
 
                 //dead action

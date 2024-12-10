@@ -234,6 +234,8 @@ MonoBehaviour:
   damageText: {fileID: 3797866100204546546}
   rotateTransform: {fileID: 7899265079910187690}
   uiTransform: {fileID: 1523043192557204401}
+  MoveTime: 0.25
+  Ease: 1
 --- !u!54 &1748660370874456857
 Rigidbody:
   m_ObjectHideFlags: 0
