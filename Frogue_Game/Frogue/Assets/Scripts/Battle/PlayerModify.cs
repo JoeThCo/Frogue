@@ -1,26 +1,64 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerModify : MonoBehaviour
 {
-    private Camera cam;
+    private Camera Cam;
     private Board playerBoard;
 
     private BeingDisplay selectedBeingDisplay;
 
-    private void Start()
-    {
-        cam = Camera.main;
-    }
+    public static event Action<BeingDisplay> SwapBeingsDisplay;
+    public static event Action<SlotDisplay> MoveBeingDisplay;
+
+    public static event Action<BeingDisplay> SelectBeingDisplay;
+    public static event Action<BeingDisplay> UnSelectBeingDisplay;
 
     public void PlayerModifyInit(Board playerBoard)
     {
         this.playerBoard = playerBoard;
+
+        Cam = Camera.main;
+
+        SwapBeingsDisplay += PlayerModify_SwapBeings;
+        MoveBeingDisplay += PlayerModify_MoveBeing;
+
+        SelectBeingDisplay += PlayerModify_SelectBeingDisplay;
+        UnSelectBeingDisplay += PlayerModify_UnSelectBeingDisplay;
     }
 
-    private void SwapBeings(BeingDisplay beingDisplay)
+    private void OnDisable()
+    {
+        SwapBeingsDisplay -= PlayerModify_SwapBeings;
+        MoveBeingDisplay -= PlayerModify_MoveBeing;
+
+        SelectBeingDisplay -= PlayerModify_SelectBeingDisplay;
+        UnSelectBeingDisplay -= PlayerModify_UnSelectBeingDisplay;
+    }
+
+    private void PlayerModify_SelectBeingDisplay(BeingDisplay beingDisplay)
+    {
+        selectedBeingDisplay = beingDisplay;
+    }
+
+    private void PlayerModify_UnSelectBeingDisplay(BeingDisplay obj)
+    {
+        selectedBeingDisplay = null;
+    }
+
+
+    private void PlayerModify_MoveBeing(SlotDisplay slotDisplay)
+    {
+        Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
+
+        selectedBeingDisplay.Move(newPosition);
+        playerBoard.Move(selectedBeingDisplay, slotDisplay.Coords);
+    }
+
+    private void PlayerModify_SwapBeings(BeingDisplay beingDisplay)
     {
         Vector3 tempPos = beingDisplay.transform.position;
 
@@ -30,19 +68,11 @@ public class PlayerModify : MonoBehaviour
         playerBoard.Swap(beingDisplay, selectedBeingDisplay);
     }
 
-    private void MoveToSlot(SlotDisplay slotDisplay)
-    {
-        Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
-
-        selectedBeingDisplay.Move(newPosition);
-        playerBoard.Move(selectedBeingDisplay, slotDisplay.Coords);
-    }
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             Debug.DrawLine(ray.origin, ray.direction * 25);
 
@@ -58,23 +88,25 @@ public class PlayerModify : MonoBehaviour
                 {
                     //swapping two beings
                     if (beingDisplay != null && beingDisplay != selectedBeingDisplay)
-                    {
-                        SwapBeings(beingDisplay);
-                    }
+                        SwapBeingsDisplay?.Invoke(beingDisplay);
 
                     //moving being to a slot
                     if (slotDisplay != null)
-                    {
-                        MoveToSlot(slotDisplay);
-                    }
+                        MoveBeingDisplay?.Invoke(slotDisplay);
 
-                    selectedBeingDisplay = null;
+                    UnSelectBeingDisplay?.Invoke(selectedBeingDisplay);
                 }
                 else
                 {
-                    selectedBeingDisplay = beingDisplay;
+                    SelectBeingDisplay?.Invoke(beingDisplay);
                 }
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (selectedBeingDisplay == null) return;
+            UnSelectBeingDisplay?.Invoke(selectedBeingDisplay);
         }
     }
 }
