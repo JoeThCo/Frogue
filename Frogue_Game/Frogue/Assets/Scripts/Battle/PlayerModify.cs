@@ -16,6 +16,8 @@ public class PlayerModify : MonoBehaviour
 
     public static event Action<BeingDisplay> SelectBeingDisplay;
     public static event Action<BeingDisplay> UnSelectBeingDisplay;
+    public static event Action ClearBeingDisplay;
+
 
     public void PlayerModifyInit(Board playerBoard)
     {
@@ -28,6 +30,7 @@ public class PlayerModify : MonoBehaviour
 
         SelectBeingDisplay += PlayerModify_SelectBeingDisplay;
         UnSelectBeingDisplay += PlayerModify_UnSelectBeingDisplay;
+        ClearBeingDisplay += PlayerModify_ClearBeingDisplay;
     }
 
     private void OnDisable()
@@ -37,6 +40,7 @@ public class PlayerModify : MonoBehaviour
 
         SelectBeingDisplay -= PlayerModify_SelectBeingDisplay;
         UnSelectBeingDisplay -= PlayerModify_UnSelectBeingDisplay;
+        ClearBeingDisplay -= PlayerModify_ClearBeingDisplay;
     }
 
     private void PlayerModify_SelectBeingDisplay(BeingDisplay beingDisplay)
@@ -49,12 +53,17 @@ public class PlayerModify : MonoBehaviour
         selectedBeingDisplay = null;
     }
 
+    private void PlayerModify_ClearBeingDisplay()
+    {
+        PlayerModify_UnSelectBeingDisplay(selectedBeingDisplay);
+        selectedBeingDisplay = null;
+    }
 
     private void PlayerModify_MoveBeing(SlotDisplay slotDisplay)
     {
         Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
 
-        selectedBeingDisplay.Move(newPosition);
+        StartCoroutine(selectedBeingDisplay.Hop(newPosition));
         playerBoard.Move(selectedBeingDisplay, slotDisplay.Coords);
     }
 
@@ -62,8 +71,8 @@ public class PlayerModify : MonoBehaviour
     {
         Vector3 tempPos = beingDisplay.transform.position;
 
-        beingDisplay.Move(selectedBeingDisplay.transform.position);
-        selectedBeingDisplay.Move(tempPos);
+        StartCoroutine(beingDisplay.Hop(selectedBeingDisplay.transform.position));
+        StartCoroutine(selectedBeingDisplay.Hop(tempPos));
 
         playerBoard.Swap(beingDisplay, selectedBeingDisplay);
     }
@@ -105,8 +114,7 @@ public class PlayerModify : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            if (selectedBeingDisplay == null) return;
-            UnSelectBeingDisplay?.Invoke(selectedBeingDisplay);
+            ClearBeingDisplay?.Invoke();
         }
     }
 }

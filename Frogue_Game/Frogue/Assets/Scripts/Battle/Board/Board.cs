@@ -63,11 +63,11 @@ public class Board : IEnumerable<Being>
         Being being = board[beingDisplay.Coords.x, beingDisplay.Coords.y];
         if (being == null) return;
 
-        being.BeingInfo.UpdateCoords(next);
+        being.BeingInfo.Coords = next;
         board[next.x, next.y] = being;
 
         Remove(beingDisplay);
-        beingDisplay.UpdateCoords(next);
+        beingDisplay.Coords = next;
     }
 
     public void Swap(BeingDisplay fromDisplay, BeingDisplay toDisplay)
@@ -81,8 +81,8 @@ public class Board : IEnumerable<Being>
         Set(null, fromCoords);
         Set(null, toCoords);
 
-        fromBeing.BeingInfo.UpdateCoords(toCoords);
-        toBeing.BeingInfo.UpdateCoords(fromCoords);
+        fromBeing.BeingInfo.Coords = toCoords;
+        toBeing.BeingInfo.Coords = fromCoords;
 
         Set(fromBeing, toCoords);
         Set(toBeing, fromCoords);

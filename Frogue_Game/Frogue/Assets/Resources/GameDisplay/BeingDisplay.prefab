@@ -297,7 +297,7 @@ MonoBehaviour:
   damageText: {fileID: 3797866100204546546}
   rotateTransform: {fileID: 7899265079910187690}
   uiTransform: {fileID: 1523043192557204401}
-  MoveTime: 0.25
+  LerpTime: 0.25
   Ease: 1
 --- !u!54 &1748660370874456857
 Rigidbody:
@@ -606,7 +606,7 @@ Transform:
   m_GameObject: {fileID: 8374399942601099160}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

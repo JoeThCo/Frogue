@@ -5,11 +5,10 @@ using UnityEngine;
 public class BeingInfo
 {
     public int ID { get; private set; }
-
     public int StartHP { get; private set; }
     public int HP { get; private set; }
     public int Attack { get; private set; }
-    public Vector2Int Coords { get; private set; }
+    public Vector2Int Coords { get; set; }
     public BeingDisplay BeingDisplay { get; private set; }
     public bool IsDead { get { return HP <= 0; } }
 
@@ -33,11 +32,6 @@ public class BeingInfo
         Attack = damage;
         Coords = coords;
         BeingDisplay = beingDisplay;
-    }
-
-    public void UpdateCoords(Vector2Int coords)
-    {
-        this.Coords = coords;
     }
 
     public void TakeDamage(int amount)
