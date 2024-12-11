@@ -5,9 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Being Info", menuName = "ScriptableObjects/BeingInfo")]
 public class BeingInit : ScriptableObject
 {
-    [SerializeField] private int startHealth;
-    [SerializeField] private int startDamage;
+    [SerializeField, Range(1, 10)] private int startHealth;
+    [SerializeField, Range(1, 10)] private int startDamage;
+    [SerializeField, Range(1, 10)] private int startSpeed;
 
     public int GetDamage() { return startDamage; }
     public int GetHealth() { return startHealth; }
+    public int GetSpeed() { return startSpeed; }
 }

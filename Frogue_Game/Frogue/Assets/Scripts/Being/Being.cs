@@ -16,7 +16,7 @@ public class Being
         this.BeingInfo = snapshotBeing.BeingInfo;
     }
 
-    public SnapshotBeing MakeSnapshot() 
+    public SnapshotBeing MakeSnapshot()
     {
         return new SnapshotBeing(this);
     }

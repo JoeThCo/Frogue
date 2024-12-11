@@ -63,7 +63,7 @@ public class PlayerModify : MonoBehaviour
     {
         Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
 
-        StartCoroutine(selectedBeingDisplay.Hop(newPosition));
+        selectedBeingDisplay.Move(newPosition);
         playerBoard.Move(selectedBeingDisplay, slotDisplay.Coords);
     }
 
@@ -71,8 +71,8 @@ public class PlayerModify : MonoBehaviour
     {
         Vector3 tempPos = beingDisplay.transform.position;
 
-        StartCoroutine(beingDisplay.Hop(selectedBeingDisplay.transform.position));
-        StartCoroutine(selectedBeingDisplay.Hop(tempPos));
+        beingDisplay.Move(selectedBeingDisplay.transform.position);
+        selectedBeingDisplay.Move(tempPos);
 
         playerBoard.Swap(beingDisplay, selectedBeingDisplay);
     }

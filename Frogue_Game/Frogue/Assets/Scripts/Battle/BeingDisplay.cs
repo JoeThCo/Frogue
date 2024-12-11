@@ -7,9 +7,6 @@ using UnityEngine;
 
 public class BeingDisplay : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI hpText;
-    [SerializeField] private TextMeshProUGUI damageText;
-    [Space(10)]
     [SerializeField] private Transform rotateTransform;
     [SerializeField] private Transform uiTransform;
     [Space(10)]
@@ -28,9 +25,6 @@ public class BeingDisplay : MonoBehaviour
         this.Coords = being.BeingInfo.Coords;
         being.BeingInfo.SetBeingDiplay(this);
         IsPlayerInteractable = isPlayerInteractable;
-
-        hpText.SetText(being.BeingInfo.HP.ToString());
-        damageText.SetText(being.BeingInfo.Attack.ToString());
 
         uiTransform.LookAt(BattleManager.MainCamera.transform.position);
 
@@ -56,7 +50,6 @@ public class BeingDisplay : MonoBehaviour
     {
         ResourceLoader.SpawnParticle("Damage", transform.position);
         ResourceLoader.SpawnSoundEffect("Damage", transform.position);
-        hpText.SetText(damageAction.FinalHealth.ToString());
     }
 
     private void PlayerModify_SelectBeingDisplay(BeingDisplay obj)
@@ -82,20 +75,6 @@ public class BeingDisplay : MonoBehaviour
     }
 
     #region Move
-    public IEnumerator Hop(Vector3 end) 
-    {
-        Vector3 start = transform.position;
-
-        Vector3 halfway = Vector3.Lerp(start, end, 0.5f);
-        halfway.y += 2.5f;
-
-        transform.DOMove(halfway, LerpTime).SetEase(Ease.InSine);
-        yield return new WaitForSeconds(LerpTime);
-
-        yield return transform.DOMove(end, LerpTime).SetEase(Ease.OutSine);
-        yield return new WaitForSeconds(LerpTime);
-    }
-
     public void Move(Vector3 newPosition)
     {
         transform.DOMove(newPosition, LerpTime).SetEase(Ease);

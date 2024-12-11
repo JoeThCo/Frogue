@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class SnapshotBeing
@@ -17,6 +18,7 @@ public class SnapshotBeing
             being.BeingInfo.HP,
             being.BeingInfo.StartHP,
             being.BeingInfo.Attack,
+            being.BeingInfo.Speed,
             being.BeingInfo.Coords,
             being.BeingInfo.BeingDisplay);
     }
@@ -33,6 +35,7 @@ public class SnapshotBeing
             snapshotBeing.BeingInfo.HP,
             snapshotBeing.BeingInfo.StartHP,
             snapshotBeing.BeingInfo.Attack,
+            snapshotBeing.BeingInfo.Speed,
             snapshotBeing.BeingInfo.Coords,
             snapshotBeing.BeingInfo.BeingDisplay);
     }

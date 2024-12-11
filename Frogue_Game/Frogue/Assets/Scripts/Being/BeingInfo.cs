@@ -8,6 +8,7 @@ public class BeingInfo
     public int StartHP { get; private set; }
     public int HP { get; private set; }
     public int Attack { get; private set; }
+    public int Speed { get; private set; }
     public Vector2Int Coords { get; set; }
     public BeingDisplay BeingDisplay { get; private set; }
     public bool IsDead { get { return HP <= 0; } }
@@ -17,19 +18,24 @@ public class BeingInfo
         BeingInit info = ResourceLoader.GetBeingInit();
         HP = info.GetHealth();
         StartHP = HP;
+
         Attack = info.GetDamage();
+        Speed = info.GetSpeed();
 
         Coords = coords;
         ID = Coords.y + (Coords.x * Board.BOARD_SIZE) + 1;
     }
 
-    public BeingInfo(int iD, int hP, int startHp, int damage, Vector2Int coords, BeingDisplay beingDisplay)
+    public BeingInfo(int iD, int hP, int startHp, int attack, int speed, Vector2Int coords, BeingDisplay beingDisplay)
     {
         ID = iD;
+
         HP = hP;
         StartHP = startHp;
         StartHP = HP;
-        Attack = damage;
+        Attack = attack;
+        Speed = speed;
+
         Coords = coords;
         BeingDisplay = beingDisplay;
     }

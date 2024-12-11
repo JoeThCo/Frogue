@@ -293,8 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40787cbccb8c43045920e1d98f25d9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpText: {fileID: 6260849170712166592}
-  damageText: {fileID: 3797866100204546546}
   rotateTransform: {fileID: 7899265079910187690}
   uiTransform: {fileID: 1523043192557204401}
   LerpTime: 0.25
@@ -491,6 +489,7 @@ GameObject:
   - component: {fileID: 3129706976505921798}
   - component: {fileID: 5435731333190157694}
   - component: {fileID: 6156365734504619806}
+  - component: {fileID: 8681905161118005251}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -581,6 +580,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8681905161118005251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971943218607817051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce2b9a38223e25f4d94ec9c8e9f5f0c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpText: {fileID: 6260849170712166592}
+  damageText: {fileID: 3797866100204546546}
 --- !u!1 &8374399942601099160
 GameObject:
   m_ObjectHideFlags: 0
