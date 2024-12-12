@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class BattleOverAction : BattleAction
 {
-    public SnapshotBoard SnapshotBoard { get; private set; }
+    public Board Board { get; private set; }
 
-    public BattleOverAction(SnapshotBoard snapshotBoard) : base(snapshotBoard)
+    public BattleOverAction(Board board) : base(board)
     {
-        this.SnapshotBoard = snapshotBoard;
+        this.Board = board;
 
         CalculateAction();
     }
 
     public override IEnumerator DisplayAction()
     {
-        if (SnapshotBoard.IsPlayerBoard)
+        if (Board.IsPlayerBoard)
             ResourceLoader.SpawnSoundEffect("PlayerWin");
         else
             ResourceLoader.SpawnSoundEffect("GameOver");
@@ -29,7 +29,7 @@ public class BattleOverAction : BattleAction
 
     public override string ToString()
     {
-        if (SnapshotBoard.IsPlayerBoard)
+        if (Board.IsPlayerBoard)
             return $"Player wins!";
         return $"CPU wins!";
     }

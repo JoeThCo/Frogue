@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Board : IEnumerable<Being>
 {
@@ -10,19 +11,20 @@ public class Board : IEnumerable<Being>
 
     protected Vector2Int NO_SLOTS { get; set; } = -Vector2Int.one;
 
+    public bool IsPlayerBoard { get; protected set; } = true;
+
     public Board()
     {
         board = new Being[BOARD_SIZE, BOARD_SIZE];
         Add(5);
     }
 
-    #region Board
-
-    private Being this[int x, int y]
+    public Board(Board board)
     {
-        get => board[x, y];
-        set => board[x, y] = value;
+        Update(board);
     }
+
+    #region Board
 
     private void Add(int size)
     {
@@ -41,11 +43,18 @@ public class Board : IEnumerable<Being>
         }
     }
 
-    public void Update(SnapshotBeing[] snapshotBeings)
+    public void Update(Being[] beings)
     {
         board = new Being[BOARD_SIZE, BOARD_SIZE];
-        foreach (SnapshotBeing snapshotBeing in snapshotBeings)
-            Set(new Being(snapshotBeing), snapshotBeing.BeingInfo.Coords);
+        foreach (Being being in beings)
+            Set(new Being(being), being.Coords);
+    }
+
+    public void Update(Board _board)
+    {
+        board = new Being[BOARD_SIZE, BOARD_SIZE];
+        foreach (Being being in _board)
+            Set(new Being(being), being.Coords);
     }
 
     private void Set(Being being, Vector2Int coords)
@@ -63,7 +72,7 @@ public class Board : IEnumerable<Being>
         Being being = board[beingDisplay.Coords.x, beingDisplay.Coords.y];
         if (being == null) return;
 
-        being.BeingInfo.Coords = next;
+        being.Coords = next;
         board[next.x, next.y] = being;
 
         Remove(beingDisplay);
@@ -75,14 +84,14 @@ public class Board : IEnumerable<Being>
         Being fromBeing = board[fromDisplay.Coords.x, fromDisplay.Coords.y];
         Being toBeing = board[toDisplay.Coords.x, toDisplay.Coords.y];
 
-        Vector2Int fromCoords = fromBeing.BeingInfo.Coords;
-        Vector2Int toCoords = toBeing.BeingInfo.Coords;
+        Vector2Int fromCoords = fromBeing.Coords;
+        Vector2Int toCoords = toBeing.Coords;
 
         Set(null, fromCoords);
         Set(null, toCoords);
 
-        fromBeing.BeingInfo.Coords = toCoords;
-        toBeing.BeingInfo.Coords = fromCoords;
+        fromBeing.Coords = toCoords;
+        toBeing.Coords = fromCoords;
 
         Set(fromBeing, toCoords);
         Set(toBeing, fromCoords);
@@ -115,6 +124,38 @@ public class Board : IEnumerable<Being>
                 Debug.Log(being.ToString());
             else
                 Debug.Log("");
+        }
+    }
+    #endregion
+
+    #region Battle
+    public Being[] AliveBeings
+    {
+        get
+        {
+            List<Being> list = new List<Being>();
+            foreach (Being being in board)
+            {
+                if (being != null && !being.Health.IsDead)
+                    list.Add(being);
+            }
+            return list.ToArray();
+        }
+    }
+
+    public Being Next
+    {
+        get
+        {
+            return AliveBeings[0];
+        }
+    }
+
+    public bool IsDead
+    {
+        get
+        {
+            return AliveBeings.Length <= 0;
         }
     }
     #endregion

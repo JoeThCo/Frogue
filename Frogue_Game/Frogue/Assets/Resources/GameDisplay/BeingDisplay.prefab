@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4873187500965672606}
   - component: {fileID: 7358837678455927426}
   m_Layer: 0
-  m_Name: Damage Icon
+  m_Name: Attack Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -295,6 +295,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateTransform: {fileID: 7899265079910187690}
   uiTransform: {fileID: 1523043192557204401}
+  beingDisplayUI: {fileID: 8681905161118005251}
   LerpTime: 0.25
   Ease: 1
 --- !u!54 &1748660370874456857
@@ -593,7 +594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hpText: {fileID: 6260849170712166592}
-  damageText: {fileID: 3797866100204546546}
+  attackText: {fileID: 3797866100204546546}
 --- !u!1 &8374399942601099160
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +639,7 @@ GameObject:
   - component: {fileID: 7086944222459915408}
   - component: {fileID: 4832034407146632386}
   m_Layer: 0
-  m_Name: Damage
+  m_Name: Attack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,7 +782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2012371077306980613, guid: 4d151f8c1d4562a4fb28f86249bf3156, type: 3}
       propertyPath: m_Name
-      value: Damage Text
+      value: Attack Text
       objectReference: {fileID: 0}
     - target: {fileID: 3071939047739563546, guid: 4d151f8c1d4562a4fb28f86249bf3156, type: 3}
       propertyPath: m_text

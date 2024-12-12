@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startHealth: 2
   startDamage: 4
+  startSpeed: 1

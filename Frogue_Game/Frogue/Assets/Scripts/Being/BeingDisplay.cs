@@ -10,6 +10,8 @@ public class BeingDisplay : MonoBehaviour
     [SerializeField] private Transform rotateTransform;
     [SerializeField] private Transform uiTransform;
     [Space(10)]
+    [SerializeField] private BeingDisplayUI beingDisplayUI;
+    [Space(10)]
     [SerializeField] private float LerpTime = .25f;
     [SerializeField] private Ease Ease = Ease.Linear;
 
@@ -18,17 +20,18 @@ public class BeingDisplay : MonoBehaviour
     public bool IsPlayerInteractable { get; set; }
     private Renderer Renderer { get; set; }
 
-    public event Action<DamageAction> BeingDamaged;
+    public event Action<DamageAction> BeingDisplayDamaged;
 
     public void BeingDisplayInit(Being being, bool isPlayerInteractable)
     {
-        this.Coords = being.BeingInfo.Coords;
-        being.BeingInfo.SetBeingDiplay(this);
+        this.Coords = being.Coords;
+        being.SetBeingDiplay(this);
+        beingDisplayUI.BeingDisplayUIInit(being, this);
         IsPlayerInteractable = isPlayerInteractable;
 
         uiTransform.LookAt(BattleManager.MainCamera.transform.position);
 
-        BeingDamaged += BeingDisplay_BeingDamaged;
+        BeingDisplayDamaged += BeingDisplay_BeingDisplayDamaged;
 
         PlayerModify.SelectBeingDisplay += PlayerModify_SelectBeingDisplay;
         PlayerModify.UnSelectBeingDisplay += PlayerModify_UnSelectBeingDisplay;
@@ -38,7 +41,7 @@ public class BeingDisplay : MonoBehaviour
 
     private void OnDisable()
     {
-        BeingDamaged -= BeingDisplay_BeingDamaged;
+        BeingDisplayDamaged -= BeingDisplay_BeingDisplayDamaged;
 
         PlayerModify.SelectBeingDisplay -= PlayerModify_SelectBeingDisplay;
         PlayerModify.UnSelectBeingDisplay -= PlayerModify_UnSelectBeingDisplay;
@@ -46,7 +49,7 @@ public class BeingDisplay : MonoBehaviour
         PlayerModify.ClearBeingDisplay -= PlayerModify_ClearBeingDisplay; ;
     }
 
-    private void BeingDisplay_BeingDamaged(DamageAction damageAction)
+    private void BeingDisplay_BeingDisplayDamaged(DamageAction damageAction)
     {
         ResourceLoader.SpawnParticle("Damage", transform.position);
         ResourceLoader.SpawnSoundEffect("Damage", transform.position);
@@ -54,7 +57,7 @@ public class BeingDisplay : MonoBehaviour
 
     private void PlayerModify_SelectBeingDisplay(BeingDisplay obj)
     {
-        if (obj == null || !obj.Equals(this)) 
+        if (obj == null || !obj.Equals(this))
         {
             ScaleDown();
             return;
@@ -100,7 +103,7 @@ public class BeingDisplay : MonoBehaviour
 
     public IEnumerator OnDamage(DamageAction damageAction)
     {
-        BeingDamaged?.Invoke(damageAction);
+        BeingDisplayDamaged?.Invoke(damageAction);
 
         yield return transform.DOShakePosition(LerpTime, strength: .5f);
         transform.DOShakeRotation(LerpTime);

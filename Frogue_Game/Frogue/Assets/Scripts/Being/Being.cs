@@ -4,25 +4,46 @@ using UnityEngine;
 
 public class Being
 {
-    public BeingInfo BeingInfo { get; protected set; }
+    public int ID { get; private set; }
+    public Health Health { get; private set; }
+    public int Attack { get; private set; }
+    public int Speed { get; private set; }
+    public Vector2Int Coords { get; set; }
+    public BeingDisplay BeingDisplay { get; private set; }
 
     public Being(Vector2Int coords)
     {
-        this.BeingInfo = new BeingInfo(ResourceLoader.GetBeingInit(), coords);
+        BeingInit init = ResourceLoader.GetBeingInit();
+
+        Health = new Health(init);
+
+        Attack = init.GetDamage();
+        Speed = init.GetSpeed();
+
+        Coords = coords;
+        ID = Coords.y + (Coords.x * Board.BOARD_SIZE) + 1;
     }
 
-    public Being(SnapshotBeing snapshotBeing)
+    public Being(Being being)
     {
-        this.BeingInfo = snapshotBeing.BeingInfo;
+        Health = new Health(being.Health.HP);
+
+        Attack = being.Attack;
+        Speed = being.Attack;
+
+        Coords = being.Coords;
+
+        BeingDisplay = being.BeingDisplay;
+        ID = being.ID;
     }
 
-    public SnapshotBeing MakeSnapshot()
+    public void SetBeingDiplay(BeingDisplay beingDisplay)
     {
-        return new SnapshotBeing(this);
+        this.BeingDisplay = beingDisplay;
     }
 
     public override string ToString()
     {
-        return $"{BeingInfo.ID} | ({BeingInfo.Coords})| [{BeingInfo.HP}/{BeingInfo.StartHP} | {BeingInfo.Attack}]";
+        return $"{ID} | ({Coords})| [{Health.HP}/{Health.MaxHP} | {Attack}]";
     }
 }

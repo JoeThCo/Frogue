@@ -45,8 +45,8 @@ public class BattleManager : MonoBehaviour
         Battle battle = new Battle(Player, Baddie);
         Debug.LogWarning($"Battle Actions: {battle.BattleActions.Length} for +/- ({battle.PlusMinus})");
 
-        Player.Update(battle.PlayerSnapshot);
-        Baddie.Update(battle.BaddieSnapshot);
+        Player.Update(battle.PlayerOutput);
+        Baddie.Update(battle.BaddieOutput);
 
         yield return StartCoroutine(DisplayBattle(battle));
     }

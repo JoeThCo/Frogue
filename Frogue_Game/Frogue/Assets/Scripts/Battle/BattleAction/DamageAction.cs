@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class DamageAction : BattleAction
 {
-    public SnapshotBeing Attacker { get; private set; }
+    public Being Attacker { get; private set; }
 
-    public SnapshotBeing CalculateDefender { get; private set; }
-    public SnapshotBeing DisplayDefender { get; private set; }
+    public Being CalculateDefender { get; private set; }
+    public Being DisplayDefender { get; private set; }
 
     public bool IsDead
     {
         get
         {
-            return CalculateDefender.BeingInfo.IsDead;
+            return CalculateDefender.Health.IsDead;
         }
     }
 
@@ -21,37 +21,37 @@ public class DamageAction : BattleAction
     {
         get
         {
-            return DisplayDefender.BeingInfo.HP - Attacker.BeingInfo.Attack;
+            return DisplayDefender.Health.HP - Attacker.Attack;
         }
     }
 
-    public DamageAction(SnapshotBeing attacker, SnapshotBeing defender) : base(attacker, defender)
+    public DamageAction(Being attacker, Being defender) : base(attacker, defender)
     {
         this.Attacker = attacker;
         this.CalculateDefender = defender;
 
-        this.DisplayDefender = new SnapshotBeing(defender);
+        this.DisplayDefender = new Being(defender);
 
         CalculateAction();
     }
 
     public override IEnumerator DisplayAction()
     {
-        Attacker.BeingInfo.BeingDisplay.SaveReturnPostion();
+        Attacker.BeingDisplay.SaveReturnPostion();
 
-        yield return Attacker.BeingInfo.BeingDisplay.MoveTo(DisplayDefender.BeingInfo.BeingDisplay);
-        yield return DisplayDefender.BeingInfo.BeingDisplay.OnDamage(this);
-        yield return Attacker.BeingInfo.BeingDisplay.MoveToReturn();
+        yield return Attacker.BeingDisplay.MoveTo(DisplayDefender.BeingDisplay);
+        yield return DisplayDefender.BeingDisplay.OnDamage(this);
+        yield return Attacker.BeingDisplay.MoveToReturn();
     }
 
     protected override void CalculateAction()
     {
-        CalculateDefender.BeingInfo.TakeDamage(Attacker.BeingInfo.Attack);
+        CalculateDefender.Health.TakeDamage(Attacker.Attack);
     }
 
     public override string ToString()
     {
-        return $"{Attacker.BeingInfo.ID} (HP {DisplayDefender.BeingInfo.HP}) attacked by {Attacker.BeingInfo.ID} (ATK {Attacker.BeingInfo.Attack}) | {DisplayDefender.BeingInfo.HP} => {FinalHealth}";
+        return $"{Attacker.ID} (HP {DisplayDefender.Health.HP}) attacked by {Attacker.ID} (ATK {Attacker.Attack}) | {DisplayDefender.Health.HP} => {FinalHealth}";
     }
 
     public override int PlusMinusCost()

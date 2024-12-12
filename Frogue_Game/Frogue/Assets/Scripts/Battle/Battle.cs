@@ -9,21 +9,21 @@ public class Battle
     public int PlusMinus { get; private set; } = 0;
     public BattleAction[] BattleActions { get; private set; }
 
-    public SnapshotBeing[] PlayerSnapshot { get; private set; }
-    public SnapshotBeing[] BaddieSnapshot { get; private set; }
+    public Being[] PlayerOutput { get; private set; }
+    public Being[] BaddieOutput { get; private set; }
 
     public Battle(PlayerBoard playerBoard, BaddieBoard baddieBoard)
     {
-        SnapshotBoard playerSnapshotBoard = new SnapshotBoard(playerBoard);
-        SnapshotBoard baddieSnapshotBoard = new SnapshotBoard(baddieBoard);
+        Board playerSnapshotBoard = new Board(playerBoard);
+        Board baddieSnapshotBoard = new Board(baddieBoard);
 
         BattleActions = GetBattleActions(playerSnapshotBoard, baddieSnapshotBoard);
 
-        PlayerSnapshot = playerSnapshotBoard.AliveSnapshotBeings;
-        BaddieSnapshot = baddieSnapshotBoard.AliveSnapshotBeings;
+        PlayerOutput = playerSnapshotBoard.AliveBeings;
+        BaddieOutput = baddieSnapshotBoard.AliveBeings;
     }
 
-    private BattleAction[] GetBattleActions(SnapshotBoard playerSnapshotBoard, SnapshotBoard baddieSnapshotBoard)
+    private BattleAction[] GetBattleActions(Board playerSnapshotBoard, Board baddieSnapshotBoard)
     {
         List<BattleAction> actions = new List<BattleAction>();
 
@@ -34,7 +34,7 @@ public class Battle
         return actions.ToArray();
     }
 
-    private void UpdatePlusMinus(SnapshotBoard board, BattleAction action)
+    private void UpdatePlusMinus(Board board, BattleAction action)
     {
         if (board.IsPlayerBoard)
             PlusMinus += action.PlusMinusCost();
@@ -42,16 +42,16 @@ public class Battle
             PlusMinus -= action.PlusMinusCost();
     }
 
-    private BattleAction[] GetActions(SnapshotBoard attacker, SnapshotBoard defender)
+    private BattleAction[] GetActions(Board attacker, Board defender)
     {
         List<BattleAction> actions = new List<BattleAction>();
 
-        foreach (SnapshotBeing attackerCurrent in attacker.AliveSnapshotBeings)
+        foreach (Being attackerCurrent in attacker.AliveBeings)
         {
             if (!defender.IsDead)
             {
                 //damage
-                SnapshotBeing defenseNext = defender.Next;
+                Being defenseNext = defender.Next;
                 DamageAction damageAction = new DamageAction(attackerCurrent, defenseNext);
                 UpdatePlusMinus(attacker, damageAction);
 

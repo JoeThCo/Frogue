@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class DeadAction : BattleAction
 {
-    public SnapshotBoard Board { get; private set; }
-    public SnapshotBeing DeadSnapshotBeing { get; private set; }
+    public Board Board { get; private set; }
+    public Being DeadSnapshotBeing { get; private set; }
 
-    public DeadAction(SnapshotBoard board, SnapshotBeing being) : base(board, being)
+    public DeadAction(Board board, Being being) : base(board, being)
     {
         this.Board = board;
-        this.DeadSnapshotBeing = new SnapshotBeing(being);
+        this.DeadSnapshotBeing = new Being(being);
 
         CalculateAction();
     }
@@ -22,17 +22,17 @@ public class DeadAction : BattleAction
 
     public override IEnumerator DisplayAction()
     {
-        DeadSnapshotBeing.BeingInfo.BeingDisplay.OnDead();
+        DeadSnapshotBeing.BeingDisplay.OnDead();
         yield return new WaitForSeconds(.10f);
     }
 
     public override string ToString()
     {
-        return $"{DeadSnapshotBeing.BeingInfo.ID} died!";
+        return $"{DeadSnapshotBeing.ID} died!";
     }
 
     public override int PlusMinusCost()
     {
-        return DeadSnapshotBeing.BeingInfo.StartHP * 2;
+        return DeadSnapshotBeing.Health.HP * 2;
     }
 }
