@@ -10,24 +10,26 @@ public class BoardDisplay : MonoBehaviour
     [SerializeField] private Transform slotParent;
     [SerializeField] private Transform beingParent;
 
-    public Board Board { get; private set; }
+    protected BeingDisplay[,] displayBoard;
 
     private BeingDisplay beingDisplayPrefab;
     private SlotDisplay slotDisplayPrefab;
 
-    public virtual void BoardDisplayInit(Board board)
-    {
-        this.Board = board;
+    public const int BOARD_SIZE = 3;
 
+    public virtual void BoardDisplayInit()
+    {
         beingDisplayPrefab = ResourceLoader.GetGameDisplay("BeingDisplay").GetComponent<BeingDisplay>();
         slotDisplayPrefab = ResourceLoader.GetGameDisplay("SlotDisplay").GetComponent<SlotDisplay>();
+
+        displayBoard = new BeingDisplay[BOARD_SIZE, BOARD_SIZE];
     }
 
     protected void SpawnSlotDisplays(bool isPlayerInteractable)
     {
-        for (int x = 0; x < Board.BOARD_SIZE; x++)
+        for (int x = 0; x < BOARD_SIZE; x++)
         {
-            for (int y = 0; y < Board.BOARD_SIZE; y++)
+            for (int y = 0; y < BOARD_SIZE; y++)
             {
                 SlotDisplay slotDisplay = Instantiate(slotDisplayPrefab, Vector3.zero, Quaternion.identity, slotParent);
                 slotDisplay.SlotDisplayInit(new Vector2Int(x, y), isPlayerInteractable);
@@ -36,7 +38,18 @@ public class BoardDisplay : MonoBehaviour
         }
     }
 
-    private BeingDisplay SpawnBeingDisplay(Being being, bool isPlayerInteractable)
+    protected void SpawnBeingDisplay(bool isPlayerInteractable)
+    {
+        for (int x = 0; x < BOARD_SIZE; x++)
+        {
+            for (int y = 0; y < BOARD_SIZE; y++)
+            {
+                BeingDisplay beingDisplay = SpawnNewBeingDisplay(new Being(new Vector2Int(x, y)), isPlayerInteractable);
+            }
+        }
+    }
+
+    private BeingDisplay SpawnNewBeingDisplay(Being being, bool isPlayerInteractable)
     {
         BeingDisplay beingDisplay = Instantiate(beingDisplayPrefab, Vector3.zero, Quaternion.identity, beingParent);
         beingDisplay.BeingDisplayInit(being, isPlayerInteractable);
@@ -46,15 +59,5 @@ public class BoardDisplay : MonoBehaviour
     protected virtual void ModifyBeingDisplay(BeingDisplay beingDisplay)
     {
         beingDisplay.transform.localPosition = new Vector3(beingDisplay.Coords.x, 0, beingDisplay.Coords.y) * cellSize;
-    }
-
-    protected void SpawnBeingDisplays(Board board, bool isPlayerInteractable)
-    {
-        foreach (Being being in board)
-        {
-            if (being == null) continue;
-            BeingDisplay beingDisplay = SpawnBeingDisplay(being, isPlayerInteractable);
-            ModifyBeingDisplay(beingDisplay);
-        }
     }
 }

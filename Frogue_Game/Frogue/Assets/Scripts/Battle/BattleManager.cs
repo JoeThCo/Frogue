@@ -9,10 +9,6 @@ public class BattleManager : MonoBehaviour
     [Space]
     [SerializeField] BoardDisplay playerBoardDisplay;
     [SerializeField] BoardDisplay baddieBoardDisplay;
-
-    public PlayerBoard Player { get; private set; }
-    public BaddieBoard Baddie { get; private set; }
-
     private PlayerModify playerModify;
 
     public static Camera MainCamera { get; private set; }
@@ -25,14 +21,11 @@ public class BattleManager : MonoBehaviour
 
         ResourceLoader.Load();
 
-        Player = new PlayerBoard();
-        Baddie = new BaddieBoard();
-
-        playerBoardDisplay.BoardDisplayInit(Player);
-        baddieBoardDisplay.BoardDisplayInit(Baddie);
+        playerBoardDisplay.BoardDisplayInit();
+        baddieBoardDisplay.BoardDisplayInit();
 
         playerModify = playerBoardDisplay.GetComponent<PlayerModify>();
-        playerModify.PlayerModifyInit(Player);
+        playerModify.PlayerModifyInit();
     }
 
     public void Fight()
@@ -42,11 +35,8 @@ public class BattleManager : MonoBehaviour
 
     private IEnumerator FightI()
     {
-        Battle battle = new Battle(Player, Baddie);
+        Battle battle = new Battle(playerBoardDisplay, baddieBoardDisplay);
         Debug.LogWarning($"Battle Actions: {battle.BattleActions.Length} for +/- ({battle.PlusMinus})");
-
-        Player.Update(battle.PlayerOutput);
-        Baddie.Update(battle.BaddieOutput);
 
         yield return StartCoroutine(DisplayBattle(battle));
     }
@@ -62,9 +52,6 @@ public class BattleManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            Player.PrintBoard();
-
         if (Input.GetKeyDown(KeyCode.F))
             Fight();
     }

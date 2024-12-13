@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class PlayerModify : MonoBehaviour
 {
-    private Camera Cam;
-    private Board playerBoard;
-
     private BeingDisplay selectedBeingDisplay;
 
     public static event Action<BeingDisplay> SwapBeingsDisplay;
@@ -18,13 +15,8 @@ public class PlayerModify : MonoBehaviour
     public static event Action<BeingDisplay> UnSelectBeingDisplay;
     public static event Action ClearBeingDisplay;
 
-
-    public void PlayerModifyInit(Board playerBoard)
+    public void PlayerModifyInit()
     {
-        this.playerBoard = playerBoard;
-
-        Cam = Camera.main;
-
         SwapBeingsDisplay += PlayerModify_SwapBeings;
         MoveBeingDisplay += PlayerModify_MoveBeing;
 
@@ -64,7 +56,6 @@ public class PlayerModify : MonoBehaviour
         Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
 
         selectedBeingDisplay.Move(newPosition);
-        playerBoard.Move(selectedBeingDisplay, slotDisplay.Coords);
     }
 
     private void PlayerModify_SwapBeings(BeingDisplay beingDisplay)
@@ -73,15 +64,13 @@ public class PlayerModify : MonoBehaviour
 
         beingDisplay.Move(selectedBeingDisplay.transform.position);
         selectedBeingDisplay.Move(tempPos);
-
-        playerBoard.Swap(beingDisplay, selectedBeingDisplay);
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = Cam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = BattleManager.MainCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             Debug.DrawLine(ray.origin, ray.direction * 25);
 

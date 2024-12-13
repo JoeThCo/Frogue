@@ -7,9 +7,9 @@ public class BeingInit : ScriptableObject
 {
     [SerializeField, Range(1, 10)] private int startHealth;
     [SerializeField, Range(1, 10)] private int startDamage;
-    [SerializeField, Range(1, 10)] private int startSpeed;
+    [SerializeField, Range(1, 10)] private int startTurnFrequency;
 
     public int GetDamage() { return startDamage; }
     public int GetHealth() { return startHealth; }
-    public int GetSpeed() { return startSpeed; }
+    public int GetTurnFrequency() { return startTurnFrequency; }
 }

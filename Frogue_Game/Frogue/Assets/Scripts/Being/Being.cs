@@ -7,7 +7,7 @@ public class Being
     public int ID { get; private set; }
     public Health Health { get; private set; }
     public int Attack { get; private set; }
-    public int Speed { get; private set; }
+    public Speed Speed { get; private set; }
     public Vector2Int Coords { get; set; }
     public BeingDisplay BeingDisplay { get; private set; }
 
@@ -15,13 +15,12 @@ public class Being
     {
         BeingInit init = ResourceLoader.GetBeingInit();
 
-        Health = new Health(init);
-
+        Health = new Health(init.GetHealth());
         Attack = init.GetDamage();
-        Speed = init.GetSpeed();
+        Speed = new Speed(init.GetTurnFrequency());
 
         Coords = coords;
-        ID = Coords.y + (Coords.x * Board.BOARD_SIZE) + 1;
+        ID = Coords.y + (Coords.x * BoardDisplay.BOARD_SIZE) + 1;
     }
 
     public Being(Being being)
@@ -29,7 +28,7 @@ public class Being
         Health = new Health(being.Health.HP);
 
         Attack = being.Attack;
-        Speed = being.Attack;
+        Speed = new Speed(being.Speed.Turn, being.Speed.TurnFrequency);
 
         Coords = being.Coords;
 
@@ -44,6 +43,6 @@ public class Being
 
     public override string ToString()
     {
-        return $"{ID} | ({Coords})| [{Health.HP}/{Health.MaxHP} | {Attack}]";
+        return $"{ID} | ({Coords})| [{Health.HP}/{Health.MaxHP} | {Attack} | {Speed.Turn} / {Speed.TurnFrequency}]";
     }
 }

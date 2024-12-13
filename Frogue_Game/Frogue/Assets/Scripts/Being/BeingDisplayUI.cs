@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BeingDisplayUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI hpText;
-    [SerializeField] private TextMeshProUGUI attackText;
+    [SerializeField] private TextMeshProUGUI textHP;
+    [Space(10)]
+    [SerializeField] private TextMeshProUGUI textAttack;
+    [Space(10)]
+    [SerializeField] private TextMeshProUGUI textTurn;
+    [SerializeField] private Image imageSpeedFill;
 
     private BeingDisplay BeingDisplay;
 
@@ -14,14 +20,11 @@ public class BeingDisplayUI : MonoBehaviour
     {
         this.BeingDisplay = beingDisplay;
 
-        BeingDisplay.BeingDisplayDamaged += BeingDisplay_BeingDisplayDamaged;
-        
-        hpText.SetText(being.Health.HP.ToString());
-        attackText.SetText(being.Attack.ToString());
-    }
+        textHP.SetText(being.Health.HP.ToString());
+        textAttack.SetText(being.Attack.ToString());
 
-    private void BeingDisplay_BeingDisplayDamaged(DamageAction damageAction)
-    {
-        hpText.SetText(damageAction.FinalHealth.ToString());
+        Debug.Log($"{being.Speed.Turn} {being.Speed.TurnFrequency} {being.Speed.TurnPercent}");
+        textTurn.SetText(being.Speed.TurnsLeft.ToString());
+        imageSpeedFill.fillAmount = being.Speed.TurnPercent;
     }
 }

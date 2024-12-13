@@ -18,9 +18,7 @@ public class BeingDisplay : MonoBehaviour
     public Vector3 ReturnPosition { get; set; }
     public Vector2Int Coords { get; set; }
     public bool IsPlayerInteractable { get; set; }
-    private Renderer Renderer { get; set; }
 
-    public event Action<DamageAction> BeingDisplayDamaged;
 
     public void BeingDisplayInit(Being being, bool isPlayerInteractable)
     {
@@ -31,28 +29,16 @@ public class BeingDisplay : MonoBehaviour
 
         uiTransform.LookAt(BattleManager.MainCamera.transform.position);
 
-        BeingDisplayDamaged += BeingDisplay_BeingDisplayDamaged;
-
         PlayerModify.SelectBeingDisplay += PlayerModify_SelectBeingDisplay;
         PlayerModify.UnSelectBeingDisplay += PlayerModify_UnSelectBeingDisplay;
-
-        PlayerModify.ClearBeingDisplay += PlayerModify_ClearBeingDisplay; ;
+        PlayerModify.ClearBeingDisplay += PlayerModify_ClearBeingDisplay;
     }
 
     private void OnDisable()
     {
-        BeingDisplayDamaged -= BeingDisplay_BeingDisplayDamaged;
-
         PlayerModify.SelectBeingDisplay -= PlayerModify_SelectBeingDisplay;
         PlayerModify.UnSelectBeingDisplay -= PlayerModify_UnSelectBeingDisplay;
-
         PlayerModify.ClearBeingDisplay -= PlayerModify_ClearBeingDisplay; ;
-    }
-
-    private void BeingDisplay_BeingDisplayDamaged(DamageAction damageAction)
-    {
-        ResourceLoader.SpawnParticle("Damage", transform.position);
-        ResourceLoader.SpawnSoundEffect("Damage", transform.position);
     }
 
     private void PlayerModify_SelectBeingDisplay(BeingDisplay obj)
@@ -100,15 +86,6 @@ public class BeingDisplay : MonoBehaviour
         ReturnPosition = transform.position;
     }
     #endregion
-
-    public IEnumerator OnDamage(DamageAction damageAction)
-    {
-        BeingDisplayDamaged?.Invoke(damageAction);
-
-        yield return transform.DOShakePosition(LerpTime, strength: .5f);
-        transform.DOShakeRotation(LerpTime);
-        transform.DOShakeScale(LerpTime);
-    }
 
     public void Rotate(float y)
     {

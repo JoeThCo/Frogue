@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class PlayerBoardDisplay : BoardDisplay
 {
-    public override void BoardDisplayInit(Board board)
+    public override void BoardDisplayInit()
     {
-        base.BoardDisplayInit(board);
-        SpawnBeingDisplays(board, true);
+        base.BoardDisplayInit();
         SpawnSlotDisplays(true);
     }
 
