@@ -7,8 +7,8 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField] private int Seed;
     [Space]
-    [SerializeField] BoardDisplay playerBoardDisplay;
-    [SerializeField] BoardDisplay baddieBoardDisplay;
+    [SerializeField] Board playerBoardDisplay;
+    [SerializeField] Board baddieBoardDisplay;
     private PlayerModify playerModify;
 
     public static Camera MainCamera { get; private set; }
@@ -21,8 +21,8 @@ public class BattleManager : MonoBehaviour
 
         ResourceLoader.Load();
 
-        playerBoardDisplay.BoardDisplayInit();
-        baddieBoardDisplay.BoardDisplayInit();
+        playerBoardDisplay.BoardInit();
+        baddieBoardDisplay.BoardInit();
 
         playerModify = playerBoardDisplay.GetComponent<PlayerModify>();
         playerModify.PlayerModifyInit();

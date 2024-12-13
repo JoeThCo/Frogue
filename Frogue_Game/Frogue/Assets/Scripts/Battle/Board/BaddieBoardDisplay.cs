@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaddieBoardDisplay : BoardDisplay
+public class BaddieBoardDisplay : Board
 {
-    public override void BoardDisplayInit()
+    public override void BoardInit()
     {
-        base.BoardDisplayInit();
+        base.BoardInit();
         SpawnSlotDisplays(false);
+        SpawnBeingDisplays(false);
     }
 
     protected override void ModifyBeingDisplay(BeingDisplay beingDisplay)

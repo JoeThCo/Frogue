@@ -20,7 +20,7 @@ public class Being
         Speed = new Speed(init.GetTurnFrequency());
 
         Coords = coords;
-        ID = Coords.y + (Coords.x * BoardDisplay.BOARD_SIZE) + 1;
+        ID = Coords.y + (Coords.x * Board.BOARD_SIZE) + 1;
     }
 
     public Being(Being being)

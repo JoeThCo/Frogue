@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BoardDisplay : MonoBehaviour
+public class Board : MonoBehaviour
 {
     [SerializeField] protected float cellSize = 1.5f;
     [Space(10)]
@@ -17,7 +17,7 @@ public class BoardDisplay : MonoBehaviour
 
     public const int BOARD_SIZE = 3;
 
-    public virtual void BoardDisplayInit()
+    public virtual void BoardInit()
     {
         beingDisplayPrefab = ResourceLoader.GetGameDisplay("BeingDisplay").GetComponent<BeingDisplay>();
         slotDisplayPrefab = ResourceLoader.GetGameDisplay("SlotDisplay").GetComponent<SlotDisplay>();
@@ -38,13 +38,14 @@ public class BoardDisplay : MonoBehaviour
         }
     }
 
-    protected void SpawnBeingDisplay(bool isPlayerInteractable)
+    protected void SpawnBeingDisplays(bool isPlayerInteractable)
     {
         for (int x = 0; x < BOARD_SIZE; x++)
         {
             for (int y = 0; y < BOARD_SIZE; y++)
             {
                 BeingDisplay beingDisplay = SpawnNewBeingDisplay(new Being(new Vector2Int(x, y)), isPlayerInteractable);
+                ModifyBeingDisplay(beingDisplay);
             }
         }
     }

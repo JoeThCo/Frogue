@@ -12,7 +12,7 @@ public class Battle
     public Being[] PlayerOutput { get; private set; }
     public Being[] BaddieOutput { get; private set; }
 
-    public Battle(BoardDisplay playerBoard, BoardDisplay baddieBoard)
+    public Battle(Board playerBoard, Board baddieBoard)
     {
 
     }
