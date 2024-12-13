@@ -52,6 +52,9 @@ public class BattleManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+            playerBoardDisplay.PrintBoard();
+
         if (Input.GetKeyDown(KeyCode.F))
             Fight();
     }

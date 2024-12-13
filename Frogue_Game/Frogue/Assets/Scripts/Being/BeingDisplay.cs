@@ -15,15 +15,14 @@ public class BeingDisplay : MonoBehaviour
     [SerializeField] private float LerpTime = .25f;
     [SerializeField] private Ease Ease = Ease.Linear;
 
+    public Being Being { get; private set; }
     public Vector3 ReturnPosition { get; set; }
-    public Vector2Int Coords { get; set; }
     public bool IsPlayerInteractable { get; set; }
-
 
     public void BeingDisplayInit(Being being, bool isPlayerInteractable)
     {
-        this.Coords = being.Coords;
-        being.SetBeingDiplay(this);
+        this.Being = being;
+
         beingDisplayUI.BeingDisplayUIInit(being, this);
         IsPlayerInteractable = isPlayerInteractable;
 
@@ -112,12 +111,19 @@ public class BeingDisplay : MonoBehaviour
         if (other == null) return false;
         BeingDisplay otherDisplay = other as BeingDisplay;
 
-        return otherDisplay.Coords.Equals(Coords) &&
+        return otherDisplay.Being.Coords.Equals(Being.Coords) &&
             otherDisplay.IsPlayerInteractable.Equals(IsPlayerInteractable);
     }
 
     public override int GetHashCode()
     {
         return base.GetHashCode();
+    }
+
+    public override string ToString()
+    {
+        if (Being != null)
+            return $"{Being.ToString()}";
+        return $"EMPTY";
     }
 }

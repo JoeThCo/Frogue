@@ -955,11 +955,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 92362666342421667, guid: 2859d11a2fe3d2f4aa6bd52dde196377, type: 3}
       propertyPath: m_Name
-      value: Player Display
+      value: Player Board
       objectReference: {fileID: 0}
+    - target: {fileID: 3094338647194367323, guid: 2859d11a2fe3d2f4aa6bd52dde196377, type: 3}
+      propertyPath: PlayerBoard
+      value: 
+      objectReference: {fileID: 470648853}
     - target: {fileID: 4237974743189782566, guid: 2859d11a2fe3d2f4aa6bd52dde196377, type: 3}
       propertyPath: cellSize
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4237974743189782566, guid: 2859d11a2fe3d2f4aa6bd52dde196377, type: 3}
+      propertyPath: BeingsToSpawn
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7708493825405354175, guid: 2859d11a2fe3d2f4aa6bd52dde196377, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1063,9 +1071,13 @@ PrefabInstance:
       propertyPath: cellSize
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3830697797647480035, guid: f616c1e4fbe44b441b89f07a110b427d, type: 3}
+      propertyPath: BeingsToSpawn
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4770225992012594975, guid: f616c1e4fbe44b441b89f07a110b427d, type: 3}
       propertyPath: m_Name
-      value: Baddie Display
+      value: Baddie Board
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

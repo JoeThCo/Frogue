@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class PlayerModify : MonoBehaviour
 {
+    [SerializeField] private Board PlayerBoard;
+
     private BeingDisplay selectedBeingDisplay;
 
     public static event Action<BeingDisplay> SwapBeingsDisplay;
@@ -40,7 +42,7 @@ public class PlayerModify : MonoBehaviour
         selectedBeingDisplay = beingDisplay;
     }
 
-    private void PlayerModify_UnSelectBeingDisplay(BeingDisplay obj)
+    private void PlayerModify_UnSelectBeingDisplay(BeingDisplay beingDisplay)
     {
         selectedBeingDisplay = null;
     }
@@ -53,14 +55,20 @@ public class PlayerModify : MonoBehaviour
 
     private void PlayerModify_MoveBeing(SlotDisplay slotDisplay)
     {
-        Vector3 newPosition = new Vector3(slotDisplay.transform.position.x, selectedBeingDisplay.transform.position.y, slotDisplay.transform.position.z);
+        Vector3 newPosition = new Vector3(
+            slotDisplay.transform.position.x,
+            selectedBeingDisplay.transform.position.y,
+            slotDisplay.transform.position.z);
 
+        PlayerBoard.Move(selectedBeingDisplay, slotDisplay.Coords);
         selectedBeingDisplay.Move(newPosition);
     }
 
     private void PlayerModify_SwapBeings(BeingDisplay beingDisplay)
     {
         Vector3 tempPos = beingDisplay.transform.position;
+
+        PlayerBoard.Swap(beingDisplay, selectedBeingDisplay);
 
         beingDisplay.Move(selectedBeingDisplay.transform.position);
         selectedBeingDisplay.Move(tempPos);

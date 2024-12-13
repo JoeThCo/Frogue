@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBoardDisplay : Board
+public class PlayerBoard : Board
 {
     public override void BoardInit()
     {

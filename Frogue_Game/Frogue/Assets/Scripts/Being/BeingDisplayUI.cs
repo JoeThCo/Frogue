@@ -23,7 +23,6 @@ public class BeingDisplayUI : MonoBehaviour
         textHP.SetText(being.Health.HP.ToString());
         textAttack.SetText(being.Attack.ToString());
 
-        Debug.Log($"{being.Speed.Turn} {being.Speed.TurnFrequency} {being.Speed.TurnPercent}");
         textTurn.SetText(being.Speed.TurnsLeft.ToString());
         imageSpeedFill.fillAmount = being.Speed.TurnPercent;
     }

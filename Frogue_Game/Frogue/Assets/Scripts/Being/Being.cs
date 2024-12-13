@@ -9,7 +9,6 @@ public class Being
     public int Attack { get; private set; }
     public Speed Speed { get; private set; }
     public Vector2Int Coords { get; set; }
-    public BeingDisplay BeingDisplay { get; private set; }
 
     public Being(Vector2Int coords)
     {
@@ -32,13 +31,7 @@ public class Being
 
         Coords = being.Coords;
 
-        BeingDisplay = being.BeingDisplay;
         ID = being.ID;
-    }
-
-    public void SetBeingDiplay(BeingDisplay beingDisplay)
-    {
-        this.BeingDisplay = beingDisplay;
     }
 
     public override string ToString()
