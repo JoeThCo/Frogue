@@ -1073,7 +1073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3830697797647480035, guid: f616c1e4fbe44b441b89f07a110b427d, type: 3}
       propertyPath: BeingsToSpawn
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4770225992012594975, guid: f616c1e4fbe44b441b89f07a110b427d, type: 3}
       propertyPath: m_Name

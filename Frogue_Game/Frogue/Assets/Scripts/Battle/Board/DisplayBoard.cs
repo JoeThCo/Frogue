@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class DisplayBoard : MonoBehaviour
 {
     [SerializeField, Range(0, BOARD_SIZE * BOARD_SIZE)] private int BeingsToSpawn;
     [Space(10)]
@@ -71,6 +71,7 @@ public class Board : MonoBehaviour
     }
     #endregion
 
+    #region Movement
     public void Swap(BeingDisplay a, BeingDisplay b)
     {
         Vector2Int aCoords = a.Being.Coords;
@@ -93,12 +94,30 @@ public class Board : MonoBehaviour
         displayBoard[tempCoords.x, tempCoords.y] = null;
     }
 
-    public void PrintBoard()
+    public void Print()
     {
         foreach (BeingDisplay beingDisplay in displayBoard)
         {
             if (beingDisplay != null)
                 Debug.Log(beingDisplay);
+        }
+    }
+    #endregion
+
+    public BeingBoard GetBeingBoard(bool isPlayer)
+    {
+        return new BeingBoard(displayBoard, isPlayer);
+    }
+
+    public void UpdateDisplay(BeingBoard board)
+    {
+        foreach (BeingDisplay beingDisplay in displayBoard)
+        {
+            if (beingDisplay == null) continue;
+            if (beingDisplay.Being == null) continue;
+
+            Vector2Int coords = new Vector2Int(beingDisplay.Being.Coords.x, beingDisplay.Being.Coords.y);
+            displayBoard[coords.x, coords.y].SetBeing(board.Board[coords.x, coords.y]);
         }
     }
 }

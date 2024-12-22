@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaddieBoard : Board
+public class PlayerDisplayBoard : DisplayBoard
 {
     public override void BoardInit()
     {
         base.BoardInit();
-        SpawnSlotDisplays(false);
-        SpawnBeingDisplays(false);
+        SpawnSlotDisplays(true);
+        SpawnBeingDisplays(true);
     }
 
     protected override void ModifyBeingDisplay(BeingDisplay beingDisplay)
     {
         base.ModifyBeingDisplay(beingDisplay);
+        beingDisplay.Rotate(180);
     }
 }

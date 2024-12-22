@@ -14,16 +14,17 @@ public class BeingDisplayUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textTurn;
     [SerializeField] private Image imageSpeedFill;
 
-    private BeingDisplay BeingDisplay;
-
-    public void BeingDisplayUIInit(Being being, BeingDisplay beingDisplay)
+    public void BeingDisplayUIInit(Being being)
     {
-        this.BeingDisplay = beingDisplay;
-
         textHP.SetText(being.Health.HP.ToString());
         textAttack.SetText(being.Attack.ToString());
 
         textTurn.SetText(being.Speed.TurnsLeft.ToString());
         imageSpeedFill.fillAmount = being.Speed.TurnPercent;
+    }
+
+    public void OnDamage(DamageAction damageAction)
+    {
+        textHP.SetText(damageAction.HealthOutput.ToString());
     }
 }

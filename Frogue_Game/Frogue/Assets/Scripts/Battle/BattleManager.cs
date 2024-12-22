@@ -7,8 +7,8 @@ public class BattleManager : MonoBehaviour
 {
     [SerializeField] private int Seed;
     [Space]
-    [SerializeField] Board playerBoardDisplay;
-    [SerializeField] Board baddieBoardDisplay;
+    [SerializeField] DisplayBoard playerBoardDisplay;
+    [SerializeField] DisplayBoard baddieBoardDisplay;
     private PlayerModify playerModify;
 
     public static Camera MainCamera { get; private set; }
@@ -53,7 +53,7 @@ public class BattleManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            playerBoardDisplay.PrintBoard();
+            playerBoardDisplay.Print();
 
         if (Input.GetKeyDown(KeyCode.F))
             Fight();

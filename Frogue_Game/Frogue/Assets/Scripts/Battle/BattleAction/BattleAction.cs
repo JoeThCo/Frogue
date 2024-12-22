@@ -6,6 +6,8 @@ public abstract class BattleAction
 {
     public BattleAction() { }
 
+    public BattleAction(Being deadBeing) { }
+
     public BattleAction(Being attacker, Being defender) { }
 
     protected abstract void CalculateAction();

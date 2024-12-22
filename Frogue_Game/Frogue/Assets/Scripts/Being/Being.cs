@@ -9,6 +9,7 @@ public class Being
     public int Attack { get; private set; }
     public Speed Speed { get; private set; }
     public Vector2Int Coords { get; set; }
+    public BeingDisplay BeingDisplay { get; set; }
 
     public Being(Vector2Int coords)
     {
@@ -19,7 +20,7 @@ public class Being
         Speed = new Speed(init.GetTurnFrequency());
 
         Coords = coords;
-        ID = Coords.y + (Coords.x * Board.BOARD_SIZE) + 1;
+        ID = Coords.y + (Coords.x * DisplayBoard.BOARD_SIZE) + 1;
     }
 
     public Being(Being being)
@@ -32,6 +33,7 @@ public class Being
         Coords = being.Coords;
 
         ID = being.ID;
+        BeingDisplay = being.BeingDisplay;
     }
 
     public override string ToString()

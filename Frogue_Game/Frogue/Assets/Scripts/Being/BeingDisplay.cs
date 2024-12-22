@@ -21,9 +21,10 @@ public class BeingDisplay : MonoBehaviour
 
     public void BeingDisplayInit(Being being, bool isPlayerInteractable)
     {
+        being.BeingDisplay = this;
         this.Being = being;
 
-        beingDisplayUI.BeingDisplayUIInit(being, this);
+        beingDisplayUI.BeingDisplayUIInit(being);
         IsPlayerInteractable = isPlayerInteractable;
 
         uiTransform.LookAt(BattleManager.MainCamera.transform.position);
@@ -40,6 +41,12 @@ public class BeingDisplay : MonoBehaviour
         PlayerModify.ClearBeingDisplay -= PlayerModify_ClearBeingDisplay; ;
     }
 
+    public void SetBeing(Being being) 
+    {
+        this.Being = being;
+    }
+
+    #region Events
     private void PlayerModify_SelectBeingDisplay(BeingDisplay obj)
     {
         if (obj == null || !obj.Equals(this))
@@ -61,6 +68,7 @@ public class BeingDisplay : MonoBehaviour
     {
         ScaleDown();
     }
+    #endregion
 
     #region Move
     public void Move(Vector3 newPosition)
@@ -104,6 +112,12 @@ public class BeingDisplay : MonoBehaviour
     public void OnDead()
     {
         Destroy(gameObject);
+    }
+
+    public void OnDamage(DamageAction damageAction) 
+    {
+        transform.DOShakeScale(LerpTime * 0.5f, 3);
+        beingDisplayUI.OnDamage(damageAction);
     }
 
     public override bool Equals(object other)

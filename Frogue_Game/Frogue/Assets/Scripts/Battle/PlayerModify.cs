@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerModify : MonoBehaviour
 {
-    [SerializeField] private Board PlayerBoard;
+    [SerializeField] private DisplayBoard PlayerBoard;
 
     private BeingDisplay selectedBeingDisplay;
 
