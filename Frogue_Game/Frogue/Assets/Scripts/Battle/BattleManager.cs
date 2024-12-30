@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+    [SerializeField] private bool UseRandomSeed = true;
     [SerializeField] private int Seed;
     [Space]
     [SerializeField] DisplayBoard playerBoardDisplay;
@@ -16,7 +17,11 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
-        Random = new System.Random(Seed);
+        if(UseRandomSeed)
+            Random = new System.Random(Seed);
+        else
+            Random = new System.Random();
+
         MainCamera = Camera.main;
 
         ResourceLoader.Load();
