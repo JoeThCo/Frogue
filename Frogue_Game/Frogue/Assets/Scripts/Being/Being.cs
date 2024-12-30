@@ -25,7 +25,7 @@ public class Being
 
     public Being(Being being)
     {
-        Health = new Health(being.Health.HP);
+        Health = new Health(being.Health.HP, being.Health.MaxHP);
 
         Attack = being.Attack;
         Speed = new Speed(being.Speed.Turn, being.Speed.TurnFrequency);

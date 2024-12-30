@@ -14,7 +14,9 @@ public class Battle
     public Battle(DisplayBoard playerBoard, DisplayBoard baddieBoard)
     {
         BeingBoard player = playerBoard.GetBeingBoard(true);
-        BeingBoard baddie = baddieBoard.GetBeingBoard(false);
+
+        BaddieAI baddieAI = new BaddieAI(baddieBoard);
+        BeingBoard baddie = baddieAI.GetBestRandomBeingBoard(playerBoard.GetBeingBoard(true), 5);
 
         PlayerActions = GetBoardAction(player, baddie);
         BaddieActions = GetBoardAction(baddie, player);
@@ -22,6 +24,13 @@ public class Battle
 
         baddieBoard.UpdateDisplay(baddie);
         playerBoard.UpdateDisplay(player);
+    }
+
+    public Battle(BeingBoard player, BeingBoard baddie)
+    {
+        PlayerActions = GetBoardAction(player, baddie);
+        BaddieActions = GetBoardAction(baddie, player);
+        PlusMinus = GetPlusMinus(PlayerActions, BaddieActions);
     }
 
     private int GetPlusMinus(BattleAction[] player, BattleAction[] baddie)

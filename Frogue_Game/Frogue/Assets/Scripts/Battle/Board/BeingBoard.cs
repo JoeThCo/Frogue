@@ -19,14 +19,41 @@ public class BeingBoard
 
             Board[display.Being.Coords.x, display.Being.Coords.y] = new Being(display.Being);
         }
+    }
 
-        Debug.LogWarning("Being Board");
-        foreach (Being being in Board)
+    public BeingBoard(BeingDisplay[,] displays) 
+    {
+        Board = new Being[DisplayBoard.BOARD_SIZE, DisplayBoard.BOARD_SIZE];
+        IsPlayer = false;
+
+        List<Vector2Int> coordsToPickFrom = GetAllBoardCoords();
+
+        foreach (BeingDisplay display in displays)
         {
-            if (being == null) continue;
-            Debug.Log(being.ToString());
+            if (display == null) continue;
+            if (display.Being == null) continue;
+
+            Vector2Int coords = coordsToPickFrom[Random.Range(0, coordsToPickFrom.Count)];
+            Board[coords.x, coords.y] = new Being(display.Being);
+            coordsToPickFrom.Remove(coords);
         }
     }
+
+    private List<Vector2Int> GetAllBoardCoords()
+    {
+        List<Vector2Int> coords = new List<Vector2Int>();
+
+        for (int x = 0; x < DisplayBoard.BOARD_SIZE; x++)
+        {
+            for (int y = 0; y < DisplayBoard.BOARD_SIZE; y++)
+            {
+                coords.Add(new Vector2Int(x, y));
+            }
+        }
+
+        return coords;
+    }
+
 
     public Being[] AliveBeings
     {

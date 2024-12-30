@@ -15,6 +15,12 @@ public class Health
         this.MaxHP = hp;
     }
 
+    public Health(int hp, int maxHp) 
+    {
+        this.HP = hp;
+        this.MaxHP = maxHp;
+    }
+
     public void TakeDamage(int amount)
     {
         HP -= amount;

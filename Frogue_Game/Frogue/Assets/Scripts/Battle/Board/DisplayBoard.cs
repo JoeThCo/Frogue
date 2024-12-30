@@ -108,6 +108,11 @@ public class DisplayBoard : MonoBehaviour
         return new BeingBoard(displayBoard, isPlayer);
     }
 
+    public BeingBoard GetRandomBeingBoard() 
+    {
+        return new BeingBoard(displayBoard);
+    }
+
     public void UpdateDisplay(BeingBoard board)
     {
         foreach (BeingDisplay beingDisplay in displayBoard)

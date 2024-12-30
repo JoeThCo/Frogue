@@ -30,7 +30,7 @@ public class BattleOverAction : BattleAction
 
     protected override void CalculateAction()
     {
-        Debug.Log(this.ToString());
+        //Debug.Log(this.ToString());
     }
 
     public override string ToString()
