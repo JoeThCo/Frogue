@@ -13,8 +13,9 @@ public class DeadAction : BattleAction
 
     public override IEnumerator DisplayAction()
     {
+        ParticleSystem dead = ResourceLoader.SpawnParticle("Dead", DeadBeing);
+        yield return new WaitForSeconds(dead.startDelay);
         DeadBeing.BeingDisplay.OnDead();
-        yield return new WaitForSeconds(.25f);
     }
 
     public override int Cost()

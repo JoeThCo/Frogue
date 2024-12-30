@@ -65,16 +65,23 @@ public static class ResourceLoader
     #region Particles
     private static ParticleSystem GetParticle(string name) { return GetByName<ParticleSystem>(name, particleDictionary); }
 
-    private static ParticleSystem SpawnParticle(string name, Vector3 spawnPosition)
+    private static ParticleSystem SpawnParticle(string name, Vector3 spawnPosition, Vector3 rotation)
     {
-        ParticleSystem particleSystem = GameObject.Instantiate(GetParticle(name), Vector3.zero, Quaternion.identity).GetComponent<ParticleSystem>();
+        ParticleSystem particleToSpawn = GetParticle(name);
+
+        ParticleSystem particleSystem = GameObject.Instantiate(particleToSpawn, Vector3.zero, Quaternion.Euler(rotation)).GetComponent<ParticleSystem>();
         particleSystem.transform.position = spawnPosition;
         return particleSystem;
     }
 
-    public static ParticleSystem SpawnParticle(string name, BeingDisplay beingDisplay)
+    public static ParticleSystem SpawnParticle(string name, Being being)
     {
-        return SpawnParticle(name, beingDisplay.transform.position);
+        return SpawnParticle(name, being.BeingDisplay.transform.position, Vector3.right * -90);
+    }
+
+    public static ParticleSystem SpawnParticle(string name, Being being, Vector3 rotation)
+    {
+        return SpawnParticle(name, being.BeingDisplay.transform.position, rotation);
     }
     #endregion
 

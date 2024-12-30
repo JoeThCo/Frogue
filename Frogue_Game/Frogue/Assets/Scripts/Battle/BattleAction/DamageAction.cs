@@ -27,7 +27,7 @@ public class DamageAction : BattleAction
         yield return Attacker.BeingDisplay.MoveTo(PostDefense.BeingDisplay);
 
         PostDefense.BeingDisplay.OnDamage(this);
-        ResourceLoader.SpawnParticle("Damage", PostDefense.BeingDisplay);
+        ResourceLoader.SpawnParticle("Damage", PostDefense);
 
         yield return Attacker.BeingDisplay.MoveToReturn();
     }
