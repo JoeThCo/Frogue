@@ -15,6 +15,11 @@ public class BattleOverAction : BattleAction
 
     public override IEnumerator DisplayAction()
     {
+        if (Winner.IsPlayer)
+            MenuController.Instance.DisplayMenu("Win");
+        else
+            MenuController.Instance.DisplayMenu("GameOver");
+
         yield return null;
     }
 
@@ -25,10 +30,7 @@ public class BattleOverAction : BattleAction
 
     protected override void CalculateAction()
     {
-        if (Winner.IsPlayer)
-            Debug.Log("Player Wins!");
-        else
-            Debug.Log("CPU Wins!");
+        Debug.Log(this.ToString());
     }
 
     public override string ToString()

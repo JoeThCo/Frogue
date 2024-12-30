@@ -7,9 +7,12 @@ public class MenuController : MonoBehaviour
 {
     [SerializeField] private string startMenu;
 
+    public static MenuController Instance;
+
     private void Start()
     {
         DisplayMenu(startMenu);
+        Instance = this;
     }
 
     public void DisplayMenu(string menuName)

@@ -6,11 +6,10 @@ using UnityEngine;
 public class DisplayBoard : MonoBehaviour
 {
     [SerializeField, Range(0, BOARD_SIZE * BOARD_SIZE)] private int BeingsToSpawn;
-    [Space(10)]
-    [SerializeField] protected float cellSize = 1.5f;
-    [Space(10)]
     [SerializeField] private Transform slotParent;
     [SerializeField] private Transform beingParent;
+    [Space(10)]
+    [SerializeField, Range(0.5f, 5f)] protected float cellSize = 2f;
 
     protected BeingDisplay[,] displayBoard;
 
