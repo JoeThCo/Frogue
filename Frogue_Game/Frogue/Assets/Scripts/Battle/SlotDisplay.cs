@@ -15,6 +15,8 @@ public class SlotDisplay : MonoBehaviour
         Coords = coords;
         IsPlayerInteractable = isPlayerInteractable;
 
+        gameObject.name = coords.ToString();
+
         Model.transform.rotation = Quaternion.Euler(new Vector3(0, Random.value * 360, 0));
     }
 }

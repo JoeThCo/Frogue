@@ -23,7 +23,7 @@ public class BeingDisplay : MonoBehaviour
     {
         being.BeingDisplay = this;
         this.Being = being;
-        gameObject.name = Being.ToString();
+        gameObject.name = Being.ID.ToString() + " " + Being.Coords.ToString();
 
         beingDisplayUI.BeingDisplayUIInit(being);
         IsPlayerInteractable = isPlayerInteractable;
