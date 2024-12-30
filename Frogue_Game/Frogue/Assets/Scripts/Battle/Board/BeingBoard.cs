@@ -28,18 +28,27 @@ public class BeingBoard
         }
     }
 
-    public Being Next
+    public Being[] AliveBeings
     {
         get
         {
+            List<Being> list = new List<Being>();
             foreach (Being being in Board)
             {
                 if (being == null) continue;
                 if (being.Health.IsDead) continue;
-                return being;
+                list.Add(being);
             }
 
-            return null;
+            return list.ToArray();
+        }
+    }
+
+    public Being Next
+    {
+        get
+        {
+            return AliveBeings[0];
         }
     }
 
@@ -47,10 +56,7 @@ public class BeingBoard
     {
         get
         {
-            foreach (Being being in Board)
-                if (being != null && !being.Health.IsDead) return false;
-
-            return true;
+            return AliveBeings.Length <= 0;
         }
     }
 }

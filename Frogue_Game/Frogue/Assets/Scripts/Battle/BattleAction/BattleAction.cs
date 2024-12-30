@@ -14,5 +14,5 @@ public abstract class BattleAction
 
     public abstract IEnumerator DisplayAction();
 
-    public abstract int PlusMinusCost();
+    public abstract int Cost();
 }

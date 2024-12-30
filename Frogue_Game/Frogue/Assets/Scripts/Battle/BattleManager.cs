@@ -36,14 +36,20 @@ public class BattleManager : MonoBehaviour
     private IEnumerator FightI()
     {
         Battle battle = new Battle(playerBoardDisplay, baddieBoardDisplay);
-        Debug.LogWarning($"Battle Actions: {battle.BattleActions.Length} for +/- ({battle.PlusMinus})");
+        Debug.LogWarning($"+/-: {battle.PlusMinus}");
 
         yield return StartCoroutine(DisplayBattle(battle));
     }
 
     private IEnumerator DisplayBattle(Battle battle)
     {
-        foreach (BattleAction action in battle.BattleActions)
+        foreach (BattleAction action in battle.PlayerActions)
+        {
+            Debug.Log(action.ToString());
+            yield return action.DisplayAction();
+        }
+
+        foreach (BattleAction action in battle.BaddieActions)
         {
             Debug.Log(action.ToString());
             yield return action.DisplayAction();

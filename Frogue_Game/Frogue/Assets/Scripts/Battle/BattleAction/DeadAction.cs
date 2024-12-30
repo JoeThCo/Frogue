@@ -17,9 +17,9 @@ public class DeadAction : BattleAction
         yield return new WaitForSeconds(.25f);
     }
 
-    public override int PlusMinusCost()
+    public override int Cost()
     {
-        throw new System.NotImplementedException();
+        return DeadBeing.Health.MaxHP;
     }
 
     protected override void CalculateAction()

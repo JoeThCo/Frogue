@@ -18,9 +18,9 @@ public class BattleOverAction : BattleAction
         yield return null;
     }
 
-    public override int PlusMinusCost()
+    public override int Cost()
     {
-        throw new System.NotImplementedException();
+        return 999;
     }
 
     protected override void CalculateAction()

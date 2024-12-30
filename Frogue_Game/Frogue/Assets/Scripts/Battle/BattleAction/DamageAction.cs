@@ -32,9 +32,9 @@ public class DamageAction : BattleAction
         yield return Attacker.BeingDisplay.MoveToReturn();
     }
 
-    public override int PlusMinusCost()
+    public override int Cost()
     {
-        throw new System.NotImplementedException();
+        return HealthOutput;
     }
 
     protected override void CalculateAction()
