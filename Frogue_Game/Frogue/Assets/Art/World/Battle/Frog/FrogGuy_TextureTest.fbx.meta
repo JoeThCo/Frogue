@@ -13,7 +13,7 @@ ModelImporter:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FrogUVTexture
-    second: {fileID: 2800000, guid: fbf2604f7ecb5314fb21f764737ecaa2, type: 3}
+    second: {fileID: 2800000, guid: 2d4b80f172028cc46bf7f5ada29935c4, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0

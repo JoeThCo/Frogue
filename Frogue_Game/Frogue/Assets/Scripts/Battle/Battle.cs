@@ -1,84 +1,108 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Battle
 {
-    public int PlusMinus { get; private set; } = 0;
-    public readonly BattleAction[] PlayerActions;
-    public readonly BattleAction[] BaddieActions;
+    public BattleAction[] PlayerActions { get; protected set; }
+    public BattleAction[] BaddieActions { get; protected set; }
+    public int PlusMinus { get; protected set; }
 
-    public Battle(DisplayBoard playerBoard, DisplayBoard baddieBoard)
-    {
-        BeingBoard player = playerBoard.GetBeingBoard(true);
+    public Battle(Board player, Board baddie) { }
 
-        BaddieAI baddieAI = new BaddieAI(baddieBoard);
-        BeingBoard baddie = baddieAI.GetBestRandomBeingBoard(playerBoard.GetBeingBoard(true), 5);
-
-        PlayerActions = GetBoardAction(player, baddie);
-        BaddieActions = GetBoardAction(baddie, player);
-        PlusMinus = GetPlusMinus(PlayerActions, BaddieActions);
-
-        baddieBoard.UpdateDisplay(baddie);
-        playerBoard.UpdateDisplay(player);
-    }
-
-    public Battle(BeingBoard player, BeingBoard baddie)
-    {
-        PlayerActions = GetBoardAction(player, baddie);
-        BaddieActions = GetBoardAction(baddie, player);
-        PlusMinus = GetPlusMinus(PlayerActions, BaddieActions);
-    }
-
-    private int GetPlusMinus(BattleAction[] player, BattleAction[] baddie)
+    protected int GetPlusMinus(BattleAction[] playerActions, BattleAction[] baddieActions)
     {
         int plusMinus = 0;
-        foreach (BattleAction action in PlayerActions)
+        foreach (BattleAction action in playerActions)
             plusMinus += action.Cost();
 
-        foreach (BattleAction action in BaddieActions)
+        foreach (BattleAction action in baddieActions)
             plusMinus -= action.Cost();
-
         return plusMinus;
     }
 
-    private BattleAction[] GetBoardAction(BeingBoard player, BeingBoard baddie)
-    {
-        List<BattleAction> actions = new List<BattleAction>();
-        actions.AddRange(GetAttackActions(player, baddie));
-        return actions.ToArray();
-    }
-
-    private BattleAction[] GetAttackActions(BeingBoard attack, BeingBoard defense)
+    protected BattleAction[] GetBoardActions(Board attackingBoard, Board defendingBoard)
     {
         List<BattleAction> actions = new List<BattleAction>();
 
-        int AddAction(BeingBoard board, BattleAction action)
+        foreach (Being attackerNext in attackingBoard.AliveBeings)
         {
-            actions.Add(action);
-            return board.IsPlayer ? action.Cost() : -action.Cost();
-        }
-
-        foreach (Being nextAttack in attack.AliveBeings)
-        {
-            if (!defense.IsDead)
+            if (!defendingBoard.IsDead)
             {
-                Being nextDefense = defense.Next;
-                actions.Add(new DamageAction(nextAttack, nextDefense));
+                Being defenderNext = defendingBoard.Next;
 
-                if (nextDefense.Health.IsDead) AddAction(attack, new DeadAction(nextDefense));
+                DamageAction damageAction = new DamageAction(attackerNext, defenderNext);
+                actions.Add(damageAction);
+
+                if (defenderNext.IsDead)
+                {
+                    DeadAction deadAction = new DeadAction(defenderNext);
+                    actions.Add(deadAction);
+                }
             }
             else
             {
-                actions.Add(new BattleOverAction(attack));
+                BattleOverAction battleOverAction = new BattleOverAction(attackingBoard);
+                actions.Add(battleOverAction);
                 return actions.ToArray();
             }
         }
 
-        if (defense.IsDead) actions.Add(new BattleOverAction(attack));
+        if (defendingBoard.IsDead)
+        {
+            BattleOverAction battleOverAction = new BattleOverAction(attackingBoard);
+            actions.Add(battleOverAction);
+        }
+
         return actions.ToArray();
+    }
+
+    protected Board RandomizeBoard(Board input, int seed)
+    {
+        // Get all non-null beings
+        var allBeings = input.Beings.Cast<Being>().Where(b => b != null).ToList();
+
+        // Calculate a unique permutation based on the seed
+        var permutation = GetPermutation(allBeings, seed);
+
+        // Create a new 2D array to represent the randomized board
+        Being[,] newArrangement = new Being[Board.BOARD_SIZE, Board.BOARD_SIZE];
+
+        // Fill the new arrangement with the permutation
+        int index = 0;
+        for (int x = 0; x < Board.BOARD_SIZE; x++)
+        {
+            for (int y = 0; y < Board.BOARD_SIZE; y++)
+            {
+                if (index < permutation.Count)
+                {
+                    // Deep clone each Being to ensure no shared references
+                    newArrangement[x, y] = permutation[index++].DeepClone();
+                }
+                else
+                {
+                    newArrangement[x, y] = null;
+                }
+            }
+        }
+
+        return new Board(newArrangement);
+    }
+
+    private List<T> GetPermutation<T>(List<T> list, int seed)
+    {
+        System.Random rng = new System.Random(seed);
+        var result = list.ToList();
+
+        // Fisher-Yates shuffle with seed
+        for (int i = result.Count - 1; i > 0; i--)
+        {
+            int swapIndex = rng.Next(i + 1);
+            (result[i], result[swapIndex]) = (result[swapIndex], result[i]);
+        }
+
+        return result;
     }
 }

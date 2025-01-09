@@ -1,43 +1,69 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Being
 {
-    public int ID { get; private set; }
-    public Health Health { get; private set; }
+    public int Health { get; private set; }
     public int Attack { get; private set; }
-    public Speed Speed { get; private set; }
+    public int ID { get; private set; }
     public Vector2Int Coords { get; set; }
-    public BeingDisplay BeingDisplay { get; set; }
+    public bool IsDead => Health <= 0;
+
+    public event Action<Being> OnDead;
 
     public Being(Vector2Int coords)
     {
-        BeingInit init = ResourceLoader.GetBeingInit();
+        ID = Random.Range(-100, 100);
+        Health = Random.Range(5, 10);
+        Attack = Random.Range(5, 10);
 
-        Health = new Health(init.GetHealth());
-        Attack = init.GetDamage();
-        Speed = new Speed(init.GetTurnFrequency());
-
-        Coords = coords;
-        ID = Coords.y + (Coords.x * DisplayBoard.BOARD_SIZE) + 1;
+        this.Coords = coords;
     }
 
-    public Being(Being being)
+    private Being(int health, int attack, int iD, Vector2Int coords)
     {
-        Health = new Health(being.Health.HP, being.Health.MaxHP);
+        Health = health;
+        Attack = attack;
+        ID = iD;
+        Coords = coords;
+    }
 
-        Attack = being.Attack;
-        Speed = new Speed(being.Speed.Turn, being.Speed.TurnFrequency);
+    public Being DeepClone()
+    {
+        // Since Health, Attack, and ID are ints
+        // and Coords is a struct (Vector2Int),
+        // they are all copied by value.
+        // Thus, this is effectively a deep copy.
+        return new Being(this.Health, this.Attack, this.ID, this.Coords);
+    }
 
-        Coords = being.Coords;
+    public void GetDamaged(Being target)
+    {
+        Health -= target.Attack;
 
-        ID = being.ID;
-        BeingDisplay = being.BeingDisplay;
+        if (IsDead)
+            OnDead?.Invoke(this);
     }
 
     public override string ToString()
     {
-        return $"{ID} | ({Coords})| [{Health.HP}/{Health.MaxHP} | {Attack} | {Speed.Turn} / {Speed.TurnFrequency}]";
+        return $"[ID:{ID}, Health:{Health} Attack:{Attack}] @ {Coords}";
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null) return false;
+        Being other = obj as Being;
+        return other.Health == Health &&
+            other.Attack == Attack &&
+            other.ID == ID;
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
     }
 }
