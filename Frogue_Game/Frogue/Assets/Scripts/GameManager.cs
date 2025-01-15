@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private bool UseRandomSeed = true;
     [SerializeField] private int Seed = 0;
 
     [Header("Player")]
@@ -21,12 +22,17 @@ public class GameManager : MonoBehaviour
 
     public const string BADDIE_TAG = "Baddie";
     public const string PLAYER_TAG = "Player";
+    public static System.Random Random { get; private set; }
 
     public static Camera MainCamera { get; private set; }
 
     public void Awake()
     {
-        Random.InitState(Seed);
+        if (UseRandomSeed)
+            Random = new System.Random(Seed);
+        else
+            Random = new System.Random();
+
         MainCamera = Camera.main;
 
         //player init
