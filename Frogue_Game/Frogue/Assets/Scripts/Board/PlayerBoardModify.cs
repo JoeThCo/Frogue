@@ -16,6 +16,18 @@ public class PlayerBoardModify : MonoBehaviour
         this.DisplayBoard = displayBoard;
     }
 
+    private void MakeSelection(BeingDisplay beingDisplay) 
+    {
+        SelectedBeingDisplay = beingDisplay;
+        SelectedBeingDisplay.Selected();
+    }
+
+    private void ClearSelected() 
+    {
+        SelectedBeingDisplay.DeSelect();
+        SelectedBeingDisplay = null;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -39,24 +51,38 @@ public class PlayerBoardModify : MonoBehaviour
 
             if (SelectedBeingDisplay == null)
             {
-                SelectedBeingDisplay = beingDisplay;
+                if(beingDisplay == null) return;
+                MakeSelection(beingDisplay);
                 Debug.Log(hit.collider.name);
             }
             else
             {
-                if (beingDisplay != null && !beingDisplay.Equals(SelectedBeingDisplay))
+                if (beingDisplay != null)
                 {
-                    Debug.Log($"{Board.Get(SelectedBeingDisplay.Coords).ID} <==> {Board.Get(beingDisplay.Coords).ID}");
-                    Board.Swap(SelectedBeingDisplay.Coords, beingDisplay.Coords);
-                    SelectedBeingDisplay = null;
+                    //clear if same being
+                    if (beingDisplay.Equals(SelectedBeingDisplay))
+                    {
+                        ClearSelected();
+                    }
+                    else 
+                    {
+                        Debug.Log($"{Board.Get(SelectedBeingDisplay.Coords).ID} <==> {Board.Get(beingDisplay.Coords).ID}");
+                        Board.Swap(SelectedBeingDisplay.Coords, beingDisplay.Coords);
+                        ClearSelected();
+                    }
                 }
                 else if (slotDisplay != null)
                 {
                     Debug.Log($"{Board.Get(SelectedBeingDisplay.Coords).ID} ==> {slotDisplay.Coords}");
                     Board.Move(SelectedBeingDisplay.Coords, slotDisplay.Coords);
-                    SelectedBeingDisplay = null;
+                    ClearSelected();
                 }
             }
+        }
+
+        if (Input.GetMouseButtonDown(1)) 
+        {
+            ClearSelected();
         }
     }
 }

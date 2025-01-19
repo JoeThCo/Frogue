@@ -6,19 +6,28 @@ using UnityEngine;
 
 public class BeingDisplay : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI textID;
-
+    [SerializeField] private Transform Model;
+    [Space(10)]
+    [SerializeField] BeingDisplayUI UI;
     public Vector2Int Coords { get; set; }
 
     public void BeingDisplayInit(Being being, bool isPlayerInteractable)
     {
         Coords = being.Coords;
         gameObject.name = being.ID.ToString();
-
-        textID.SetText(being.ID.ToString());
-        textID.transform.LookAt(-GameManager.MainCamera.transform.position);
+        UI.BeingDisplayUIInit(being);
 
         GameManager.SetInteractableTag(gameObject, isPlayerInteractable);
+    }
+
+    public void Selected() 
+    {
+        Model.DOScale(1.35f, .25f).SetEase(Ease.Linear);
+    }
+
+    public void DeSelect() 
+    {
+        Model.DOScale(1, .25f).SetEase(Ease.Linear);
     }
 
     public override bool Equals(object other)

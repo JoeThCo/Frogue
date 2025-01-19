@@ -10,4 +10,17 @@ public class RealBattle : Battle
         BaddieActions = GetBoardActions(baddie, player);
         PlusMinus = GetPlusMinus(PlayerActions, BaddieActions);
     }
+
+    public IEnumerator DisplayBattle() 
+    {
+        foreach (BattleAction action in PlayerActions) 
+        {
+            yield return action.DisplayAction();
+        }
+
+        foreach (BattleAction action in BaddieActions)
+        {
+            yield return action.DisplayAction();
+        }
+    }
 }

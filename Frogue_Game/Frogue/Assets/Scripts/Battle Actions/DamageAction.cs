@@ -5,13 +5,15 @@ using UnityEngine;
 public class DamageAction : BattleAction
 {
     public readonly Being Attacker;
+    public readonly Board AttackerBoard;
+
+    public readonly Board DefendingBoard;
     public readonly Being PreDefense;
     public readonly Being PostDefense;
 
     public DamageAction(Being attacker, Being defender) : base(attacker, defender)
     {
         this.Attacker = attacker;
-
         this.PreDefense = defender.DeepClone();
         this.PostDefense = defender;
 

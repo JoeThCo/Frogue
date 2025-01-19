@@ -55,29 +55,31 @@ public class GameManager : MonoBehaviour
     private IEnumerator BattleI()
     {
         Debug.LogError("Battle Start!");
+
+        Board lowestBoard = GetLowestBoard();
+        yield return baddieDisplayBoard.DisplaySwaps(lowestBoard);
+
+        RealBattle realBattle = new RealBattle(player, lowestBoard);
+        Debug.LogWarning($"+/-: {realBattle.PlusMinus}");
+
+        yield return realBattle.DisplayBattle();
+
+        Debug.LogError("Battle End!");
+    }
+
+    // move this?
+    private Board GetLowestBoard()
+    {
         ConcurrentDictionary<int, Board> scores = new ConcurrentDictionary<int, Board>();
 
         Parallel.For(0, randomBoardCount, i =>
         {
             SimulateBattle test = new SimulateBattle(player, baddie, i);
-            if (!scores.ContainsKey(test.PlusMinus))
-            {
-                scores.TryAdd(test.PlusMinus, test.BaddieBoard);
-            }
+            if (!scores.ContainsKey(test.PlusMinus)) scores.TryAdd(test.PlusMinus, test.BaddieBoard);
         });
 
         int lowestScore = scores.Keys.Min();
-        Board lowestBoard = new Board(scores[lowestScore].Clone());
-        Debug.Log($"Lowest Baddie: {lowestScore}");
-
-        yield return baddieDisplayBoard.DisplaySwaps(lowestBoard);
-
-        lowestBoard.Print();
-        baddie.Print();
-
-        RealBattle realBattle = new RealBattle(player, lowestBoard);
-        Debug.LogWarning($"+/-: {realBattle.PlusMinus}");
-        Debug.LogError("Battle End!");
+        return new Board(scores[lowestScore].Clone());
     }
 
     public static void SetInteractableTag(GameObject gameObject, bool isPlayerInteractable)

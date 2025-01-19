@@ -12,8 +12,6 @@ public class Being
     public Vector2Int Coords { get; set; }
     public bool IsDead => Health <= 0;
 
-    public event Action<Being> OnDead;
-
     public Being(Vector2Int coords)
     {
         ID = Random.Range(-100, 100);
@@ -43,9 +41,6 @@ public class Being
     public void GetDamaged(Being target)
     {
         Health -= target.Attack;
-
-        if (IsDead)
-            OnDead?.Invoke(this);
     }
 
     public override string ToString()
